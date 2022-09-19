@@ -1,0 +1,20 @@
+.sidebar {
+  width: 200px;
+  background-color: $primaryColor;
+  &_minimum{
+    width: 100px;
+  }
+  .link_sidebar {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 8px;
+    height: 30px;
+    color: black;
+    background-color: $tertiaryColor;
+    border-bottom: 2px $tertiaryColor;
+    &:hover {
+      background-color: $quaternaryColor;
+    }
+  }
+}
