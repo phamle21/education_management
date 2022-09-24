@@ -1,8 +1,9 @@
+import Logo from '../../assets/logo.svg';
 
 export default function Navbar() {
   return (
     <div className="navbar px-4">
-      <h3>Logo</h3>
+      <img src={Logo} alt="Logo" />
     </div>
   );
 }
