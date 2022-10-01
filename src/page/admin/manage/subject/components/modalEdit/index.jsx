@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 
-export default function ModalCustom({ show, onHide }) {
+export default function ModalEdit({ show, onHide, data }) {
     return (
         <>
             <Modal
@@ -15,7 +15,7 @@ export default function ModalCustom({ show, onHide }) {
                 onHide={onHide}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title className='modal-custom-title'>Thêm môn học</Modal.Title>
+                    <Modal.Title className='modal-custom-title'>Thông tin môn học</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -25,6 +25,7 @@ export default function ModalCustom({ show, onHide }) {
                                 className='modal-custom-control'
                                 placeholder="ReactJS"
                                 autoFocus
+                                value={data ? data : 'Test'}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
@@ -32,6 +33,7 @@ export default function ModalCustom({ show, onHide }) {
                             <Form.Control
                                 className='modal-custom-control'
                                 placeholder="Nguyen Van A"
+                                value={data ? data : 'Test'}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
@@ -39,6 +41,7 @@ export default function ModalCustom({ show, onHide }) {
                             <Form.Control
                                 className='modal-custom-control'
                                 type="date"
+                                value={data ? data : 'Test'}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
@@ -46,6 +49,7 @@ export default function ModalCustom({ show, onHide }) {
                             <Form.Control
                                 className='modal-custom-control'
                                 type="date"
+                                value={data ? data : 'Test'}
                             />
                         </Form.Group>
                         <Form.Group
@@ -53,7 +57,12 @@ export default function ModalCustom({ show, onHide }) {
                             controlId="exampleForm.ControlTextarea5"
                         >
                             <Form.Label className='modal-custom-label'>Mô tả</Form.Label>
-                            <Form.Control className='modal-custom-control' as="textarea" rows={4} />
+                            <Form.Control
+                                className='modal-custom-control'
+                                as="textarea"
+                                rows={4}
+                                value={data ? data : 'Test'}
+                            />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -62,7 +71,7 @@ export default function ModalCustom({ show, onHide }) {
                         Hủy
                     </Button>
                     <Button className='modal-custom-btn' variant="primary" onClick={onHide}>
-                        Lưu
+                        Lưu thay đổi
                     </Button>
                 </Modal.Footer>
             </Modal>
