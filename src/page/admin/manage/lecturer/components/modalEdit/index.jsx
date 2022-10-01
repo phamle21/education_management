@@ -21,7 +21,6 @@ export default function ModalEdit({ show, onHide, data }) {
 
     useEffect(() => {
         setFormInput(data);
-        console.log(formInput);
     }, [data])
 
     return (

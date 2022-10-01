@@ -5,6 +5,8 @@ import { routes } from "../../routes/routes";
 
 export default function AdminDashboard() {
   return (
+    // localStorage.getItem('accessToken') ?
+    //   (
     <>
       <div className="d-flex flex-column flex-fill" style={{ height: "100vh" }}>
         <Navbar />
@@ -20,5 +22,6 @@ export default function AdminDashboard() {
         </div>
       </div>
     </>
+    // ) : <Login />
   );
 }
