@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('file_exercises', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('path');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('exercie_id');
             $table->timestamps();
         });
     }

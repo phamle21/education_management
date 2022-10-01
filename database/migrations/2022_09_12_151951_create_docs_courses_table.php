@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('docs_courses', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('path');
+            $table->string('description');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('post_course_id');
             $table->timestamps();
         });
     }

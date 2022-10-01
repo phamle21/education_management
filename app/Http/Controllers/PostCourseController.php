@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
+use App\Models\PostCourse;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
-class CourseController extends Controller
+class PostCourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return response()->json('hello world');
+        //
     }
 
     /**
@@ -36,23 +35,16 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        $reponse = [];
-        $add = Course::create($request->all());
-        if ($add) {
-            $reponse = [
-                'status' => true,
-            ];
-        }
-        return response()->json($reponse);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\PostCourse  $postCourse
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show(PostCourse $postCourse)
     {
         //
     }
@@ -60,10 +52,10 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\PostCourse  $postCourse
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit(PostCourse $postCourse)
     {
         //
     }
@@ -72,10 +64,10 @@ class CourseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\PostCourse  $postCourse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, PostCourse $postCourse)
     {
         //
     }
@@ -83,10 +75,10 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\PostCourse  $postCourse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy(PostCourse $postCourse)
     {
         //
     }

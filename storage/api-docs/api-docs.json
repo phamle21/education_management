@@ -1,0 +1,402 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Education Management API List",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "description": "Login",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Phone Number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "0941649826"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "admin"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/roles": {
+            "get": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Get list of role by user",
+                "description": "Returns role list",
+                "operationId": "getRoleList",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "[All/Role]",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "All"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get list of user by role",
+                "description": "Returns user list",
+                "operationId": "getUserList",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "[All/Role]",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "All"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create User",
+                "description": "",
+                "operationId": "createUser",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Fullname",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Hong An"
+                    },
+                    {
+                        "name": "role_id",
+                        "in": "query",
+                        "description": "Role",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Address",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Can Tho"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Phone number, unique",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "0941649826"
+                    },
+                    {
+                        "name": "gender",
+                        "in": "query",
+                        "description": "Gender",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Male/Female"
+                    },
+                    {
+                        "name": "birthday",
+                        "in": "query",
+                        "description": "Birthday",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "21/04/2000"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email, unique",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "phamle21@gmail.com"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get details of user",
+                "description": "Returns user details",
+                "operationId": "getUserDetails",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{user_id}/edit": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update User",
+                "description": "",
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Fullname",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Hong An"
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Address",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Can Tho"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Phone number, unique",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "0941649826"
+                    },
+                    {
+                        "name": "gender",
+                        "in": "query",
+                        "description": "Gender",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Male/Female"
+                    },
+                    {
+                        "name": "birthday",
+                        "in": "query",
+                        "description": "Birthday",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "21/04/2000"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email, unique",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "phamle21@gmail.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "phamle21"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/users/check-account": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Check Account Exists User",
+                "description": "",
+                "operationId": "checkAccountUser",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Email/Phone",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Phone"
+                    },
+                    {
+                        "name": "value",
+                        "in": "query",
+                        "description": "value of email or phone",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "0941649826"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        }
+    }
+}
