@@ -89,4 +89,26 @@ class User extends Authenticatable implements JWTSubject
             'role_id',
         );
     }
+
+    public function images($type)
+    {
+        if ($type === "All") {
+            $img = Image::where('type', 'User')->get();
+        } else {
+            $img = Image::where([
+                ['type', 'User'],
+                ['type_name', $type],
+            ])->get();
+        }
+
+        return $img;
+    }
+
+    public function avatar()
+    {
+        return Image::where([
+            ['type', 'User'],
+            ['type_name', 'avatar'],
+        ])->first();
+    }
 }

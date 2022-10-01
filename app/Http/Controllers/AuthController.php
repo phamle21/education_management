@@ -121,10 +121,13 @@ class AuthController extends Controller
         ]);
     }
 
-    
+
     public function me()
     {
-        return response()->json(auth()->user());
+        $user = auth()->user();
+        $user->roles;
+        $user->avatar = User::find($user->id)->avatar()->path;
+        return response()->json($user);
     }
 
     public function refresh()

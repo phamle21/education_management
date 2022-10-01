@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Image;
+use App\Models\Option;
 use App\Models\Permission;
 use App\Models\PermissionRole;
 use App\Models\Role;
@@ -72,5 +74,30 @@ class DatabaseSeeder extends Seeder
 
         PermissionRole::factory(10)->create();
         UserRole::factory(10)->create();
+
+        foreach (User::all() as $v) {
+            Image::create([
+                'type' => 'User',
+                'type_name' => 'avatar',
+                'name' => 'Avatar of ' . $v->name,
+                'path' => 'avatar-default.png',
+                'type_id' => $v->id
+            ]);
+        }
+
+        Option::insert([
+            [
+                'name' => 'logo_name',
+                'value' => 'Logo',
+            ],
+            [
+                'name' => 'logo_path',
+                'path' => '/images/system/logo.png'
+            ],
+            [
+                'name' => 'name_site',
+                'value' => 'Sport Management'
+            ]
+        ]);
     }
 }

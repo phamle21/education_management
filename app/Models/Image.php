@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Option extends Model
+class Image extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'type',
         'name',
-        'value',
-        'autoload'
+        'path',
     ];
 }
