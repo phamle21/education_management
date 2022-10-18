@@ -2,96 +2,65 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import apiBase from '../../app/axios/apiBase';
 import AddImage2 from "../../assets/img/add/add2.png";
-// Assets
-import ProjectImg1 from "../../assets/img/projects/1.png";
-import ProjectImg2 from "../../assets/img/projects/2.png";
-import ProjectImg3 from "../../assets/img/projects/3.png";
-import ProjectImg4 from "../../assets/img/projects/4.png";
-import ProjectImg5 from "../../assets/img/projects/5.png";
-import ProjectImg6 from "../../assets/img/projects/6.png";
 import FullButton from "../button/FullButton";
 // Components
 import ProjectBox from "../elements/ProjectBox";
 
-export default function Projects() {
+export default function Courses() {
 
-  const [courses, setCourses] = useState();
+  const [listCourses, setListCourses] = useState([]);
+  const [limit, setLimit] = useState(6);
 
   useEffect(() => {
     apiBase.get("/courses")
-      .catch((err) => console.log(err))
-      .then((res) => {
-        console.log(res.data);
+      .catch(err => console.log(err))
+      .then(res => {
+        console.log(res.data.data);
+        setListCourses([...res.data.data]);
+        console.log(listCourses);
       })
-  }, [])
+  }, []);
+
+  const loadMore = () => {
+    setLimit(limit + 6);
+  }
 
   return (
     <Wrapper id="projects">
       <div className="whiteBg">
         <div className="container">
+
           <HeaderInfo>
             <h1 className="font40 extraBold">Các khóa học hiện có</h1>
             <p className="font20">
               Khóa học phong phú và độc quyền chỉ có tại Code Academy.
             </p>
           </HeaderInfo>
+
           <div className="row textCenter">
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox
-                img={ProjectImg1}
-                title="Awesome Project"
-                text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-                action={() => alert("clicked")}
-              />
-            </div>
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox
-                img={ProjectImg2}
-                title="Awesome Project"
-                text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-                action={() => alert("clicked")}
-              />
-            </div>
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox
-                img={ProjectImg3}
-                title="Awesome Project"
-                text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-                action={() => alert("clicked")}
-              />
-            </div>
+            {listCourses && listCourses.slice(0, limit).map((course, i) => (
+              <div key={i} className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <ProjectBox
+                  img={course.image}
+                  title={course.name}
+                  text={course.description}
+                  action={() => alert("clicked")}
+                />
+              </div>
+            ))}
           </div>
-          <div className="row textCenter">
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox
-                img={ProjectImg4}
-                title="Awesome Project"
-                text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-                action={() => alert("clicked")}
-              />
+
+          {limit >= listCourses.length ?
+            <div className="row flexCenter">
+              <div style={{ margin: "50px 0", width: "200px" }}></div>
             </div>
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox
-                img={ProjectImg5}
-                title="Awesome Project"
-                text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-                action={() => alert("clicked")}
-              />
+            :
+            <div className="row flexCenter">
+              <div style={{ margin: "50px 0", width: "200px" }}>
+                <FullButton title="Tải thêm" action={() => loadMore()} />
+              </div>
             </div>
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox
-                img={ProjectImg6}
-                title="Awesome Project"
-                text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
-                action={() => alert("clicked")}
-              />
-            </div>
-          </div>
-          <div className="row flexCenter">
-            <div style={{ margin: "50px 0", width: "200px" }}>
-              <FullButton title="Load More" action={() => alert("clicked")} />
-            </div>
-          </div>
+          }
         </div>
       </div>
       <div className="lightBg">

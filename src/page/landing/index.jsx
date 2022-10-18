@@ -3,10 +3,10 @@ import React from "react";
 import TopNavbar from "../../components/Nav/TopNavbar";
 import Blog from "../../components/sections/Blog";
 import Contact from "../../components/sections/Contact";
+import Courses from "../../components/sections/Courses";
 import Footer from "../../components/sections/Footer";
 import Header from "../../components/sections/Header";
 import Lecturer from "../../components/sections/Lecturer";
-import Projects from "../../components/sections/Projects";
 import Services from "../../components/sections/Services";
 import '../../style/landing/flexboxgrid.min.css';
 import '../../style/landing/index.css';
@@ -17,7 +17,7 @@ export default function Landing() {
             <TopNavbar />
             <Header />
             <Services />
-            <Projects />
+            <Courses />
             <Blog />
             <Lecturer />
             <Contact />

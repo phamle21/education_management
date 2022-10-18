@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import Moment from 'moment';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { toast, ToastContainer } from 'react-toastify';
@@ -8,9 +9,11 @@ import ModalAdd from './components/modalAdd';
 import ModalEdit from './components/modalEdit';
 
 
+
 export default function SubjectManage() {
   const [show, setShow] = useState(false);
   const [editShow, setEditShow] = useState(false);
+  const [listCourses, setListCourses] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -18,9 +21,16 @@ export default function SubjectManage() {
   const handleEditClose = () => setEditShow(false);
   const handleEditShow = () => setEditShow(true);
 
-  useState(() => {
-    apiBase.get("/courses").then(res => console.log(res.data));
-  }, [])
+  useEffect(() => {
+    apiBase.get("/courses")
+      .catch(err => console.log(err))
+      .then(res => {
+        console.log(res.data.data);
+        setListCourses([...res.data.data]);
+        console.log(listCourses);
+      })
+  }, []);
+
 
   const notify = () => toast.success(
     "Xóa môn học thành công!",
@@ -32,7 +42,7 @@ export default function SubjectManage() {
     <>
       <div className="section-manager">
         <div className="heading-manager d-flex flex-row">
-          <h1 className="heading-title">Quản Lý Môn Học</h1>
+          <h1 className="heading-title">Quản Lý Khóa Học</h1>
           <Button
             className='heading-btn'
             variant="outline-success"
@@ -45,7 +55,7 @@ export default function SubjectManage() {
           <thead>
             <tr>
               <th className='table-heading'>#</th>
-              <th className='table-heading'>Môn học</th>
+              <th className='table-heading'>Tên khóa học</th>
               <th className='table-heading'>Giảng viên</th>
               <th className='table-heading'>Thời gian bắt đầu</th>
               <th className='table-heading'>Thời gian kết thúc</th>
@@ -53,71 +63,31 @@ export default function SubjectManage() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className='table-value'>1</td>
-              <td className='table-value'>Larry the Bird</td>
-              <td className='table-value'>Jenifer Pham</td>
-              <td className='table-value'>20/12/2020</td>
-              <td className='table-value'>20/04/2021</td>
-              <td className='table-action d-flex flex-row'>
-                <Button
-                  variant="outline-warning table-btn"
-                  onClick={handleEditShow}
-                >
-                  Sửa
-                </Button>
-                <Button
-                  variant="outline-danger table-btn"
-                  onClick={notify}
-                >
-                  Xóa
-                </Button>
-              </td>
-            </tr>
-            <tr>
-              <td className='table-value'>2</td>
-              <td className='table-value'>Larry the Bird</td>
-              <td className='table-value'>Amy Do</td>
-              <td className='table-value'>12/01/2022</td>
-              <td className='table-value'>12/05/2022</td>
-              <td className='table-action d-flex flex-row'>
-                <Button
-                  variant="outline-warning table-btn"
-                  onClick={handleEditShow}
-                >
-                  Sửa
-                </Button>
-                <Button
-                  variant="outline-danger table-btn"
-                  onClick={notify}
-                >
-                  Xóa
-                </Button>
-              </td>
-            </tr>
-            <tr>
-              <td className='table-value'>3</td>
-              <td className='table-value'>UX/UI</td>
-              <td className='table-value'>Simon Nguyen</td>
-              <td className='table-value'>20/01/2022</td>
-              <td className='table-value'>20/06/2022</td>
-              <td className='table-action d-flex flex-row'>
-                <Button
-                  className='table-btn'
-                  variant="outline-warning"
-                  onClick={handleEditShow}
-                >
-                  Sửa
-                </Button>
-                <Button
-                  className='table-btn'
-                  variant="outline-danger"
-                  onClick={notify}
-                >
-                  Xóa
-                </Button>
-              </td>
-            </tr>
+            {
+              listCourses && listCourses.map((course, i) => (
+                <tr key={i}>
+                  <td className='table-value'>{i}</td>
+                  <td className='table-value'>{course.name}</td>
+                  <td className='table-value'>{course.teacher_name}</td>
+                  <td className='table-value'>{Moment(course.start).format("MMM Do YYYY")}</td>
+                  <td className='table-value'>{Moment(course.start).format("MMM Do YYYY")}</td>
+                  <td className='table-action d-flex flex-row'>
+                    <Button
+                      variant="outline-warning table-btn"
+                      onClick={handleEditShow}
+                    >
+                      Sửa
+                    </Button>
+                    <Button
+                      variant="outline-danger table-btn"
+                      onClick={notify}
+                    >
+                      Xóa
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            }
           </tbody>
         </Table>
       </div>

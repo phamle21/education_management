@@ -1,13 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import Landing from './page/landing';
+import AdminDashboard from './page/admin';
 
 
 function App() {
   return (
-    // <AdminDashboard />
-    <Landing />
+    <>
+      <AdminDashboard />
+      {/* <Landing /> */}
+    </>
   );
 }
 

@@ -9,6 +9,7 @@
     "axios": "^0.27.2",
     "bootstrap": "^5.2.1",
     "mdb-react-ui-kit": "^4.2.0",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-bootstrap-sweetalert": "^5.2.0",

@@ -6,7 +6,7 @@ import SubjectManage from "../page/admin/manage/subject";
 export const routes = [
   {
     id: "dashboard",
-    path: "/",
+    path: "/admin",
     main: <DashboardPage />
   },
   {
