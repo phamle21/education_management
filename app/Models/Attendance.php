@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Option extends Model
+class Attendance extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'value',
-        'autoload'
+        'user_id',
+        'schedule_id',
     ];
 
     protected $hidden = [

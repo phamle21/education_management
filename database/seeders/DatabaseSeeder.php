@@ -4,13 +4,17 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Attendance;
+use App\Models\Course;
+use App\Models\CourseContent;
+use App\Models\CourseTopic;
 use App\Models\Image;
 use App\Models\Option;
-use App\Models\Permission;
-use App\Models\PermissionRole;
-use App\Models\Role;
+use App\Models\Schedule;
+use App\Models\Study;
+use App\Models\Topic;
 use App\Models\User;
-use App\Models\UserRole;
+use App\Models\UserInformation;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -34,46 +38,20 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0941649826',
                 'status' => 'Active',
                 'gender' => 'Male',
+                'role' => 'Admin',
             ],
             [
-                'name' => 'Customer',
-                'email' => 'customer@gmail.com',
+                'name' => 'Hồng An',
+                'email' => 'dth.an292@gmail.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('123123'), // password
+                'password' => Hash::make('admin'), // password
                 'remember_token' => Str::random(10),
-                'phone' => '0941649825',
+                'phone' => '0387473591',
                 'status' => 'Active',
-                'gender' => 'Male',
+                'gender' => 'Female',
+                'role' => 'Admin',
             ]
         ]);
-
-        User::factory(10)->create();
-
-        Role::insert([
-            ['name' => 'Admin'],
-            ['name' => 'Teacher'],
-            ['name' => 'Student']
-        ]);
-
-        Permission::insert([
-            ['name' => 'All Permission'],
-            ['name' => 'Register Course '],
-            ['name' => 'Add New User'],
-            ['name' => 'Delete User'],
-            ['name' => 'Edit User'],
-            ['name' => 'Restore User'],
-            ['name' => 'Export'],
-        ]);
-
-        UserRole::insert([
-            [
-                'user_id' => 1,
-                'role_id' => 1
-            ]
-        ]);
-
-        PermissionRole::factory(10)->create();
-        UserRole::factory(10)->create();
 
         foreach (User::all() as $v) {
             Image::create([
@@ -99,5 +77,22 @@ class DatabaseSeeder extends Seeder
                 'value' => 'Sport Management'
             ]
         ]);
+
+        User::factory(10)->create();
+        UserInformation::factory(10)->create();
+        Course::factory(10)->create();
+        CourseContent::factory(10)->create();
+        Topic::factory(10)->create();
+
+        foreach (Course::all() as $v) {
+            CourseTopic::insert([
+                'course_id' => $v->id,
+                'topic_id' => Topic::all()->random()->id,
+            ]);
+        }
+
+        Schedule::factory(10)->create();
+        Study::factory(10)->create();
+        Attendance::factory(10)->create();
     }
 }

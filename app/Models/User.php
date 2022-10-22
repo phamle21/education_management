@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\UserRole;
 use Illuminate\Support\Facades\DB;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -42,8 +42,9 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password',
         'remember_token',
+        'created_at',
+        'updated_at'
     ];
-
     /**
      * The attributes that should be cast.
      *
@@ -73,23 +74,6 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function userRoles()
-    {
-        return $this->hasMany(UserRole::class);
-    }
-
-    public function roles()
-    {
-        return $this->hasManyThrough(
-            Role::class,
-            UserRole::class,
-            'user_id',
-            'id',
-            'id',
-            'role_id',
-        );
-    }
-
     public function images($type)
     {
         if ($type === "All") {
@@ -110,5 +94,32 @@ class User extends Authenticatable implements JWTSubject
             ['type', 'User'],
             ['type_name', 'avatar'],
         ])->first();
+    }
+
+    public function studyCourse()
+    {
+        return $this->hasManyThrough(
+            Course::class,
+            Study::class,
+            'user_id',
+            'id',
+            'id',
+            'course_id',
+        );
+    }
+
+    public function studyInfo()
+    {
+        $studyInfo = $this->studyCourse;
+
+        foreach ($studyInfo as $v) {
+            $course = Course::find($v->id);
+            $v['mark'] = $course->mark ? $course->mark : 0;
+            $v['finished'] = $course->finished ? $course->finished : 'Unfinished';
+            $v['tuition_paid'] = $course->tuition_paid ? $course->tuition_paid : 0;
+        }
+
+        return $studyInfo;
+        return $this->hasMany(Study::class);
     }
 }

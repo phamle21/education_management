@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Option extends Model
+class UserInformation extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'value',
-        'autoload'
+        'user_id',
+        'key',
+        'information',
     ];
 
     protected $hidden = [

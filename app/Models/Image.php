@@ -11,7 +11,14 @@ class Image extends Model
 
     protected $fillable = [
         'type',
+        'type_name',
         'name',
         'path',
+        'type_id',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
     ];
 }

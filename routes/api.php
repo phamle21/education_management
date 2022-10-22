@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TopicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,11 +33,14 @@ Route::controller(AuthController::class)->group(function () {
 
 /** Courses */
 Route::resource('courses', CourseController::class);
+Route::get('/courses/{id}/content', [CourseController::class, 'courseContent']);
+Route::get('/courses/{id}/student', [CourseController::class, 'courseOfStudent']);
+Route::get('/courses/{id}/teacher', [CourseController::class, 'courseOfTeacher']);
 
 /** User */
 Route::resource('users', UserController::class);
 Route::post('/users/check-account', [UserController::class, 'checkAccount']);
 
-/** Roles */
-Route::resource('roles', RoleController::class);
+/** Topics */
+Route::resource('topics', TopicController::class);
 

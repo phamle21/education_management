@@ -15,7 +15,7 @@
                 "operationId": "login",
                 "parameters": [
                     {
-                        "name": "phone",
+                        "name": "email",
                         "in": "query",
                         "description": "Phone Number",
                         "required": true,
@@ -50,24 +50,624 @@
                 ]
             }
         },
-        "/api/roles": {
+        "/api/courses": {
             "get": {
                 "tags": [
-                    "Roles"
+                    "Courses"
                 ],
-                "summary": "Get list of role by user",
-                "description": "Returns role list",
-                "operationId": "getRoleList",
+                "summary": "Get courses list",
+                "description": "Returns courses list",
+                "operationId": "getCoursesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Create Course",
+                "description": "",
+                "operationId": "createNewCourses",
                 "parameters": [
                     {
-                        "name": "type",
+                        "name": "name",
                         "in": "query",
-                        "description": "[All/Role]",
+                        "description": "name",
                         "required": true,
                         "schema": {
                             "type": "string"
                         },
-                        "example": "All"
+                        "example": "Ten Khoa Hoc"
+                    },
+                    {
+                        "name": "topic_id[]",
+                        "in": "query",
+                        "description": "Danh sách ID của danh mục",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
+                        "example": "Danh sách ID của danh mục"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Description of course",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Khóa học 3tr có tiền thì học không thì ngu"
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "Content of course",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Khóa học giảng dạy về...."
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start datetime of course",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "example": "2022-09-17 21:21:21"
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "End datetime of course",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "example": "2022-12-17 21:21:21"
+                    },
+                    {
+                        "name": "quantity",
+                        "in": "query",
+                        "description": "Quantity member of course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "20"
+                    },
+                    {
+                        "name": "tuition",
+                        "in": "query",
+                        "description": "Tuition fee of course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "3000000"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "Teacher ID of course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/courses/{id}/content": {
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get courses content",
+                "description": "Returns courses content",
+                "operationId": "getCoursesContent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Course ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/courses/{id}": {
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get details of Course",
+                "description": "Returns Course details",
+                "operationId": "getCourseDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "course_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Delete courses",
+                "description": "Returns status delete",
+                "operationId": "deleteCourse",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "courses_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Update Course",
+                "description": "",
+                "operationId": "updateCourses",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id khoa hoc",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Ten Khoa Hoc"
+                    },
+                    {
+                        "name": "topic_id[]",
+                        "in": "query",
+                        "description": "Danh sách ID của danh mục",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
+                        "example": "Danh sách ID của danh mục"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Description of course",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Khóa học 3tr có tiền thì học không thì ngu"
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "Content of course",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Khóa học giảng dạy về...."
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start datetime of course",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "example": "2022-09-17 21:21:21"
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "End datetime of course",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "example": "2022-12-17 21:21:21"
+                    },
+                    {
+                        "name": "quantity",
+                        "in": "query",
+                        "description": "Quantity member of course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "20"
+                    },
+                    {
+                        "name": "tuition",
+                        "in": "query",
+                        "description": "Tuition fee of course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "3000000"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "Teacher ID of course",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/courses/{id}/student": {
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get course of student",
+                "description": "Returns Courses of student",
+                "operationId": "getCourseOfStuent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "student_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/courses/{id}/teacher": {
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get course of Teacheer",
+                "description": "Returns Courses of Teacheer",
+                "operationId": "getCourseOfTeacher",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "teacher_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/topics": {
+            "get": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Get Topics list",
+                "description": "Returns Topics list",
+                "operationId": "getTopicsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Create Topic",
+                "description": "",
+                "operationId": "createNewTopics",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of topic",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Danh muc 1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/topics/{id}": {
+            "get": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Get details of Topic",
+                "description": "Returns Topic details",
+                "operationId": "getTopicDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "topic_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Create Topic",
+                "description": "",
+                "operationId": "createUpdateTopics",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id of topic",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Delete topics",
+                "description": "Returns status delete",
+                "operationId": "deleteTopic",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "topic_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
                     }
                 ],
                 "responses": {
@@ -97,7 +697,7 @@
                     {
                         "name": "type",
                         "in": "query",
-                        "description": "[All/Role]",
+                        "description": "[All/ Admin/ Teacher/ Student]",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -125,7 +725,7 @@
                 ],
                 "summary": "Create User",
                 "description": "",
-                "operationId": "createUser",
+                "operationId": "createUserList",
                 "parameters": [
                     {
                         "name": "name",
@@ -196,6 +796,16 @@
                             "type": "string"
                         },
                         "example": "phamle21@gmail.com"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Password",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "phamle21"
                     }
                 ],
                 "responses": {
@@ -336,6 +946,41 @@
                             "type": "string"
                         },
                         "example": "phamle21"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{id}": {
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete user",
+                "description": "Returns status delete",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
                     }
                 ],
                 "responses": {
