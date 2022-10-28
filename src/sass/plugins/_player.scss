@@ -1,0 +1,140 @@
+/*
+*
+* Player
+*
+* Plyr plugin styles.
+*
+*/
+
+.plyr,
+.plyr__video-wrapper,
+.plyr audio,
+.plyr iframe,
+.plyr video,
+.plyr__poster {
+  border-radius: var(--border-radius-lg) !important;
+  background-color: initial !important;
+}
+
+.plyr__video-wrapper {
+  height: 100%;
+}
+
+.plyr__poster {
+  background-size: cover !important;
+}
+
+.theme-filter-player .plyr__poster {
+  filter: var(--theme-image-filter) !important;
+}
+
+.cover .plyr video {
+  object-fit: cover !important;
+}
+
+.plyr--video.plyr--stopped .plyr__controls {
+  display: none !important;
+}
+
+.plyr--video .plyr__control.plyr__tab-focus,
+.plyr--video .plyr__control:hover,
+.plyr--video .plyr__control[aria-expanded='true'],
+.plyr--audio .plyr__control.plyr__tab-focus,
+.plyr--audio .plyr__control:hover,
+.plyr--audio .plyr__control[aria-expanded='true'] {
+  background: var(--primary) !important;
+  color: var(--light-text) !important;
+}
+
+.plyr__control {
+  color: var(--body) !important;
+}
+
+.plyr__control--overlaid {
+  padding: 9px 24px !important;
+  border-radius: var(--border-radius-md) !important;
+  background: var(--primary) !important;
+  color: var(--light-text) !important;
+}
+
+.plyr--full-ui input[type='range'] {
+  color: var(--primary) !important;
+}
+.plyr__menu__container .plyr__control[role='menuitemradio'][aria-checked='true']::before {
+  background: var(--primary) !important;
+}
+
+.plyr--audio .plyr__controls {
+  background: var(--foreground) !important;
+}
+
+.plyr__menu__container {
+  background: var(--foreground) !important;
+}
+
+.plyr__menu__container .plyr__control--back::before {
+  background: var(--separator) !important;
+  box-shadow: initial !important;
+}
+
+.plyr--audio .plyr__controls {
+  color: var(--body) !important;
+}
+
+.plyr--video .plyr__control {
+  color: var(--light-text) !important;
+}
+
+.modal-player {
+  .modal-content {
+    background: initial !important;
+    border: initial !important;
+  }
+  .plyr,
+  .plyr audio,
+  .plyr iframe,
+  .plyr video,
+  .plyr__video-wrapper {
+    background: initial !important;
+  }
+}
+
+.plyr__menu__container .plyr__control {
+  color: var(--body) !important;
+}
+
+.card-img-top {
+  .plyr,
+  .plyr__video-wrapper,
+  .plyr audio,
+  .plyr iframe,
+  .plyr video,
+  .plyr__poster {
+    border-bottom-left-radius: initial !important;
+    border-bottom-right-radius: initial !important;
+  }
+}
+
+.card-img-bottom {
+  .plyr,
+  .plyr__video-wrapper,
+  .plyr audio,
+  .plyr iframe,
+  .plyr video,
+  .plyr__poster {
+    border-top-left-radius: initial !important;
+    border-top-right-radius: initial !important;
+  }
+}
+
+.plyr__menu__container {
+  border-radius: var(--border-radius-md) !important;
+}
+
+.plyr__control {
+  border-radius: var(--border-radius-md) !important;
+}
+
+.card .plyr {
+  height: 100% !important;
+}

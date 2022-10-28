@@ -1,0 +1,91 @@
+/*
+*
+* Notify
+*
+* Notify plugin styles.
+*
+*/
+
+.Toastify__toast--default {
+  padding: var(--card-spacing-xs) var(--card-spacing-sm) !important;
+  background-color: var(--background) !important;
+  border: 1px solid var(--primary) !important;
+  border-radius: var(--border-radius-md) !important;
+  color: var(--alternate) !important;
+  font-family: var(--font) !important;
+}
+
+.Toastify__progress-bar--default {
+  background: var(--primary) !important;
+  bottom: 0.5rem !important;
+  height: 1px !important;
+  left: 1.25rem !important;
+  width: calc(100% - 2.5rem) !important;
+}
+
+.Toastify__toast-body {
+  padding: initial !important;
+}
+
+.Toastify__close-button--default {
+  color: var(--muted) !important;
+  opacity: 1 !important;
+
+  &:hover {
+    color: var(--primary) !important;
+  }
+}
+
+.Toastify__toast--default.secondary {
+  border: 1px solid var(--secondary) !important;
+  .Toastify__progress-bar--default {
+    background: var(--secondary) !important;
+  }
+}
+
+.Toastify__toast--default.tertiary {
+  border: 1px solid var(--tertiary) !important;
+  .Toastify__progress-bar--default {
+    background: var(--tertiary) !important;
+  }
+}
+
+.Toastify__toast--default.quaternary {
+  border: 1px solid var(--quaternary) !important;
+  .Toastify__progress-bar--default {
+    background: var(--quaternary) !important;
+  }
+}
+
+.Toastify__toast--default.warning {
+  border: 1px solid var(--warning) !important;
+  .Toastify__progress-bar--default {
+    background: var(--warning) !important;
+  }
+}
+
+.Toastify__toast--default.info {
+  border: 1px solid var(--info) !important;
+  .Toastify__progress-bar--default {
+    background: var(--info) !important;
+  }
+}
+
+.Toastify__toast--default.danger {
+  border: 1px solid var(--danger) !important;
+  .Toastify__progress-bar--default {
+    background: var(--danger) !important;
+  }
+}
+
+.Toastify__toast--default.success {
+  border: 1px solid var(--success) !important;
+  .Toastify__progress-bar--default {
+    background: var(--success) !important;
+  }
+}
+
+.Toastify__close-button > svg {
+  height: 14px !important;
+  width: 14px !important;
+}

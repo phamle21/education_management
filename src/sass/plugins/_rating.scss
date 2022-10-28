@@ -1,0 +1,67 @@
+/*
+*
+* Rating
+*
+* Rating form control styles.
+*
+*/
+
+.top-label.rating-container {
+  padding-left: 0.8rem !important;
+  padding-right: 0.8rem !important;
+  padding-top: 1.5rem !important;
+
+  i {
+    font-size: 16px;
+    margin-top: 2px;
+    display: inline-block;
+  }
+}
+
+.filled.rating-container {
+  padding-top: 0;
+  padding-bottom: 0;
+
+  i {
+    margin-top: 3px;
+    display: inline-block;
+  }
+}
+
+.form-floating.rating-container {
+  border: 1px solid var(--separator);
+  border-radius: var(--border-radius-md);
+  height: auto;
+  min-height: 52px;
+  padding-left: 0.8rem !important;
+  padding-right: 0.8rem !important;
+  padding-top: 1.5rem !important;
+
+  label {
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+    color: var(--muted);
+  }
+
+  i {
+    font-size: 16px;
+    margin-top: 2px;
+    display: inline-block;
+  }
+}
+
+
+.btn-primary.hover-disabled {
+  cursor: default;
+  &:hover {
+    background-color: var(--primary) !important;
+  }
+}
+
+.btn-outline-primary.hover-disabled {
+  cursor: default;
+  &:hover {
+    box-shadow: inset 0 0 0 1px var(--primary) !important;
+    color: var(--primary) !important;
+    background: initial !important;
+  }
+}

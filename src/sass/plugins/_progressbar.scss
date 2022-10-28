@@ -1,0 +1,92 @@
+/*
+*
+* Progressbar
+*
+* Progressbar plugin styles.
+*
+*/
+
+.CircularProgressbar {
+  .CircularProgressbar-path {
+    stroke: var(--primary) !important;
+  }
+  .CircularProgressbar-text {
+    fill: var(--primary) !important;
+  }
+
+  &.primary {
+    .CircularProgressbar-path {
+      stroke: var(--primary) !important;
+    }
+    .CircularProgressbar-text {
+      fill: var(--primary) !important;
+    }
+  }
+
+  &.secondary {
+    .CircularProgressbar-path {
+      stroke: var(--secondary) !important;
+    }
+    .CircularProgressbar-text {
+      fill: var(--secondary) !important;
+    }
+  }
+
+  &.tertiary {
+    .CircularProgressbar-path {
+      stroke: var(--tertiary) !important;
+    }
+    .CircularProgressbar-text {
+      fill: var(--tertiary) !important;
+    }
+  }
+
+  &.quaternary {
+    .CircularProgressbar-path {
+      stroke: var(--quaternary) !important;
+    }
+    .CircularProgressbar-text {
+      fill: var(--quaternary) !important;
+    }
+  }
+
+  &.warning {
+    .CircularProgressbar-path {
+      stroke: var(--warning) !important;
+    }
+    .CircularProgressbar-text {
+      fill: var(--warning) !important;
+    }
+  }
+  
+  &.danger {
+    .CircularProgressbar-path {
+      stroke: var(--danger) !important;
+    }
+    .CircularProgressbar-text {
+      fill: var(--danger) !important;
+    }
+  }
+    
+  &.body {
+    .CircularProgressbar-path {
+      stroke: var(--body) !important;
+    }
+    .CircularProgressbar-text {
+      fill: var(--body) !important;
+    }
+  }
+}
+
+.CircularProgressbar .CircularProgressbar-trail {
+  stroke: var(--separator-light) !important;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+  font-size: 1em !important;
+}
+
+.CircularProgressbar.transparent-trailer .CircularProgressbar-trail {
+  stroke: transparent !important;
+}
+
