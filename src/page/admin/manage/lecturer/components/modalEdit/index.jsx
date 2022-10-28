@@ -7,8 +7,6 @@ import Modal from 'react-bootstrap/Modal';
 export default function ModalEdit({ show, onHide, data }) {
     const [formInput, setFormInput] = useState({});
 
-    console.log('brdu', data)
-    console.log('jeej;', formInput);
     const handleInputChange = (event) => {
         const target = event.target;
         const value = target.value;

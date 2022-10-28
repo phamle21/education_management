@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import apiBase from '../../app/axios/apiBase';
-import AddImage2 from "../../assets/img/add/add2.png";
 import FullButton from "../button/FullButton";
 // Components
 import ProjectBox from "../elements/ProjectBox";
@@ -63,7 +62,7 @@ export default function Courses() {
           }
         </div>
       </div>
-      <div className="lightBg">
+      {/* <div className="lightBg">
         <div className="container">
           <Advertising className="flexSpaceCenter">
             <AddLeft>
@@ -91,7 +90,7 @@ export default function Courses() {
             </AddRight>
           </Advertising>
         </div>
-      </div>
+      </div> */}
     </Wrapper>
   );
 }

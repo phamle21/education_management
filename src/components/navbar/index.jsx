@@ -1,13 +1,16 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import Avt from '../../assets/avt_default.png';
-import Logo from '../../assets/logo.svg';
+import LogoIcon from "../../assets/svg/Logo";
 
 export default function Navbar() {
   return (
     <>
       <div className="navbar">
-        <div className="logo px-4">
-          <img src={Logo} alt="Logo" />
+        <div className="logo px-4 row">
+          <LogoIcon />
+          <p style={{ marginLeft: "15px", fontSize: "15px", fontWeight: "600" }}>
+            Code Academy
+          </p>
         </div>
         <div className="action">
           <img src={Avt} alt="Avatar" className='avt'></img>

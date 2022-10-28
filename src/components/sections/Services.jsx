@@ -1,11 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-// Assets
-import AddImage1 from "../../assets/img/add/1.png";
-import AddImage2 from "../../assets/img/add/2.png";
-import AddImage3 from "../../assets/img/add/3.png";
-import AddImage4 from "../../assets/img/add/4.png";
-import FullButton from "../button/FullButton";
 // Components
 import ClientSlider from "../elements/ClientSlider";
 import ServiceBox from "../elements/ServiceBox";
@@ -63,7 +57,7 @@ export default function Services() {
             </ServiceBoxWrapper>
           </ServiceBoxRow>
         </div>
-        <div className="lightBg">
+        {/* <div className="lightBg">
           <div className="container">
             <Advertising className="flexSpaceCenter">
               <AddLeft>
@@ -104,7 +98,7 @@ export default function Services() {
               </AddRight>
             </Advertising>
           </div>
-        </div>
+        </div> */}
       </div>
     </Wrapper>
   );

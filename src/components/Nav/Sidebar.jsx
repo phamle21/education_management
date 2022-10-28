@@ -12,7 +12,7 @@ export default function Sidebar({ sidebarOpen, toggleSidebar }) {
                 <div className="flexNullCenter">
                     <LogoIcon />
                     <h1 className="whiteColor font20" style={{ marginLeft: "15px" }}>
-                        fanatic
+                        Code Academy
                     </h1>
                 </div>
                 <CloseBtn onClick={() => toggleSidebar(!sidebarOpen)} className="animate pointer">

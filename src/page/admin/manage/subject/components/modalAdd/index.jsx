@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
-import apiBase from '../../../../../../app/axios/apiBase';
+import apiBase from '../../../../../../app/axios/apiFormData';
 
 
 export default function ModalAdd({ show, onHide }) {
@@ -26,7 +26,6 @@ export default function ModalAdd({ show, onHide }) {
         if (e.target.files && e.target.files.length > 0) {
             setSelectedImage(e.target.files[0]);
         }
-        handleInputChange(e);
     };
 
     const removeSelectedImage = () => {
@@ -54,25 +53,30 @@ export default function ModalAdd({ show, onHide }) {
     }, []);
 
     const handleSave = () => {
-        apiBase.post("/courses",
-            formInput
-        )
+        const formData = new FormData();
+
+        Object.keys(formInput).forEach((key) => {
+            formData.append(key, formInput[key])
+        })
+
+        formData.append('image', selectedImage);
+
+        apiBase.post("/courses", formData)
             .catch(err => console.log(err))
             .then(res => {
-                if (res.status === 'success') {
-                    toast.success(
-                        "Xóa môn học thành công!",
-                        { position: toast.POSITION.TOP_CENTER },
-                        { autoClose: 5000 },
-                    );
+                if (res.data != null) {
                     setFormInput({});
                     setSelectedImage();
                     onHide();
+                    toast.success(
+                        "Thêm khóa học thành công!",
+                        { position: toast.POSITION.BOTTOM_RIGHT },
+                        { autoClose: 5000 },
+                    );
                 }
             })
     }
 
-    console.log(JSON.stringify(formInput));
     return (
         <>
             <Modal
@@ -120,6 +124,15 @@ export default function ModalAdd({ show, onHide }) {
                                 name='image'
                                 value={formInput['image']}
                             />
+                            {/* <Form.File
+                                type="file"
+                                className="modal-custom-control"
+                                id="inputGroupFile01"
+                                name='image'
+                                onChange={(e) => setFileName(e.target.files[0].name)}
+                                value={formInput['image']}
+                                custom
+                            /> */}
                         </Form.Group>
                         {selectedImage && (
                             <div>

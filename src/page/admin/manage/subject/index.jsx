@@ -14,12 +14,16 @@ export default function SubjectManage() {
   const [show, setShow] = useState(false);
   const [editShow, setEditShow] = useState(false);
   const [listCourses, setListCourses] = useState([]);
+  const [course, setCourse] = useState({});
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleEditClose = () => setEditShow(false);
-  const handleEditShow = () => setEditShow(true);
+  const handleEditShow = (data) => {
+    setEditShow(true);
+    setCourse(data)
+  }
 
   useEffect(() => {
     apiBase.get("/courses")
@@ -37,6 +41,16 @@ export default function SubjectManage() {
     { position: toast.POSITION.BOTTOM_RIGHT },
     { autoClose: 5000 },
   );
+
+  const handleDeleteCourse = (courseID) => {
+    apiBase.delete(`/courses/${courseID}`)
+      .catch(err => console.log(err))
+      .then(res => {
+        if (res.data != null) {
+          notify();
+        }
+      })
+  }
 
   return (
     <>
@@ -74,13 +88,13 @@ export default function SubjectManage() {
                   <td className='table-action d-flex flex-row'>
                     <Button
                       variant="outline-warning table-btn"
-                      onClick={handleEditShow}
+                      onClick={() => handleEditShow(course)}
                     >
                       Sửa
                     </Button>
                     <Button
                       variant="outline-danger table-btn"
-                      onClick={notify}
+                      onClick={() => handleDeleteCourse(course.id)}
                     >
                       Xóa
                     </Button>
@@ -94,7 +108,7 @@ export default function SubjectManage() {
 
       <ModalAdd show={show} onHide={handleClose} />
 
-      <ModalEdit show={editShow} onHide={handleEditClose} data={''} />
+      <ModalEdit show={editShow} onHide={handleEditClose} data={course} />
 
       <ToastContainer />
     </>
