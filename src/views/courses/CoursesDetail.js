@@ -5,6 +5,7 @@ import Rating from 'react-rating';
 import HtmlHead from 'components/html-head/HtmlHead';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
+import { useParams } from 'react-router-dom';
 
 const PurePlyr = React.memo(() => {
   const videoSrc = {
@@ -20,6 +21,8 @@ const CoursesDetail = () => {
   const title = 'Bread Making Techniques';
   const description = 'Elearning Portal Course Detail Page';
 
+  const params = useParams();
+  console.log(params);
   const breadcrumbs = [
     { to: '', text: 'Home' },
     { to: 'courses/explore', text: 'Courses' },

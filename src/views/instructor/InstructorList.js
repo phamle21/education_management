@@ -7,7 +7,7 @@ import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 
 const InstructorList = () => {
-  const title = 'Instructors';
+  const title = 'Người dùng';
   const description = 'Elearning Portal Instructors List Page';
 
   const breadcrumbs = [{ to: '', text: 'Home' }];
@@ -34,8 +34,8 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-1.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
-                Blaine Cottrell
+              <NavLink to="/users/1/detail" className="mb-3 body-link">
+                Pham Le
               </NavLink>
               <div className="text-muted text-medium mb-2">Chemistry</div>
               <Rating
@@ -98,7 +98,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/1/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -114,7 +114,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-2.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/2/detail" className="mb-3 body-link">
                 Cherish Kerr
               </NavLink>
               <div className="text-muted text-medium mb-2">Biology</div>
@@ -178,7 +178,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -194,7 +194,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-3.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/detail" className="mb-3 body-link">
                 Beatrice Janelle
               </NavLink>
               <div className="text-muted text-medium mb-2">Science</div>
@@ -258,7 +258,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -274,7 +274,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-4.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/detail" className="mb-3 body-link">
                 Eulalie Armel
               </NavLink>
               <div className="text-muted text-medium mb-2">Arts</div>
@@ -338,7 +338,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -354,7 +354,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-5.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/detail" className="mb-3 body-link">
                 Zayn Hartley
               </NavLink>
               <div className="text-muted text-medium mb-2">Algebra</div>
@@ -418,7 +418,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -434,7 +434,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-6.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/detail" className="mb-3 body-link">
                 Esperanza Lodge
               </NavLink>
               <div className="text-muted text-medium mb-2">Geometry</div>
@@ -498,7 +498,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -514,7 +514,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-7.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/detail" className="mb-3 body-link">
                 Kathryn Mengel
               </NavLink>
               <div className="text-muted text-medium mb-2">History</div>
@@ -578,7 +578,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -594,7 +594,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-8.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/detail" className="mb-3 body-link">
                 Eneida Farzana
               </NavLink>
               <div className="text-muted text-medium mb-2">Spanish</div>
@@ -658,7 +658,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -674,7 +674,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-9.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/detail" className="mb-3 body-link">
                 Fabian Ciera
               </NavLink>
               <div className="text-muted text-medium mb-2">English</div>
@@ -738,7 +738,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -754,7 +754,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-10.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/detail" className="mb-3 body-link">
                 Ryland Darrin
               </NavLink>
               <div className="text-muted text-medium mb-2">Philosophy</div>
@@ -818,7 +818,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -834,7 +834,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-4.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/detail" className="mb-3 body-link">
                 Laurent Wilma
               </NavLink>
               <div className="text-muted text-medium mb-2">Physics</div>
@@ -898,7 +898,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">
@@ -914,7 +914,7 @@ const InstructorList = () => {
               <div className="sw-13 position-relative mb-3 mx-auto">
                 <img src="/img/profile/profile-7.webp" className="img-fluid rounded-xl" alt="thumb" />
               </div>
-              <NavLink to="/instructor/detail" className="mb-3 body-link">
+              <NavLink to="/users/detail" className="mb-3 body-link">
                 Selby Madge
               </NavLink>
               <div className="text-muted text-medium mb-2">Music</div>
@@ -978,7 +978,7 @@ const InstructorList = () => {
                 </Col>
               </Row>
               <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                <NavLink to="/instructor/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
+                <NavLink to="/users/detail" className="btn btn-outline-primary w-100 me-1 btn-sm">
                   Courses
                 </NavLink>
                 <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">

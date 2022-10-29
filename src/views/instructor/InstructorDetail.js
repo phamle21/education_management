@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import Rating from 'react-rating';
 import HtmlHead from 'components/html-head/HtmlHead';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
@@ -8,8 +8,10 @@ import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import Clamp from 'components/clamp';
 
 const InstructorDetail = () => {
-  const title = 'Instructor Detail';
+  const title = 'Chi tiết';
   const description = 'Elearning Portal Instructor Detail Page';
+
+  const params = useParams();
 
   const breadcrumbs = [
     { to: '', text: 'Home' },

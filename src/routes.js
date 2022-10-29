@@ -62,9 +62,8 @@ const routesAndMenuItems = {
       redirect: true,
       to: `${appRoot}/courses/explore`,
       subs: [
-        { path: '/explore', label: 'menu.explore', component: courses.explore },
         { path: '/list', label: 'menu.list', component: courses.list },
-        { path: '/detail', label: 'menu.detail', component: courses.detail },
+        { path: '/:id/detail', label: 'menu.detail', component: courses.detail, hideInMenu: true },
       ],
     },
     {

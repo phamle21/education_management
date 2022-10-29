@@ -14,7 +14,7 @@ const Home = lazy(() => import('views/default/Home'));
 /*
 { path: "/path", exact: true, component: ViewHome },
 // or
-{ path: "/path", component: ViewHome},
+{ path: "/path", component: UserDetail},
 // or
 { path: "/path", exact: true, redirect: true, to: "/redirectPath" },
 */
