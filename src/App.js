@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-
+// Recoil
+import { RecoilRoot } from 'recoil';
 // import redux for auth guard
 import { useSelector } from 'react-redux';
 
@@ -18,9 +19,12 @@ const App = () => {
   const routes = useMemo(() => getRoutes({ data: routesAndMenuItems, isLogin, userRole: currentUser.role }), [isLogin, currentUser]);
   if (routes) {
     return (
-      <Layout>
-        <RouteIdentifier routes={routes} fallback={<Loading />} />
-      </Layout>
+      <RecoilRoot>
+        <Layout>
+          <RouteIdentifier routes={routes} fallback={<Loading />} />
+        </Layout>
+      </RecoilRoot>
+
     );
   }
   return <></>;

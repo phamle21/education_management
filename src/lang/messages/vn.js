@@ -163,7 +163,7 @@ const vnMessages = {
 
   'menu.elearning': 'Học trực tuyến',
   'menu.school': 'Trường học',
-  'menu.courses': 'khóa học',
+  'menu.courses': 'Khóa học',
   'menu.explore': 'Khám phá',
   'menu.quiz': 'Câu đố',
   'menu.result': 'Kết quả',

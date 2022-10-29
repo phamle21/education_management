@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useSelector } from 'react-redux';
 import { useWindowSize } from 'hooks/useWindowSize';
 import { Row, Col, Button, Form, Card, Modal } from 'react-bootstrap';
@@ -8,94 +9,68 @@ import HtmlHead from 'components/html-head/HtmlHead';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import { useIntl } from 'react-intl';
+import { courseListState, topicListState, courseListShowState } from 'recoil_store';
+import apiBase from '../../app/axios/apiBase';
 
 const FilterMenuContent = () => {
+  const topicList = useRecoilValue(topicListState);
+
+  const courseList = useRecoilValue(courseListState);
+
+  const setCourseListShow = useSetRecoilState(courseListShowState);
+
+  const handleFilter = (e) => {
+    e.preventDefault();
+    const { filterTopic } = e.target.elements;
+
+    let arrTemp = [];
+
+    let arrfilterId = [];
+
+    filterTopic.forEach(filter => {
+      if (filter.checked) {
+        arrfilterId = [...arrfilterId, filter.id];
+      }
+    })
+
+    if (arrfilterId.length > 0) {
+      courseList.forEach(course => {
+        if (course.topics.length > 0) {
+          course.topics.forEach(topic => {
+            arrfilterId.forEach(id => {
+              if (Number(topic.id) === Number(id)) {
+                arrTemp = [...arrTemp, course]
+              }
+            })
+          })
+        }
+      })
+      setCourseListShow(arrTemp);
+    } else {
+      setCourseListShow(courseList);
+    }
+
+  }
 
   return (
     <div className="nav flex-column sw-30 pe-7">
-      <Form className="mb-5">
-        <p className="text-small text-muted mb-3">CATEGORY</p>
-        <Form.Check type="checkbox" label="Bread" id="categoryCheckbox1" />
-        <Form.Check type="checkbox" label="Cake" id="categoryCheckbox2" />
-        <Form.Check type="checkbox" label="Fruit" id="categoryCheckbox3" />
-        <Form.Check type="checkbox" label="Vegetable" id="categoryCheckbox4" />
-        <Form.Check type="checkbox" label="Sandwich" id="categoryCheckbox5" />
+
+      <Form className="mb-5" id="frmFilterCourse" onSubmit={handleFilter}>
+        <p className="text-small text-muted mb-3">T O P I C S</p>
+
+        {topicList.length > 0
+          ? topicList.map(topic => (
+            <Form.Check type="checkbox" name='filterTopic' label={topic.name} value={topic.id} id={topic.id} key={topic.id} />
+          ))
+          : null
+        }
       </Form>
-      <Form className="mb-5">
-        <p className="text-small text-muted mb-3">DURATION</p>
-        <Form.Check type="checkbox" label="0-5 Hours" id="durationCheckbox1" />
-        <Form.Check type="checkbox" label="5-10 Hours" id="durationCheckbox2" />
-        <Form.Check type="checkbox" label="10-20 Hours" id="durationCheckbox3" />
-        <Form.Check type="checkbox" label="20-50 Hours" id="durationCheckbox4" />
-        <Form.Check type="checkbox" label="50-100 Hours" id="durationCheckbox5" />
-      </Form>
-      <Form className="mb-5">
-        <p className="text-small text-muted mb-3">PRICE</p>
-        <Row className="g-1">
-          <Col>
-            <Form.Control type="text" placeholder="Min" />
-          </Col>
-          <Col>
-            <Form.Control type="text" placeholder="Max" />
-          </Col>
-          <Col xs="auto">
-            <Button variant="outline-primary" className="btn-icon btn-icon-only">
-              <CsLineIcons icon="chevron-right" />
-            </Button>
-          </Col>
-        </Row>
-      </Form>
-      <Form className="mb-5">
-        <p className="text-small text-muted mb-3">SEARCH</p>
-        <Row className="g-1">
-          <Col>
-            <Form.Control type="text" placeholder="Keyword" />
-          </Col>
-          <Col xs="auto">
-            <Button variant="outline-primary" className="btn-icon btn-icon-only">
-              <CsLineIcons icon="chevron-right" />
-            </Button>
-          </Col>
-        </Row>
-      </Form>
-      <Form className="mb-5">
-        <p className="text-small text-muted mb-3">RATING</p>
-        <div className="form-check">
-          <input type="radio" className="form-check-input" name="ratings" id="rating1" />
-          <label className="form-check-label" htmlFor="rating1">
-            <Rating initialRating={5} readonly emptySymbol={<i className="cs-star text-muted" />} fullSymbol={<i className="cs-star-full text-primary" />} />
-          </label>
-        </div>
-        <div className="form-check">
-          <input type="radio" className="form-check-input" name="ratings" id="rating2" />
-          <label className="form-check-label" htmlFor="rating2">
-            <Rating initialRating={4} readonly emptySymbol={<i className="cs-star text-muted" />} fullSymbol={<i className="cs-star-full text-primary" />} />
-          </label>
-        </div>
-        <div className="form-check">
-          <input type="radio" className="form-check-input" name="ratings" id="rating3" />
-          <label className="form-check-label" htmlFor="rating3">
-            <Rating initialRating={3} readonly emptySymbol={<i className="cs-star text-muted" />} fullSymbol={<i className="cs-star-full text-primary" />} />
-          </label>
-        </div>
-        <div className="form-check">
-          <input type="radio" className="form-check-input" name="ratings" id="rating4" />
-          <label className="form-check-label" htmlFor="rating4">
-            <Rating initialRating={2} readonly emptySymbol={<i className="cs-star text-muted" />} fullSymbol={<i className="cs-star-full text-primary" />} />
-          </label>
-        </div>
-        <div className="form-check">
-          <input type="radio" className="form-check-input" name="ratings" id="rating5" />
-          <label className="form-check-label" htmlFor="rating5">
-            <Rating initialRating={1} readonly emptySymbol={<i className="cs-star text-muted" />} fullSymbol={<i className="cs-star-full text-primary" />} />
-          </label>
-        </div>
-      </Form>
+
       <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100">
-        <Button variant="outline-primary" className="w-100 me-2">
+        <Button variant="outline-primary" className="w-100 me-2" type='reset' form="frmFilterCourse">
           Clear
         </Button>
-        <Button variant="primary" className="w-100 me-2">
+        <Button variant="primary" className="w-100 me-2" type='submit' form="frmFilterCourse">
           Filter
         </Button>
       </div>
@@ -111,8 +86,8 @@ const ElearningDashboard = () => {
   const description = 'Elearning Portal Course List Page';
 
   const breadcrumbs = [
-    { to: '', text: 'Home' },
-    { to: 'courses/explore', text: 'Courses' },
+    { to: '', text: f({ id: 'menu.home' }) },
+    { to: 'courses/explore', text: f({ id: 'menu.courses' }) },
   ];
 
   const { themeValues } = useSelector((state) => state.settings);
@@ -120,6 +95,34 @@ const ElearningDashboard = () => {
   const { width } = useWindowSize();
   const [isLgScreen, setIsLgScreen] = useState(false);
   const [isOpenFiltersModal, setIsOpenFiltersModal] = useState(false);
+
+  const [courseList, setCourseList] = useRecoilState(courseListState);
+
+  const [courseListShow, setCourseListShow] = useRecoilState(courseListShowState);
+
+  const [topicList, setTopicList] = useRecoilState(topicListState);
+
+  React.useEffect(() => {
+    if (topicList.length < 1) {
+      apiBase.get("/topics")
+        .catch(err => console.log(err))
+        .then(res => {
+          if (res.data.status === 'success') {
+            setTopicList(res.data.data);
+          }
+        })
+    }
+
+    apiBase.get("/courses")
+      .catch(err => console.log(err))
+      .then(res => {
+        if (res.data.status === 'success') {
+          setCourseList(res.data.data);
+          setCourseListShow(res.data.data);
+        }
+      })
+
+  }, []);
 
   useEffect(() => {
     if (width) {
@@ -132,8 +135,11 @@ const ElearningDashboard = () => {
     // eslint-disable-next-line
   }, [width]);
 
+
+
   return (
     <>
+
       <HtmlHead title={title} description={description} />
       {/* Title and Top Buttons Start */}
       <div className="page-title-container">
@@ -163,7 +169,7 @@ const ElearningDashboard = () => {
                 <CsLineIcons icon="close" />
               </span>
             </div>
-            <Button variant="outline-primary" className="btn-icon btn-icon-start ms-1">
+            <Button variant="outline-primary" className="btn-icon btn-icon-start ms-1" >
               <CsLineIcons icon="sort" /> <span>Sort</span>
             </Button>
           </Col>
@@ -180,354 +186,35 @@ const ElearningDashboard = () => {
         )}
         <Col>
           <Row className="g-3 row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 mb-5">
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-1.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Introduction to Bread Making
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(39)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 36.50</del>
-                    </div>
-                    <div>$ 28.75</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-2.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Better Ways to Mix Dough for the Molds
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(221)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 44.80</del>
-                    </div>
-                    <div>$ 34.20</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-3.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Apple Cake Recipe
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(338)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 38.50</del>
-                    </div>
-                    <div>$ 29.15</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-4.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Cooking Tips the Perfect Burger
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(25)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 28.90</del>
-                    </div>
-                    <div>$ 22.25</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-5.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Fruit Decorations
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(114)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 24.60</del>
-                    </div>
-                    <div>$ 18.90</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-6.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Recipes for Sweet and Healty Treats
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(84)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 33.25</del>
-                    </div>
-                    <div>$ 22.15</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-7.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Better Ways to Mix Dough for the Molds
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(117)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 28.15</del>
-                    </div>
-                    <div>$ 22.50</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-8.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Carrot Cake Gingerbread
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(53)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 16.75</del>
-                    </div>
-                    <div>$ 12.50</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-9.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Facts About Sugar Products
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(53)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 32.50</del>
-                    </div>
-                    <div>$ 24.80</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-10.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Introduction to Baking Cakes
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(67)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 27.00</del>
-                    </div>
-                    <div>$ 13.20</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-3.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Apple Cake Recipe for Starters
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(427)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 48.00</del>
-                    </div>
-                    <div>$ 28.80</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-            <Col>
-              <Card className="h-100">
-                <Card.Img src="/img/product/small/product-6.webp" className="card-img-top sh-22" alt="card image" />
-                <Card.Body>
-                  <h5 className="heading mb-0">
-                    <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Advanced Sandwich Making Techniques
-                    </NavLink>
-                  </h5>
-                </Card.Body>
-                <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(84)</div>
-                  </div>
-                  <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
-                      <del>$ 32.25</del>
-                    </div>
-                    <div>$ 24.50</div>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
+            {
+              courseListShow && courseListShow.map(course => (
+                <Col key={course.id}>
+                  <Card className="h-100">
+                    <Card.Img src={course.image} className="card-img-top sh-22" alt="card image" />
+                    <Card.Body className="py-4" style={{ maxHeight: '5rem' }}>
+                      <h5 className="heading mb-0" >
+                        <NavLink to={`/courses/${course.id}/detail`} className="body-link stretched-link">
+                          {course.name}
+                        </NavLink>
+                      </h5>
+                    </Card.Body>
+                    <Card.Footer className="border-0 pt-0">
+                      <div className="mb-2 crop-text-2">
+                        {course.description}
+                      </div>
+                      <div className="card-text mb-0">
+                        <div><NavLink to={`/users/${course.user_id}/detail`} >
+                          {course.teacher_name}
+                        </NavLink></div>
+                      </div>
+                    </Card.Footer>
+                  </Card>
+                </Col>
+              ))
+
+            }
+
+
           </Row>
           <Row>
             <Col xs="12" className="text-center">
