@@ -173,5 +173,8 @@ const enMessages = {
   'menu.player': 'Player',
   'menu.material': 'Material',
   'menu.syllabus': 'Syllabus',
+
+  'menu.course_list_title': 'Course List',
+
 };
 export default enMessages;

@@ -7,8 +7,10 @@ import Rating from 'react-rating';
 import HtmlHead from 'components/html-head/HtmlHead';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
+import { useIntl } from 'react-intl';
 
 const FilterMenuContent = () => {
+
   return (
     <div className="nav flex-column sw-30 pe-7">
       <Form className="mb-5">
@@ -102,7 +104,10 @@ const FilterMenuContent = () => {
 };
 
 const ElearningDashboard = () => {
-  const title = 'Course List';
+  const { formatMessage: f } = useIntl();
+
+  const title = f({ id: 'menu.course_list_title' });
+
   const description = 'Elearning Portal Course List Page';
 
   const breadcrumbs = [
@@ -123,7 +128,7 @@ const ElearningDashboard = () => {
         if (isOpenFiltersModal) setIsOpenFiltersModal(false);
       } else if (isLgScreen) setIsLgScreen(false);
     }
-    return () => {};
+    return () => { };
     // eslint-disable-next-line
   }, [width]);
 

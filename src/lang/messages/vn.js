@@ -174,5 +174,8 @@ const vnMessages = {
   'menu.player': 'Video',
   'menu.material': 'Vật chất',
   'menu.syllabus': 'Giáo trình',
+
+  'menu.course_list_title': 'Danh sách khóa học',
+
 };
 export default vnMessages;
