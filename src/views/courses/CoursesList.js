@@ -191,21 +191,33 @@ const ElearningDashboard = () => {
                 <Col key={course.id}>
                   <Card className="h-100">
                     <Card.Img src={course.image} className="card-img-top sh-22" alt="card image" />
-                    <Card.Body className="py-4" style={{ maxHeight: '5rem' }}>
+                    <Card.Body className="py-4 pb-2" style={{ maxHeight: '5rem' }}>
                       <h5 className="heading mb-0" >
                         <NavLink to={`/courses/${course.id}/detail`} className="body-link stretched-link">
                           {course.name}
                         </NavLink>
                       </h5>
                     </Card.Body>
-                    <Card.Footer className="border-0 pt-0">
+                    <Card.Footer className="border-0 pt-0 ">
                       <div className="mb-2 crop-text-2">
-                        {course.description}
+                        <small>
+                          <i>
+                            {course.topics.length > 0 ?
+                              course.topics.map(topic => (
+                                `${topic.name} | `
+                              ))
+                              : (`Vô danh mục`)
+                            }
+                          </i>
+                        </small>
                       </div>
-                      <div className="card-text mb-0">
-                        <div><NavLink to={`/users/${course.user_id}/detail`} >
-                          {course.teacher_name}
-                        </NavLink></div>
+                      <div className="card-text mb-0 mt-3">
+                        <NavLink to={`/users/${course.user_id}/detail`} className="d-flex flex-column justify-content-center align-items-center">
+                          <div className="sw-5 d-inline-block position-relative">
+                            <img src={course.teacher_avatar} className="img-fluid rounded-xl border" alt="thumb" />
+                          </div>
+                          <div className="text-center">{course.teacher_name}</div>
+                        </NavLink>
                       </div>
                     </Card.Footer>
                   </Card>

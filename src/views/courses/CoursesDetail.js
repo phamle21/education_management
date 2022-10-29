@@ -22,7 +22,7 @@ const CoursesDetail = () => {
   const description = 'Elearning Portal Course Detail Page';
 
   const params = useParams();
-  console.log(params);
+console.log(params);
   const breadcrumbs = [
     { to: '', text: 'Home' },
     { to: 'courses/explore', text: 'Courses' },
