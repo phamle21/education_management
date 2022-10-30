@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { lazy } from 'react';
 // import { USER_ROLE } from 'constants.js';
 import { DEFAULT_PATHS } from 'config.js';
+import { lazy } from 'react';
 
 const dashboards = {
   elearning: lazy(() => import('views/dashboards/ElearningDashboard')),
@@ -22,10 +22,16 @@ const paths = {
   detail: lazy(() => import('views/paths/PathsDetail')),
 };
 
-const instructor = {
+const lecturers = {
   list: lazy(() => import('views/instructor/InstructorList')),
   detail: lazy(() => import('views/instructor/InstructorDetail')),
 };
+
+const students = {
+  list: lazy(() => import('views/student/StudentList')),
+  detail: lazy(() => import('views/student/StudentDetail')),
+};
+
 const misc = {
   player: lazy(() => import('views/misc/Player')),
   material: lazy(() => import('views/misc/Material')),
@@ -45,7 +51,7 @@ const routesAndMenuItems = {
     {
       path: `${appRoot}/dashboards`,
       icon: 'home-garage',
-      label: 'menu.dashboards',
+      label: 'Trang chủ',
       exact: true,
       redirect: true,
       to: `${appRoot}/dashboards/elearning`,
@@ -56,68 +62,82 @@ const routesAndMenuItems = {
     },
     {
       path: `${appRoot}/courses`,
-      label: 'menu.courses',
+      label: 'Khóa học',
       icon: 'online-class',
       exact: true,
       redirect: true,
-      to: `${appRoot}/courses/explore`,
+      to: `${appRoot}/courses/list`,
       subs: [
-        { path: '/explore', label: 'menu.explore', component: courses.explore },
+        // { path: '/explore', label: 'menu.explore', component: courses.explore },
         { path: '/list', label: 'menu.list', component: courses.list },
         { path: '/detail', label: 'menu.detail', component: courses.detail },
       ],
     },
+    // {
+    //   path: `${appRoot}/quiz`,
+    //   label: 'menu.quiz',
+    //   icon: 'quiz',
+    //   exact: true,
+    //   redirect: true,
+    //   to: `${appRoot}/quiz/list`,
+    //   subs: [
+    //     { path: '/list', label: 'menu.list', component: quiz.list },
+    //     { path: '/detail', label: 'menu.detail', component: quiz.detail },
+    //     { path: '/result', label: 'menu.result', component: quiz.result },
+    //   ],
+    // },
+    // {
+    //   path: `${appRoot}/paths`,
+    //   label: 'menu.paths',
+    //   icon: 'destination',
+    //   exact: true,
+    //   redirect: true,
+    //   to: `${appRoot}/paths/list`,
+    //   subs: [
+    //     { path: '/list', label: 'menu.list', component: paths.list },
+    //     { path: '/detail', label: 'menu.detail', component: paths.detail },
+    //   ],
+    // },
     {
-      path: `${appRoot}/quiz`,
-      label: 'menu.quiz',
-      icon: 'quiz',
-      exact: true,
-      redirect: true,
-      to: `${appRoot}/quiz/list`,
-      subs: [
-        { path: '/list', label: 'menu.list', component: quiz.list },
-        { path: '/detail', label: 'menu.detail', component: quiz.detail },
-        { path: '/result', label: 'menu.result', component: quiz.result },
-      ],
-    },
-    {
-      path: `${appRoot}/paths`,
-      label: 'menu.paths',
-      icon: 'destination',
-      exact: true,
-      redirect: true,
-      to: `${appRoot}/paths/list`,
-      subs: [
-        { path: '/list', label: 'menu.list', component: paths.list },
-        { path: '/detail', label: 'menu.detail', component: paths.detail },
-      ],
-    },
-    {
-      path: `${appRoot}/instructor`,
-      label: 'menu.instructor',
+      path: `${appRoot}/lecturers`,
+      label: 'Giảng viên',
       icon: 'lecture',
       exact: true,
       redirect: true,
-      to: `${appRoot}/instructor/list`,
+      to: `${appRoot}/lecturers/list`,
       subs: [
-        { path: '/list', label: 'menu.list', component: instructor.list },
-        { path: '/detail', label: 'menu.detail', component: instructor.detail },
+        { path: '/list', label: 'Danh sách', component: lecturers.list },
+        { path: '/:id/detail', label: 'Chi tiết', component: lecturers.detail, hideInMenu: true },
       ],
     },
     {
-      path: `${appRoot}/misc`,
-      label: 'menu.misc',
-      icon: 'layout-5',
+      path: `${appRoot}/students`,
+      label: 'Học viên',
+      icon: 'user',
       exact: true,
       redirect: true,
-      to: `${appRoot}/misc/player`,
+      to: `${appRoot}/students/list`,
       subs: [
-        { path: '/player', label: 'menu.player', component: misc.player },
-        { path: '/material', label: 'menu.material', component: misc.material },
-        { path: '/syllabus', label: 'menu.syllabus', component: misc.syllabus },
+        { path: '/list', label: 'Danh sách', component: students.list },
+        { path: '/:id/detail', label: 'Chi tiết', component: students.detail, hideInMenu: true },
       ],
     },
+    // {
+    //   path: `${appRoot}/misc`,
+    //   label: 'menu.misc',
+    //   icon: 'layout-5',
+    //   exact: true,
+    //   redirect: true,
+    //   to: `${appRoot}/misc/player`,
+    //   subs: [
+    //     { path: '/player', label: 'menu.player', component: misc.player },
+    //     { path: '/material', label: 'menu.material', component: misc.material },
+    //     { path: '/syllabus', label: 'menu.syllabus', component: misc.syllabus },
+    //   ],
+    // },
   ],
-  sidebarItems: [],
+  sidebarItems: [
+
+  ],
 };
 export default routesAndMenuItems;

@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useWindowSize } from 'hooks/useWindowSize';
-import { Row, Col, Button, Form, Card, Modal } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
-import Rating from 'react-rating';
-import HtmlHead from 'components/html-head/HtmlHead';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
+import HtmlHead from 'components/html-head/HtmlHead';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
+import { useWindowSize } from 'hooks/useWindowSize';
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Col, Form, Modal, Row } from 'react-bootstrap';
+import Rating from 'react-rating';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 const FilterMenuContent = () => {
   return (
     <div className="nav flex-column sw-30 pe-7">
       <Form className="mb-5">
-        <p className="text-small text-muted mb-3">CATEGORY</p>
+        <p className="text-small text-muted mb-3">CHỦ ĐỀ</p>
         <Form.Check type="checkbox" label="Bread" id="categoryCheckbox1" />
         <Form.Check type="checkbox" label="Cake" id="categoryCheckbox2" />
         <Form.Check type="checkbox" label="Fruit" id="categoryCheckbox3" />
@@ -20,15 +20,14 @@ const FilterMenuContent = () => {
         <Form.Check type="checkbox" label="Sandwich" id="categoryCheckbox5" />
       </Form>
       <Form className="mb-5">
-        <p className="text-small text-muted mb-3">DURATION</p>
-        <Form.Check type="checkbox" label="0-5 Hours" id="durationCheckbox1" />
-        <Form.Check type="checkbox" label="5-10 Hours" id="durationCheckbox2" />
-        <Form.Check type="checkbox" label="10-20 Hours" id="durationCheckbox3" />
-        <Form.Check type="checkbox" label="20-50 Hours" id="durationCheckbox4" />
-        <Form.Check type="checkbox" label="50-100 Hours" id="durationCheckbox5" />
+        <p className="text-small text-muted mb-3">THỜI GIAN</p>
+        <Form.Check type="checkbox" label="1-5 Weeks" id="durationCheckbox1" />
+        <Form.Check type="checkbox" label="5-10 Weeks" id="durationCheckbox2" />
+        <Form.Check type="checkbox" label="10-20 Weeks" id="durationCheckbox3" />
+        <Form.Check type="checkbox" label="20 Weeks or more" id="durationCheckbox4" />
       </Form>
       <Form className="mb-5">
-        <p className="text-small text-muted mb-3">PRICE</p>
+        <p className="text-small text-muted mb-3">GIÁ</p>
         <Row className="g-1">
           <Col>
             <Form.Control type="text" placeholder="Min" />
@@ -44,7 +43,7 @@ const FilterMenuContent = () => {
         </Row>
       </Form>
       <Form className="mb-5">
-        <p className="text-small text-muted mb-3">SEARCH</p>
+        <p className="text-small text-muted mb-3">TÌM KIẾM</p>
         <Row className="g-1">
           <Col>
             <Form.Control type="text" placeholder="Keyword" />
@@ -56,7 +55,7 @@ const FilterMenuContent = () => {
           </Col>
         </Row>
       </Form>
-      <Form className="mb-5">
+      {/* <Form className="mb-5">
         <p className="text-small text-muted mb-3">RATING</p>
         <div className="form-check">
           <input type="radio" className="form-check-input" name="ratings" id="rating1" />
@@ -88,13 +87,13 @@ const FilterMenuContent = () => {
             <Rating initialRating={1} readonly emptySymbol={<i className="cs-star text-muted" />} fullSymbol={<i className="cs-star-full text-primary" />} />
           </label>
         </div>
-      </Form>
+      </Form> */}
       <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100">
         <Button variant="outline-primary" className="w-100 me-2">
-          Clear
+          Xóa
         </Button>
         <Button variant="primary" className="w-100 me-2">
-          Filter
+          Lọc
         </Button>
       </div>
     </div>
@@ -102,12 +101,12 @@ const FilterMenuContent = () => {
 };
 
 const ElearningDashboard = () => {
-  const title = 'Course List';
-  const description = 'Elearning Portal Course List Page';
+  const title = 'DANH SÁCH';
+  const description = 'Code Academy Course List Page';
 
   const breadcrumbs = [
-    { to: '', text: 'Home' },
-    { to: 'courses/explore', text: 'Courses' },
+    { to: '', text: 'Trang chủ' },
+    { to: 'courses/', text: 'Khóa học' },
   ];
 
   const { themeValues } = useSelector((state) => state.settings);
@@ -123,7 +122,7 @@ const ElearningDashboard = () => {
         if (isOpenFiltersModal) setIsOpenFiltersModal(false);
       } else if (isLgScreen) setIsLgScreen(false);
     }
-    return () => {};
+    return () => { };
     // eslint-disable-next-line
   }, [width]);
 
@@ -159,7 +158,7 @@ const ElearningDashboard = () => {
               </span>
             </div>
             <Button variant="outline-primary" className="btn-icon btn-icon-start ms-1">
-              <CsLineIcons icon="sort" /> <span>Sort</span>
+              <CsLineIcons icon="sort" /> <span>Sắp xếp</span>
             </Button>
           </Col>
           {/* Top Buttons End */}
@@ -181,24 +180,18 @@ const ElearningDashboard = () => {
                 <Card.Body>
                   <h5 className="heading mb-0">
                     <NavLink to="/courses/detail" className="body-link stretched-link">
-                      Introduction to Bread Making
+                      Khóa học C# căn bản
                     </NavLink>
                   </h5>
                 </Card.Body>
                 <Card.Footer className="border-0 pt-0">
-                  <div className="mb-2">
-                    <Rating
-                      initialRating={5}
-                      readonly
-                      emptySymbol={<i className="cs-star text-primary" />}
-                      fullSymbol={<i className="cs-star-full text-primary" />}
-                    />
-                    <div className="text-muted d-inline-block text-small align-text-top ms-1">(39)</div>
+                  <div className="card-text mb-0">
+                    <div>Hồng An</div>
                   </div>
                   <div className="card-text mb-0">
-                    <div className="text-muted text-overline text-small">
+                    {/* <div className="text-muted text-overline text-small">
                       <del>$ 36.50</del>
-                    </div>
+                    </div> */}
                     <div>$ 28.75</div>
                   </div>
                 </Card.Footer>
@@ -527,7 +520,7 @@ const ElearningDashboard = () => {
           <Row>
             <Col xs="12" className="text-center">
               <Button variant="outline-primary" className="sw-30">
-                Load More
+                Tải thêm
               </Button>
             </Col>
           </Row>
@@ -538,7 +531,7 @@ const ElearningDashboard = () => {
       {!isLgScreen && (
         <Modal className="modal-left" show={isOpenFiltersModal} onHide={() => setIsOpenFiltersModal(false)}>
           <Modal.Header closeButton>
-            <Modal.Title as="h5">Filters</Modal.Title>
+            <Modal.Title as="h5">Lọc</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <FilterMenuContent />
