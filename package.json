@@ -64,6 +64,7 @@
     "react-table": "^7.7.0",
     "react-tag-autocomplete": "^6.2.0",
     "react-toastify": "^7.0.4",
+    "recoil": "^0.7.6",
     "reduxjs-toolkit-persist": "^7.0.1",
     "sortablejs": "^1.14.0",
     "web-vitals": "^0.2.4",
