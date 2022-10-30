@@ -79,6 +79,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(10)->create();
+
+        foreach (User::all() as $v) {
+            UserInformation::insert([
+                'user_id' => $v->id,
+                'key' => 'degree',
+                'information' => 'Sư phạm CNTT',
+            ]);
+        }
+
         UserInformation::factory(10)->create();
         Course::factory(10)->create();
         CourseContent::factory(10)->create();

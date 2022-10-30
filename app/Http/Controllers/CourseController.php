@@ -35,7 +35,9 @@ class CourseController extends Controller
         $course_list = Course::all();
         foreach ($course_list as $v) {
             $v->teacher_name = User::find($v->user_id)->name;
+            $v->teacher_avatar = User::find($v->user_id)->getAvatar();
             $v->image = url(Storage::url($v->image));
+            $v->topics;
         }
 
         $response = [
@@ -346,6 +348,7 @@ class CourseController extends Controller
         if (Course::where('id', $id)->exists()) {
             $course = Course::find($id);
             $course->teacher_name = User::find($course->user_id)->name;
+            $course->teacher_avatar = User::find($course->user_id)->getAvatar();
             $course->image = url(Storage::url($course->image));
 
             $response = [

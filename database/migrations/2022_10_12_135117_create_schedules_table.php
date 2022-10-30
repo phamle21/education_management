@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('course_id');
-            $table->dateTime('date_time');
-            $table->string('location');
+            $table->dateTime('date_time_start');
+            $table->dateTime('date_time_end');
+            $table->string('location')->nullable();
             $table->timestamps();
         });
     }

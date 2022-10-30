@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -62,10 +63,6 @@ class UserController extends Controller
             ];
 
             return response()->json($response);
-        }
-
-        foreach ($user_list as $v) {
-            $v->avatar = $v->avatar()->path;
         }
 
         // $user_list->avatar;
@@ -201,7 +198,6 @@ class UserController extends Controller
 
             $user = User::find($add->id);
             $user->roles;
-            $user->avatar = $user->avatar();
 
             $response = [
                 'status' => 'success',
@@ -256,7 +252,7 @@ class UserController extends Controller
         }
 
         $user->roles;
-        $user->avatar = $user->avatar();
+        $user->avatar = url(Storage::url($user->avatar));
 
         return response()->json([
             'status' => 'success',

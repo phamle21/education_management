@@ -15,6 +15,7 @@ class Topic extends Model
 
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'laravel_through_key',
     ];
 }

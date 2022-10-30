@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\DB;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -88,14 +89,6 @@ class User extends Authenticatable implements JWTSubject
         return $img;
     }
 
-    public function avatar()
-    {
-        return Image::where([
-            ['type', 'User'],
-            ['type_name', 'avatar'],
-        ])->first();
-    }
-
     public function studyCourse()
     {
         return $this->hasManyThrough(
@@ -121,5 +114,10 @@ class User extends Authenticatable implements JWTSubject
 
         return $studyInfo;
         return $this->hasMany(Study::class);
+    }
+
+    public function getAvatar()
+    {
+        return url(Storage::url($this->avatar));
     }
 }

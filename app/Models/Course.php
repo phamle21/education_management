@@ -23,15 +23,17 @@ class Course extends Model
 
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'laravel_through_key',
     ];
+
 
     public function contents()
     {
         return $this->hasMany(CourseContent::class);
     }
 
-    public function topics()
+    public function courses_toppic()
     {
         return $this->hasMany(CourseTopic::class);
     }
@@ -39,5 +41,17 @@ class Course extends Model
     public function studyInfo()
     {
         return $this->hasMany(Study::class);
+    }
+
+    public function topics()
+    {
+        return $this->hasManyThrough(
+            Topic::class,
+            CourseTopic::class,
+            'topic_id',
+            'id',
+            'id',
+            'course_id'
+        );
     }
 }

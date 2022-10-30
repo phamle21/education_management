@@ -21,14 +21,14 @@ class CourseFactory extends Factory
         $time = $this->faker->dateTime();
         return [
             'name' => $this->faker->name,
-            'description' => $this->faker->name,
-            'content' => $this->faker->text,
+            'description' => $this->faker->text,
+            'content' => $this->faker->text(250),
             'start' => $time,
             'end' => Carbon::parse($time)->addDays(90),
             'quantity' => $this->faker->numberBetween($min = 10, $max = 30),
             'tuition' => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = 10000000),
             'user_id' => User::all()->random()->id,
-            'image' => 'https://miro.medium.com/max/828/0*SWo_aX0tT-LNtLzB',
+            'image' => 'courses/i9XP6QAnYx9nos4I3FYDsprmhPcWcFM3seReT4qn.jpg',
         ];
     }
 }

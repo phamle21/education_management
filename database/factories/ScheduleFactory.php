@@ -18,8 +18,10 @@ class ScheduleFactory extends Factory
     public function definition()
     {
         $course = Course::find(Course::all()->random()->id);
+        
         return [
-            'date_time' => $this->faker->dateTimeBetween($startDate = $course->start, $endDate = $course->end, $timezone = null),
+            'date_time_start' => $this->faker->dateTimeBetween($startDate = $course->start, $endDate = $course->end, $timezone = null),
+            'date_time_end' => $this->faker->dateTimeBetween($startDate = $course->start, $endDate = $course->end, $timezone = null),
             'course_id' => Course::all()->random()->id,
             'location' => $this->faker->address                             ,
         ];

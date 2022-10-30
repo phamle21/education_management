@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'status' => $this->faker->randomElement(['Active', 'Inactive']),
             'gender' => $this->faker->randomElement(['Male', 'Female']),
             'role' => $this->faker->randomElement(['Admin', 'Teacher', 'Student']),
+            'avatar' => 'users/avatar-default.png',
         ];
     }
 
