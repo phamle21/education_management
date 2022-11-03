@@ -28,7 +28,7 @@ class CourseFactory extends Factory
             'quantity' => $this->faker->numberBetween($min = 10, $max = 30),
             'tuition' => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = 10000000),
             'user_id' => User::all()->random()->id,
-            'image' => 'courses/i9XP6QAnYx9nos4I3FYDsprmhPcWcFM3seReT4qn.jpg',
+            'image' => 'courses/course-default.png',
         ];
     }
 }
