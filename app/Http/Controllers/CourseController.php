@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseContent;
 use App\Models\CourseTopic;
 use App\Models\Image;
 use App\Models\User;
@@ -38,6 +39,7 @@ class CourseController extends Controller
             $v->teacher_avatar = User::find($v->user_id)->getAvatar();
             $v->image = url(Storage::url($v->image));
             $v->topics;
+            $v->totalCourseContent = count(CourseContent::where('course_id', $v->id)->get());
         }
 
         $response = [
