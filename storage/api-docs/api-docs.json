@@ -697,7 +697,7 @@
                     {
                         "name": "type",
                         "in": "query",
-                        "description": "[All/ Admin/ Teacher/ Student]",
+                        "description": "[All/Role]",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -726,88 +726,6 @@
                 "summary": "Create User",
                 "description": "",
                 "operationId": "createUserList",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Fullname",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "Hong An"
-                    },
-                    {
-                        "name": "role_id",
-                        "in": "query",
-                        "description": "Role",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "1"
-                    },
-                    {
-                        "name": "address",
-                        "in": "query",
-                        "description": "Address",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "Can Tho"
-                    },
-                    {
-                        "name": "phone",
-                        "in": "query",
-                        "description": "Phone number, unique",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "0941649826"
-                    },
-                    {
-                        "name": "gender",
-                        "in": "query",
-                        "description": "Gender",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "Male/Female"
-                    },
-                    {
-                        "name": "birthday",
-                        "in": "query",
-                        "description": "Birthday",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "21/04/2000"
-                    },
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "Email, unique",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "phamle21@gmail.com"
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "Password",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "phamle21"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -964,18 +882,18 @@
             }
         },
         "/api/users/{id}": {
-            "delete": {
+            "get": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Delete user",
+                "summary": "delete User",
                 "description": "Returns status delete",
                 "operationId": "deleteUser",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "user_id",
+                        "description": "id",
                         "required": true,
                         "schema": {
                             "type": "integer"

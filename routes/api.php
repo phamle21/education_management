@@ -40,6 +40,7 @@ Route::get('/courses/{id}/teacher', [CourseController::class, 'courseOfTeacher']
 /** User */
 Route::resource('users', UserController::class);
 Route::post('/users/check-account', [UserController::class, 'checkAccount']);
+Route::get('/roles', [UserController::class, 'getRoles']);
 
 /** Topics */
 Route::resource('topics', TopicController::class);

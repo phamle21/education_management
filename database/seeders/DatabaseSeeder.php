@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Enums\UserRole;
 use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\CourseContent;
@@ -38,7 +39,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0941649826',
                 'status' => 'Active',
                 'gender' => 'Male',
-                'role' => 'Admin',
+                'role' => UserRole::Admin,
             ],
             [
                 'name' => 'Hồng An',
@@ -49,7 +50,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0387473591',
                 'status' => 'Active',
                 'gender' => 'Female',
-                'role' => 'Admin',
+                'role' => UserRole::Admin,
             ]
         ]);
 
