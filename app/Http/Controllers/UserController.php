@@ -486,7 +486,7 @@ class UserController extends Controller
         }
 
         // Xóa file cũ
-        Storage::delete('users/636abbfc51664.jpeg');
+        Storage::disk('public')->delete($user_old->avatar);
 
         // Thêm ảnh mới
         $fileName = base64ImgToFile($base64);
