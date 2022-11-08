@@ -7,6 +7,9 @@ const dashboards = {
   elearning: lazy(() => import('views/dashboards/ElearningDashboard')),
   school: lazy(() => import('views/dashboards/SchoolDashboard')),
 };
+const users = {
+  list: lazy(() => import('views/users/Users')),
+};
 const courses = {
   explore: lazy(() => import('views/courses/CoursesExplore')),
   list: lazy(() => import('views/courses/CoursesList')),
@@ -69,6 +72,17 @@ const routesAndMenuItems = {
       subs: [
         { path: '/elearning', label: 'menu.elearning', component: dashboards.elearning },
         { path: '/school', label: 'menu.school', component: dashboards.school },
+      ],
+    },
+    {
+      path: `${appRoot}/users`,
+      label: 'menu.users',
+      icon: 'screen',
+      exact: true,
+      redirect: true,
+      to: `${appRoot}/users/list`,
+      subs: [
+        { path: '/list', label: 'menu.users', component: users.list },
       ],
     },
     {

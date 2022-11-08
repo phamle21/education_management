@@ -68,6 +68,7 @@
     "recoil": "^0.7.6",
     "reduxjs-toolkit-persist": "^7.0.1",
     "sortablejs": "^1.14.0",
+    "sweetalert2": "^11.6.7",
     "web-vitals": "^0.2.4",
     "yup": "^0.32.9"
   },

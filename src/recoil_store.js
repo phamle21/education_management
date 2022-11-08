@@ -45,7 +45,12 @@ const modalAddLEcturerState = atom({
     default: false,
 })
 
+const roleListState = atom({
+    key: 'roleListState',
+    default: [{ id: 'role_Admin', name: 'Admin' }, { id: 'role_Teacher', name: 'Teacher' }, { id: 'role_Student', name: 'Student' }]
+})
 export {
+    roleListState,
     courseListShowState,
     topicListState,
     courseListState,

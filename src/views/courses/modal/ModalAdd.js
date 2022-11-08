@@ -61,10 +61,10 @@ const ModalAddCourse = ({ show, onHide, }) => {
             })
                 .catch(err => console.log(err))
                 .then(res => {
-                    setListLecturers(res.data.data);
+                    setListLecturers(res.data.items);
 
                     const arrTemp = [];
-                    res.data.data.forEach(record => {
+                    res.data.items.forEach(record => {
                         const option = {
                             value: record.id,
                             label: record.name,
