@@ -1,9 +1,7 @@
 /* Theme Settings & Niches Buttons */
+import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import React, { useState } from 'react';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import CsLineIcons from 'cs-line-icons/CsLineIcons';
-import SettingsModal from './SettingsModal';
-import NichesModal from './NichesModal';
 
 const RightButtons = () => {
   const [isShowSettingsModal, setIsShowSettingsModal] = useState(false);

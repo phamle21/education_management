@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Row, Col, Breadcrumb } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 const Footer = () => {
   useEffect(() => {
@@ -15,9 +15,9 @@ const Footer = () => {
         <Container>
           <Row>
             <Col xs="12" sm="6">
-              <p className="mb-0 text-muted text-medium">Colored Strategies 2021</p>
+              <p className="mb-0 text-medium">Code Academy 2022</p>
             </Col>
-            <Col sm="6" className="d-none d-sm-block">
+            {/* <Col sm="6" className="d-none d-sm-block">
               <Breadcrumb className="pt-0 pe-0 mb-0 float-end">
                 <Breadcrumb.Item className="mb-0 text-medium" href="#/" linkProps={{ className: 'btn-link' }}>
                   Review
@@ -29,7 +29,7 @@ const Footer = () => {
                   Docs
                 </Breadcrumb.Item>
               </Breadcrumb>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </div>

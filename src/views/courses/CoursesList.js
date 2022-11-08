@@ -8,10 +8,12 @@ import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { courseListShowState, courseListState, topicListState } from 'recoil_store';
+import { courseListShowState, courseListState, modalAddCourseState, topicListState } from 'recoil_store';
 import apiBase from '../../app/axios/apiBase';
+import ModalAddCourse from './modal/ModalAdd';
 
 const FilterMenuContent = () => {
+
   const topicList = useRecoilValue(topicListState);
 
   const courseList = useRecoilValue(courseListState);
@@ -89,10 +91,16 @@ const ElearningDashboard = () => {
     { to: 'courses/explore', text: f({ id: 'menu.courses' }) },
   ];
 
+  const [showModal, setShowModal] = useRecoilState(modalAddCourseState);
+
   const { themeValues } = useSelector((state) => state.settings);
+
   const lgBreakpoint = parseInt(themeValues.lg.replace('px', ''), 10);
+
   const { width } = useWindowSize();
+
   const [isLgScreen, setIsLgScreen] = useState(false);
+
   const [isOpenFiltersModal, setIsOpenFiltersModal] = useState(false);
 
   const [courseList, setCourseList] = useRecoilState(courseListState);
@@ -100,6 +108,16 @@ const ElearningDashboard = () => {
   const [courseListShow, setCourseListShow] = useRecoilState(courseListShowState);
 
   const [topicList, setTopicList] = useRecoilState(topicListState);
+
+  const handleCloseAdd = () => setShowModal(false);
+
+  const handleShowAdd = () => setShowModal(true);
+
+  const [limit, setLimit] = useState(8);
+
+  const loadMore = () => {
+    setLimit(limit + 8);
+  }
 
   React.useEffect(() => {
     if (topicList.length < 1) {
@@ -168,8 +186,8 @@ const ElearningDashboard = () => {
                 <CsLineIcons icon="close" />
               </span>
             </div>
-            <Button variant="outline-primary" className="btn-icon btn-icon-start ms-1" >
-              <CsLineIcons icon="sort" /> <span>Sort</span>
+            <Button variant="outline-primary" className="btn-icon btn-icon-start ms-1" onClick={handleShowAdd} >
+              <CsLineIcons icon="plus" /> <span>{f({ id: 'menu.add' })}</span>
             </Button>
           </Col>
           {/* Top Buttons End */}
@@ -186,7 +204,7 @@ const ElearningDashboard = () => {
         <Col>
           <Row className="g-3 row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 mb-5">
             {
-              courseListShow && courseListShow.map(course => (
+              courseListShow && courseListShow.slice(0, limit).map(course => (
                 <Col key={course.id}>
                   <Card className="h-100">
                     <Card.Img src={course.image} className="card-img-top sh-22" alt="card image" />
@@ -210,6 +228,40 @@ const ElearningDashboard = () => {
                           </i>
                         </small>
                       </div>
+                      <Row className="g-0 align-items-center mb-1">
+                        <Col xs="auto">
+                          <div className="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                            <CsLineIcons icon="clock" className="text-primary" />
+                          </div>
+                        </Col>
+                        <Col className="ps-3">
+                          <Row className="g-0">
+                            <Col>
+                              <div className="text-alternate sh-4 d-flex align-items-center lh-1-25">Lesson</div>
+                            </Col>
+                            <Col xs="auto">
+                              <div className="sh-4 d-flex align-items-center text-alternate">{course.totalCourseContent}</div>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Row>
+                      <Row className="g-0 align-items-center mb-1">
+                        <Col xs="auto">
+                          <div className="sw-3 sh-4 d-flex justify-content-center align-items-center">
+                            <CsLineIcons icon="graduation" className="text-primary" />
+                          </div>
+                        </Col>
+                        <Col className="ps-3">
+                          <Row className="g-0">
+                            <Col>
+                              <div className="text-alternate sh-4 d-flex align-items-center lh-1-25">Student</div>
+                            </Col>
+                            <Col xs="auto">
+                              <div className="sh-4 d-flex align-items-center text-alternate">{course.quantity}</div>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Row>
                       <div className="card-text mb-0 mt-3">
                         <NavLink to={`/users/${course.user_id}/detail`} className="d-flex flex-column justify-content-center align-items-center">
                           <div className="sw-5 d-inline-block position-relative">
@@ -224,16 +276,19 @@ const ElearningDashboard = () => {
               ))
 
             }
-
-
           </Row>
-          <Row>
-            <Col xs="12" className="text-center">
-              <Button variant="outline-primary" className="sw-30">
-                Tải thêm
-              </Button>
-            </Col>
-          </Row>
+
+          {
+            limit >= courseList.length ?
+              null :
+              <Row>
+                <Col xs="12" className="text-center">
+                  <Button variant="outline-primary" className="sw-30" onClick={() => loadMore()}>
+                    {f({ id: 'menu.load_more' })}
+                  </Button>
+                </Col>
+              </Row>
+          }
         </Col>
       </Row>
 
@@ -241,15 +296,20 @@ const ElearningDashboard = () => {
       {!isLgScreen && (
         <Modal className="modal-left" show={isOpenFiltersModal} onHide={() => setIsOpenFiltersModal(false)}>
           <Modal.Header closeButton>
-            <Modal.Title as="h5">Lọc</Modal.Title>
+            <Modal.Title as="h5">{f({ id: 'menu.filter' })}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <FilterMenuContent />
           </Modal.Body>
         </Modal>
       )}
-
       {/* Filters Modal End */}
+
+      {
+        // Modal Add Start
+        <ModalAddCourse show={showModal} onHide={handleCloseAdd} />
+        // Modal Add End
+      }
     </>
   );
 };

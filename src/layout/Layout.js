@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
 import useLayout from 'hooks/useLayout';
 import Footer from 'layout/footer/Footer';
 import Nav from 'layout/nav/Nav';
-import RightButtons from 'layout/right-buttons/RightButtons';
 import SidebarMenu from 'layout/nav/sidebar-menu/SidebarMenu';
+import React, { useEffect } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 
 const Layout = ({ children }) => {
   useLayout();
@@ -16,7 +15,7 @@ const Layout = ({ children }) => {
     document.documentElement.click();
     window.scrollTo(0, 0);
     // eslint-disable-next-line
-    }, [pathname]);
+  }, [pathname]);
   return (
     <>
       <Nav />
@@ -31,7 +30,7 @@ const Layout = ({ children }) => {
         </Container>
       </main>
       <Footer />
-      <RightButtons />
+      {/* <RightButtons /> */}
     </>
   );
 };

@@ -1,21 +1,25 @@
-import React from 'react';
-import { Row, Col, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
-import { NavLink, useParams } from 'react-router-dom';
-import Rating from 'react-rating';
-import HtmlHead from 'components/html-head/HtmlHead';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
-import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import Clamp from 'components/clamp';
+import HtmlHead from 'components/html-head/HtmlHead';
+import CsLineIcons from 'cs-line-icons/CsLineIcons';
+import React from 'react';
+import { Button, Card, Col, FormControl, InputGroup, Row } from 'react-bootstrap';
+import { useIntl } from 'react-intl';
+import Rating from 'react-rating';
+import { NavLink, useParams } from 'react-router-dom';
 
-const InstructorDetail = () => {
+const LecturerDetail = () => {
+  const { formatMessage: f } = useIntl();
+
   const title = 'Chi tiết';
-  const description = 'Elearning Portal Instructor Detail Page';
+  const description = 'Elearning Portal Lecturer Detail Page';
 
   const params = useParams();
 
   const breadcrumbs = [
-    { to: '', text: 'Home' },
-    { to: 'instructor/list', text: 'Instructors' },
+    { to: '', text: f({ id: 'menu.home' }) },
+    { to: 'lecturers/list', text: f({ id: 'menu.lecturer' }) },
+    { to: `lecturers/${params.id}/detail`, text: f({ id: f({ id: 'menu.detail' }) }) },
   ];
   return (
     <>
@@ -473,4 +477,4 @@ const InstructorDetail = () => {
   );
 };
 
-export default InstructorDetail;
+export default LecturerDetail;

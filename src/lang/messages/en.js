@@ -169,12 +169,76 @@ const enMessages = {
   'menu.result': 'Result',
   'menu.paths': 'Paths',
   'menu.instructor': 'Instructor',
+  'menu.lecturer': 'Lecturers',
   'menu.misc': 'Miscellaneous',
   'menu.player': 'Player',
   'menu.material': 'Material',
   'menu.syllabus': 'Syllabus',
+  'menu.students': 'Students',
+  'menu.topics': 'Topics',
+  'menu.add': 'Add',
+  'menu.filter': 'Filter',
+  'menu.save': 'Save',
+  'menu.edit': 'Edit',
+  'menu.delete': 'Delete',
+  'menu.close': 'Close',
+  'menu.preview': 'Preview',
+  'menu.monday': 'Monday',
+  'menu.tuesday': 'Tuesday',
+  'menu.wednesday': 'Wednesday',
+  'menu.thursday': 'Thursday',
+  'menu.friday': 'Friday',
+  'menu.sunday': 'Sunday',
+  'menu.gender_female': 'Female',
+  'menu.gender_male': 'Male',
 
+  // Courses
   'menu.course_list_title': 'Course List',
+  'menu.course_title_add': 'Add Course',
+  'menu.course_name': 'Course name',
+  'menu.course_short_description': 'Short description',
+  'menu.course_image': 'Image',
+  'menu.course_teacher_name': 'Teacher name',
+  'menu.course_start_day': 'Day start',
+  'menu.course_end_day': 'Day end',
+  'menu.course_quantity': 'The number of students',
+  'menu.course_fees': 'Course fees',
+  'menu.course_objectives': 'Course objectives',
+  'menu.at-a-glance': 'At a glance',
+
+  // Course Detail
+  'menu.duration_detail': 'Duration',
+  'menu.num_content_detail': 'Content',
+  'menu.num_chapter': 'Chapter',
+  'menu.course_intro': 'Course Introduction',
+  'menu.table_of_contents': 'Table Of Contents',
+
+  // Lecturer
+  'menu.lecturer_list_title': 'Lecturer List',
+  'menu.lecturer_title_add': 'Add Lecturer',
+  'menu.lecturer_name': 'Fullname',
+  'menu.lecturer_address': 'Address',
+  'menu.lecturer_phone': 'Phone number',
+  'menu.lecturer_gender': 'Gender',
+  'menu.lecturer_dob': 'Birthday',  
+  'menu.lecturer_email': 'Email',
+
+  // School Dashboard
+  'menu.school_dashboard_title': 'School Dashboard',
+  'menu.school_dashboard_table': 'Timetable',
+  'menu.school_dashboard_teacher': 'Lecturers Today',
+
+  // Dashboard
+  'menu.course_progress': 'Progress Of Courses Today',
+  'menu.courses_end': 'Courses End This Week',
+  'menu.contacts_need_advice': 'Contacts Need Advice',
+
+  // Student 
+  'menu.student_list_title': 'Student List',
+
+
+  // Topic
+  'menu.topic_list_title': 'Topic List',
 
 };
 export default enMessages;

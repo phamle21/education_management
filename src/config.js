@@ -1,4 +1,4 @@
-import { LAYOUT, MENU_BEHAVIOUR, NAV_COLOR, MENU_PLACEMENT, RADIUS, THEME_COLOR, USER_ROLE } from 'constants.js';
+import { LAYOUT, MENU_BEHAVIOUR, MENU_PLACEMENT, NAV_COLOR, RADIUS, THEME_COLOR, USER_ROLE } from 'constants.js';
 
 export const IS_DEMO = true;
 export const IS_AUTH_GUARD_ACTIVE = true;
@@ -35,7 +35,7 @@ export const DEFAULT_SETTINGS = {
 
 export const DEFAULT_USER = {
   id: 1,
-  name: 'P Le',
+  name: 'Admin',
   thumb: '/img/profile/profile-9.webp',
   role: USER_ROLE.Admin,
   email: 'lisajackson@gmail.com',

@@ -12,24 +12,35 @@ const courses = {
   list: lazy(() => import('views/courses/CoursesList')),
   detail: lazy(() => import('views/courses/CoursesDetail')),
 };
+
+const calendar = {
+  list: lazy(() => import('views/calendar/Calendar')),
+};
+
 const quiz = {
   list: lazy(() => import('views/quiz/QuizList')),
   detail: lazy(() => import('views/quiz/QuizDetail')),
   result: lazy(() => import('views/quiz/QuizResult')),
 };
+
 const paths = {
   list: lazy(() => import('views/paths/PathsList')),
   detail: lazy(() => import('views/paths/PathsDetail')),
 };
 
 const lecturers = {
-  list: lazy(() => import('views/instructor/InstructorList')),
-  detail: lazy(() => import('views/instructor/InstructorDetail')),
+  list: lazy(() => import('views/lecturer/LecturerList')),
+  detail: lazy(() => import('views/lecturer/LecturerDetail')),
 };
 
 const students = {
   list: lazy(() => import('views/student/StudentList')),
   detail: lazy(() => import('views/student/StudentDetail')),
+};
+
+const topics = {
+  list: lazy(() => import('views/topics/TopicList')),
+  // detail: lazy(() => import('views/student/StudentDetail')),
 };
 
 const misc = {
@@ -51,7 +62,7 @@ const routesAndMenuItems = {
     {
       path: `${appRoot}/dashboards`,
       icon: 'home-garage',
-      label: 'Trang chủ',
+      label: 'menu.home',
       exact: true,
       redirect: true,
       to: `${appRoot}/dashboards/elearning`,
@@ -62,7 +73,7 @@ const routesAndMenuItems = {
     },
     {
       path: `${appRoot}/courses`,
-      label: 'Khóa học',
+      label: 'menu.courses',
       icon: 'online-class',
       exact: true,
       redirect: true,
@@ -70,6 +81,17 @@ const routesAndMenuItems = {
       subs: [
         { path: '/list', label: 'menu.list', component: courses.list },
         { path: '/:id/detail', label: 'menu.detail', component: courses.detail, hideInMenu: true },
+      ],
+    },
+    {
+      path: `${appRoot}/calendar`,
+      label: 'menu.calendar',
+      icon: 'calendar',
+      exact: true,
+      redirect: true,
+      to: `${appRoot}/calendar`,
+      subs: [
+        { path: '/list', label: 'menu.calendar', component: calendar.list },
       ],
     },
     // {
@@ -99,26 +121,38 @@ const routesAndMenuItems = {
     // },
     {
       path: `${appRoot}/lecturers`,
-      label: 'Giảng viên',
+      label: 'menu.lecturer',
       icon: 'lecture',
       exact: true,
       redirect: true,
       to: `${appRoot}/lecturers/list`,
       subs: [
-        { path: '/list', label: 'Danh sách', component: lecturers.list },
-        { path: '/:id/detail', label: 'Chi tiết', component: lecturers.detail, hideInMenu: true },
+        { path: '/list', label: 'menu.list', component: lecturers.list },
+        { path: '/:id/detail', label: 'menu.detail', component: lecturers.detail, hideInMenu: true },
       ],
     },
     {
       path: `${appRoot}/students`,
-      label: 'Học viên',
+      label: 'menu.students',
       icon: 'user',
       exact: true,
       redirect: true,
       to: `${appRoot}/students/list`,
       subs: [
-        { path: '/list', label: 'Danh sách', component: students.list },
-        { path: '/:id/detail', label: 'Chi tiết', component: students.detail, hideInMenu: true },
+        { path: '/list', label: 'menu.list', component: students.list },
+        { path: '/:id/detail', label: 'menu.detail', component: students.detail, hideInMenu: true },
+      ],
+    },
+    {
+      path: `${appRoot}/topics`,
+      label: 'menu.topics',
+      icon: 'list',
+      exact: true,
+      redirect: true,
+      to: `${appRoot}/topics/list`,
+      subs: [
+        { path: '/list', label: 'menu.list', component: topics.list },
+        // { path: '/:id/detail', label: 'menu.detail', component: students.detail, hideInMenu: true },
       ],
     },
     // {

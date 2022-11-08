@@ -4,7 +4,6 @@ const vnMessages = {
   'menu.visual': 'Visual',
   'menu.analytic': 'Phân tích',
   'menu.apps': 'Ứng dụng',
-  'menu.calendar': 'Lịch',
   'menu.chat': 'Chat',
   'menu.contacts': 'Liên hệ',
   'menu.mailbox': 'Mailbox',
@@ -127,7 +126,6 @@ const vnMessages = {
   'menu.downloads': 'Downloads',
   'menu.documents': 'Documents',
   'menu.videos': 'Videos',
-  'menu.dashboard': 'Dashboard',
   'menu.products': 'Products',
   'menu.orders': 'Orders',
   'menu.customers': 'Customers',
@@ -174,8 +172,73 @@ const vnMessages = {
   'menu.player': 'Video',
   'menu.material': 'Vật chất',
   'menu.syllabus': 'Giáo trình',
+  'menu.students': 'Học viên',
+  'menu.topics': 'Chủ đề',
+  'menu.add': 'Thêm',
+  'menu.filter': 'Lọc',
+  'menu.save': 'Lưu',
+  'menu.edit': 'Sửa',
+  'menu.delete': 'Xóa',
+  'menu.close': 'Đóng',
+  'menu.preview': 'Xem trước',
+  'menu.at-a-glance': 'Sơ lược',
+  'menu.load_more': 'Tải thêm',
+  'menu.monday': 'Thứ 2',
+  'menu.tuesday': 'Thứ 3',
+  'menu.wednesday': 'Thứ 4',
+  'menu.thursday': 'Thứ 5',
+  'menu.friday': 'Thứ 6',
+  'menu.sunday': 'Thứ 7',
+  'menu.calendar': 'Ljch biểu',
+  'menu.gender_female': 'Nữ',
+  'menu.gender_male': 'Nam',
 
-  'menu.course_list_title': 'Danh sách khóa học',
+  // Course
+  'menu.course_list_title': 'DANH SÁCH',
+  'menu.course_title_add': 'Thêm khóa học',
+  'menu.course_name': 'Tên khóa học',
+  'menu.course_short_description': 'Mô tả ngắn',
+  'menu.course_image': 'Hình minh họa',
+  'menu.course_teacher_name': 'Tên giảng viên',
+  'menu.course_start_day': 'Ngày bắt đầu',
+  'menu.course_end_day': 'Ngày kết thúc',
+  'menu.course_quantity': 'Số lượng học viên',
+  'menu.course_fees': 'Học phí',
+  'menu.course_objectives': 'Mục tiêu khóa học',
+
+  // Course Detail
+  'menu.duration_detail': 'Thời gian',
+  'menu.num_content_detail': 'Nội dung',
+  'menu.num_chapter': 'Bài',
+  'menu.course_intro': 'Giới thiệu khóa học',
+  'menu.table_of_contents': 'Mục lục',
+
+  // Lecturer
+  'menu.lecturer_list_title': 'DANH SÁCH',
+  'menu.lecturer_title_add': 'Thêm giảng viên',  
+  'menu.lecturer_name': 'Họ và tên',
+  'menu.lecturer_address': 'Nơi ở',
+  'menu.lecturer_phone': 'Số điện thoại',
+  'menu.lecturer_gender': 'Giới tính',
+  'menu.lecturer_dob': 'Ngày sinh',  
+  'menu.lecturer_email': 'Email',  
+
+  // School Dashboard
+  'menu.school_dashboard_title': 'Tổng quan về lớp học',
+  'menu.school_dashboard_table': 'Thời khóa biểu',
+  'menu.school_dashboard_teacher': 'Giảng viên hôm nay',
+
+  // Dashboard
+  'menu.dashboard': 'Tổng quan',
+  'menu.course_progress': 'Tiến độ của các khóa học hôm nay',
+  'menu.courses_end': 'Các khóa học sẽ kết thúc trong tuần này',
+  'menu.contacts_need_advice': 'Các liên hệ cần tư vấn',
+
+  // Student 
+  'menu.student_list_title': 'DANH SÁCH',
+
+  // Topic
+  'menu.topic_list_title': 'DANH SÁCH',
 
 };
 export default vnMessages;

@@ -1,11 +1,15 @@
-import React from 'react';
-import { Row, Col, Card, Button, ProgressBar } from 'react-bootstrap';
-import Plyr from 'plyr-react';
-import Rating from 'react-rating';
-import HtmlHead from 'components/html-head/HtmlHead';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
+import HtmlHead from 'components/html-head/HtmlHead';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
+import Moment from 'moment';
+import Plyr from 'plyr-react';
+import React, { useEffect } from 'react';
+import { Button, Card, Col, Row } from 'react-bootstrap';
+import { useIntl } from 'react-intl';
 import { useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { detailCourseState } from 'recoil_store';
+import apiBase from '../../app/axios/apiBase';
 
 const PurePlyr = React.memo(() => {
   const videoSrc = {
@@ -18,33 +22,55 @@ const PurePlyr = React.memo(() => {
 });
 
 const CoursesDetail = () => {
-  const title = 'Bread Making Techniques';
-  const description = 'Elearning Portal Course Detail Page';
+  const { formatMessage: f } = useIntl();
+
+  const description = 'Code Academy Course Detail Page';
 
   const params = useParams();
-console.log(params);
+
   const breadcrumbs = [
-    { to: '', text: 'Home' },
-    { to: 'courses/explore', text: 'Courses' },
+    { to: '', text: f({ id: 'menu.home' }) },
+    { to: 'courses/list', text: f({ id: 'menu.courses' }) },
+    { to: `courses/${params.id}/detail`, text: f({ id: 'menu.detail' }) },
   ];
+
+  const [course, setCourse] = useRecoilState(detailCourseState);
+
+  useEffect(() => {
+    apiBase.get(`/courses/${params.id}`)
+      .catch(err => console.log(err))
+      .then(res => {
+        setCourse(res.data.data);
+      })
+  }, []);
 
   return (
     <>
-      <HtmlHead title={title} description={description} />
+      <HtmlHead title={course && course.name} description={description} />
       {/* Title and Top Buttons Start */}
       <div className="page-title-container">
         <Row className="g-0">
           {/* Title Start */}
           <Col className="col-auto mb-sm-0 me-auto">
-            <h1 className="mb-0 pb-0 display-4">{title}</h1>
+            <h1 className="mb-0 pb-0 display-4">{course && course.name}</h1>
             <BreadcrumbList items={breadcrumbs} />
           </Col>
           {/* Title End */}
 
           {/* Top Buttons Start */}
-          <Col xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+          <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
             <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto">
-              <CsLineIcons icon="chevron-right" /> <span>Start Now</span>
+              <CsLineIcons icon="edit" /> <span>{`${f({ id: 'menu.edit' })} ${f({ id: 'menu.course_intro' })}`}</span>
+            </Button>
+          </Col>
+          <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto">
+              <CsLineIcons icon="edit" /> <span>{`${f({ id: 'menu.edit' })} ${f({ id: 'menu.table_of_contents' })}`}</span>
+            </Button>
+          </Col>
+          <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto">
+              <CsLineIcons icon="edit" /> <span>{`${f({ id: 'menu.edit' })} ${f({ id: 'menu.at-a-glance' })}`}</span>
             </Button>
           </Col>
           {/* Top Buttons End */}
@@ -55,27 +81,19 @@ console.log(params);
       <Row className="g-5">
         <Col xxl="8" className="mb-5">
           {/* Preview Start */}
-          <h2 className="small-title">Preview</h2>
+          <h2 className="small-title">{f({ id: 'menu.preview' })}</h2>
           <Card className="mb-5">
             <div className="card-img-top sh-50 cover">
               <PurePlyr />
             </div>
             <Card.Body>
-              <h4 className="mb-3">Carrot Cake Gingerbread</h4>
+              <h4 className="mb-3">{f({ id: 'menu.course_intro' })}</h4>
               <div>
-                <p>
-                  Toffee croissant icing toffee. Sweet roll chupa chups marshmallow muffin liquorice chupa chups soufflé bonbon. Liquorice gummi bears cake
-                  donut chocolate lollipop gummi bears. Cotton candy cupcake ice cream gummies dessert muffin chocolate jelly. Danish brownie chocolate bar
-                  lollipop cookie tootsie roll candy canes. Jujubes lollipop cheesecake gummi bears cheesecake. Cake jujubes soufflé.
-                </p>
-                <p>
-                  Cake chocolate bar biscuit sweet roll liquorice jelly jujubes. Gingerbread icing macaroon bear claw jelly toffee. Chocolate cake marshmallow
-                  muffin wafer. Pastry cake tart apple pie bear claw sweet. Apple pie macaroon sesame snaps cotton candy jelly
-                  <u>pudding lollipop caramels</u>
-                  marshmallow. Powder halvah dessert ice cream. Carrot cake gingerbread chocolate cake tootsie roll. Oat cake jujubes jelly-o jelly chupa chups
-                  lollipop jelly wafer soufflé.
-                </p>
-                <h6 className="mb-3 mt-5 text-alternate">Sesame Snaps Lollipop Macaroon</h6>
+                {
+                  course && <p>{course.content}</p>
+                }
+
+                {/* <h6 className="mb-3 mt-5 text-alternate">Sesame Snaps Lollipop Macaroon</h6>
                 <p>
                   Jelly-o jelly oat cake cheesecake halvah. Cupcake sweet roll donut. Sesame snaps lollipop macaroon. Oat cake chocolate cake marzipan pudding
                   danish gummies. Dragée liquorice jelly beans jelly jelly sesame snaps brownie. Cheesecake chocolate cake sweet roll cupcake dragée croissant
@@ -94,10 +112,10 @@ console.log(params);
                   Carrot cake gummi bears wafer sesame snaps soufflé cheesecake cheesecake cake. Sweet roll apple pie tiramisu bonbon sugar plum muffin sesame
                   snaps chocolate. Lollipop sweet roll gingerbread halvah sesame snaps powder. Wafer halvah chocolate soufflé icing. Cotton candy danish
                   lollipop jelly-o candy caramels.
-                </p>
+                </p> */}
               </div>
             </Card.Body>
-            <Card.Footer className="border-0 pt-0">
+            {/* <Card.Footer className="border-0 pt-0">
               <Row className="align-items-center">
                 <Col xs="6">
                   <div className="d-flex align-items-center">
@@ -125,7 +143,7 @@ console.log(params);
                   </Row>
                 </Col>
               </Row>
-            </Card.Footer>
+            </Card.Footer> */}
           </Card>
           {/* Preview End */}
 
@@ -304,7 +322,7 @@ console.log(params);
           {/* Table of Contents End */}
 
           {/* Reviews Start */}
-          <h2 className="small-title">Reviews</h2>
+          {/* <h2 className="small-title">Reviews</h2>
           <Card>
             <Card.Body>
               <Row className="mb-5">
@@ -483,12 +501,12 @@ console.log(params);
                 </Row>
               </div>
             </Card.Body>
-          </Card>
+          </Card> */}
           {/* Reviews End */}
         </Col>
         <Col xxl="4">
           {/* At a Glance Start  */}
-          <h2 className="small-title">At a Glance</h2>
+          <h2 className="small-title">{f({ id: 'menu.at-a-glance' })}</h2>
           <Card className="mb-5">
             <Card.Body>
               <Row className="g-0 align-items-center mb-3">
@@ -500,10 +518,10 @@ console.log(params);
                 <Col className="ps-3">
                   <Row className="g-0">
                     <Col>
-                      <div className="sh-4 d-flex align-items-center lh-1-25">Duration</div>
+                      <div className="sh-4 d-flex align-items-center lh-1-25">{f({ id: 'menu.duration_detail' })}</div>
                     </Col>
                     <Col xs="auto">
-                      <div className="sh-4 d-flex align-items-center text-alternate">14 Hours</div>
+                      <div className="sh-4 d-flex align-items-center text-alternate">{course && `${Moment(course.start).format("DD-MM")} to ${Moment(course.end).format("DD-MM-YYYY")}`}</div>
                     </Col>
                   </Row>
                 </Col>
@@ -517,15 +535,15 @@ console.log(params);
                 <Col className="ps-3">
                   <Row className="g-0">
                     <Col>
-                      <div className="sh-4 d-flex align-items-center lh-1-25">Content</div>
+                      <div className="sh-4 d-flex align-items-center lh-1-25">{f({ id: 'menu.num_content_detail' })}</div>
                     </Col>
                     <Col xs="auto">
-                      <div className="sh-4 d-flex align-items-center text-alternate">8 Chapters</div>
+                      <div className="sh-4 d-flex align-items-center text-alternate">{`8 ${f({ id: 'menu.num_chapter' })}`}</div>
                     </Col>
                   </Row>
                 </Col>
               </Row>
-              <Row className="g-0 align-items-center mb-3">
+              {/* <Row className="g-0 align-items-center mb-3">
                 <Col xs="auto">
                   <div className="sw-3 sh-4 d-flex justify-content-center align-items-center">
                     <CsLineIcons icon="diploma" className="text-primary" />
@@ -541,8 +559,8 @@ console.log(params);
                     </Col>
                   </Row>
                 </Col>
-              </Row>
-              <Row className="g-0 align-items-center mb-3">
+              </Row> */}
+              {/* <Row className="g-0 align-items-center mb-3">
                 <Col xs="auto">
                   <div className="sw-3 sh-4 d-flex justify-content-center align-items-center">
                     <CsLineIcons icon="calendar" className="text-primary" />
@@ -558,8 +576,8 @@ console.log(params);
                     </Col>
                   </Row>
                 </Col>
-              </Row>
-              <Row className="g-0 align-items-center mb-3">
+              </Row> */}
+              {/* <Row className="g-0 align-items-center mb-3">
                 <Col xs="auto">
                   <div className="sw-3 sh-4 d-flex justify-content-center align-items-center">
                     <CsLineIcons icon="star" className="text-primary" />
@@ -575,8 +593,8 @@ console.log(params);
                     </Col>
                   </Row>
                 </Col>
-              </Row>
-              <Row className="g-0 align-items-center">
+              </Row> */}
+              {/* <Row className="g-0 align-items-center">
                 <Col xs="auto">
                   <div className="sw-3 sh-4 d-flex justify-content-center align-items-center">
                     <CsLineIcons icon="graduation" className="text-primary" />
@@ -592,13 +610,13 @@ console.log(params);
                     </Col>
                   </Row>
                 </Col>
-              </Row>
+              </Row> */}
             </Card.Body>
           </Card>
           {/* At a Glance End  */}
 
           {/* Tags Start */}
-          <h2 className="small-title">Tags</h2>
+          {/* <h2 className="small-title">Tags</h2>
           <Card className="mb-5">
             <Card.Body className="mb-n1">
               <Button size="sm" variant="outline-alternate" className="mb-1 me-1">
@@ -620,11 +638,11 @@ console.log(params);
                 Healthy (7)
               </Button>
             </Card.Body>
-          </Card>
+          </Card> */}
           {/* Tags End */}
 
           {/* Badges Start */}
-          <h2 className="small-title">Badges</h2>
+          {/* <h2 className="small-title">Badges</h2>
           <Card className="mb-2 sh-15">
             <Card.Body className="text-center align-items-center d-flex flex-row">
               <div className="d-flex sw-6 sh-6 bg-gradient-light align-items-center justify-content-center rounded-xl position-relative ms-1">
@@ -682,7 +700,7 @@ console.log(params);
                 <p className="mb-0 text-primary">Level 2</p>
               </div>
             </Card.Body>
-          </Card>
+          </Card> */}
           {/* Badges End */}
         </Col>
       </Row>

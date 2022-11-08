@@ -1,18 +1,20 @@
-import React from 'react';
-import { Row, Col, Card, Button, Badge } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
-import Rating from 'react-rating';
-import HtmlHead from 'components/html-head/HtmlHead';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
-import CsLineIcons from 'cs-line-icons/CsLineIcons';
-import ScrollByCount from 'components/scroll-by-count/ScrollByCount';
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
+import HtmlHead from 'components/html-head/HtmlHead';
+import React from 'react';
+import { Card, Col, Row } from 'react-bootstrap';
+import { useIntl } from 'react-intl';
+import { NavLink } from 'react-router-dom';
 
 const SchoolDashboard = () => {
-  const title = 'School Dashboard';
-  const description = 'Elearning Portal School Dashboard Page';
+  const { formatMessage: f } = useIntl();
 
-  const breadcrumbs = [{ to: '', text: 'Home' }];
+  const title = f({ id: 'menu.school_dashboard_title' });
+  const description = 'Code Academy School Dashboard Page';
+
+  const breadcrumbs = [
+    { to: '', text: f({ id: 'menu.home' }) },
+    { to: '/school', text: f({ id: 'menu.school_dashboard_title' }) },
+  ];
   return (
     <>
       <HtmlHead title={title} description={description} />
@@ -30,12 +32,12 @@ const SchoolDashboard = () => {
       {/* Title and Top Buttons End */}
 
       {/* Timetable Start */}
-      <h2 className="small-title">Timetable</h2>
+      <h2 className="small-title">{f({ id: 'menu.school_dashboard_table' })}</h2>
       <Row className="row-cols-1 row-cols-lg-5 g-2 mb-5">
         <Col>
           <Card className="h-100">
             <Card.Body className="d-flex flex-column align-items-lg-center text-center text-md-start text-lg-center">
-              <p className="text-primary heading mb-4">Monday</p>
+              <p className="text-primary heading mb-4">{f({ id: 'menu.monday' })}</p>
               <div className="d-flex flex-column flex-md-row flex-lg-column align-items-center mb-n4 justify-content-md-between justify-content-center text-center text-md-start text-lg-center">
                 <div className="mb-4">
                   <p className="mb-0">Geometry</p>
@@ -64,7 +66,7 @@ const SchoolDashboard = () => {
         <Col>
           <Card className="h-100">
             <Card.Body className="d-flex flex-column align-items-lg-center text-center text-md-start text-lg-center">
-              <p className="text-primary heading mb-4">Tuesday</p>
+              <p className="text-primary heading mb-4">{f({ id: 'menu.tuesday' })}</p>
               <div className="d-flex flex-column flex-md-row flex-lg-column align-items-center mb-n4 justify-content-md-between justify-content-center text-center text-md-start text-lg-center">
                 <div className="mb-4">
                   <p className="mb-0">Chemistry</p>
@@ -93,7 +95,7 @@ const SchoolDashboard = () => {
         <Col>
           <Card className="h-100">
             <Card.Body className="d-flex flex-column align-items-lg-center text-center text-md-start text-lg-center">
-              <p className="text-primary heading mb-4">Wednesday</p>
+              <p className="text-primary heading mb-4">{f({ id: 'menu.wednesday' })}</p>
               <div className="d-flex flex-column flex-md-row flex-lg-column align-items-center mb-n4 justify-content-md-between justify-content-center text-center text-md-start text-lg-center">
                 <div className="mb-4">
                   <p className="mb-0">Biology</p>
@@ -122,7 +124,7 @@ const SchoolDashboard = () => {
         <Col>
           <Card className="h-100">
             <Card.Body className="d-flex flex-column align-items-lg-center text-center text-md-start text-lg-center">
-              <p className="text-primary heading mb-4">Thursday</p>
+              <p className="text-primary heading mb-4">{f({ id: 'menu.thursday' })}</p>
               <div className="d-flex flex-column flex-md-row flex-lg-column align-items-center mb-n4 justify-content-md-between justify-content-center text-center text-md-start text-lg-center">
                 <div className="mb-4">
                   <p className="mb-0">Algebra</p>
@@ -151,7 +153,36 @@ const SchoolDashboard = () => {
         <Col>
           <Card className="h-100">
             <Card.Body className="d-flex flex-column align-items-lg-center text-center text-md-start text-lg-center">
-              <p className="text-primary heading mb-4">Friday</p>
+              <p className="text-primary heading mb-4">{f({ id: 'menu.friday' })}</p>
+              <div className="d-flex flex-column flex-md-row flex-lg-column align-items-center mb-n4 justify-content-md-between justify-content-center text-center text-md-start text-lg-center">
+                <div className="mb-4">
+                  <p className="mb-0">Chemistry</p>
+                  <p className="text-small text-muted mb-0">10:00 - 11:00</p>
+                </div>
+                <div className="mb-4">
+                  <p className="mb-0">Physics</p>
+                  <p className="text-small text-muted mb-0">11:00 - 12:00</p>
+                </div>
+                <div className="mb-4">
+                  <p className="mb-0 text-muted">Lunch</p>
+                  <p className="text-small text-muted mb-0">12:00 - 13:00</p>
+                </div>
+                <div className="mb-4">
+                  <p className="mb-0">Biology</p>
+                  <p className="text-small text-muted mb-0">13:00 - 14:00</p>
+                </div>
+                <div className="mb-4">
+                  <p className="mb-0">History</p>
+                  <p className="text-small text-muted mb-0">13:00 - 14:00</p>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card className="h-100">
+            <Card.Body className="d-flex flex-column align-items-lg-center text-center text-md-start text-lg-center">
+              <p className="text-primary heading mb-4">{f({ id: 'menu.sunday' })}</p>
               <div className="d-flex flex-column flex-md-row flex-lg-column align-items-center mb-n4 justify-content-md-between justify-content-center text-center text-md-start text-lg-center">
                 <div className="mb-4">
                   <p className="mb-0">Chemistry</p>
@@ -182,7 +213,7 @@ const SchoolDashboard = () => {
 
       <Row>
         {/* Exam Results Start */}
-        <Col lg="6" className="mb-5">
+        {/* <Col lg="6" className="mb-5">
           <div className="d-flex justify-content-between">
             <h2 className="small-title">Exam Results</h2>
             <NavLink to="/quiz/result" className="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small">
@@ -325,11 +356,11 @@ const SchoolDashboard = () => {
               </Card>
             </ScrollByCount>
           </div>
-        </Col>
+        </Col> */}
         {/* Exam Results End */}
 
         {/* Homework Start */}
-        <Col lg="6" className="mb-5">
+        {/* <Col lg="6" className="mb-5">
           <h2 className="small-title">Homework</h2>
           <Card className="sh-40 h-lg-100-card">
             <Card.Body className="d-flex align-items-center justify-content-center h-100">
@@ -343,13 +374,13 @@ const SchoolDashboard = () => {
               </div>
             </Card.Body>
           </Card>
-        </Col>
+        </Col> */}
         {/* Homework End */}
       </Row>
 
       <Row>
         {/* Notifications Start */}
-        <Col xl="6" xxl="4" className="mb-5">
+        {/* <Col xl="6" xxl="4" className="mb-5">
           <h2 className="small-title">Notifications</h2>
           <Card className="sh-40 h-xl-100-card">
             <Card.Body className="mb-n2 scroll-out h-100">
@@ -588,11 +619,11 @@ const SchoolDashboard = () => {
               </OverlayScrollbarsComponent>
             </Card.Body>
           </Card>
-        </Col>
+        </Col> */}
         {/* Notifications End */}
 
         {/* Today’s Lunch Start */}
-        <Col xl="6" xxl="4" className="mb-5">
+        {/* <Col xl="6" xxl="4" className="mb-5">
           <div className="d-flex justify-content-between">
             <h2 className="small-title">Today’s Lunch</h2>
             <NavLink to="#" className="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small">
@@ -608,11 +639,11 @@ const SchoolDashboard = () => {
               </div>
             </div>
           </Card>
-        </Col>
+        </Col> */}
         {/* Today’s Lunch End */}
 
         {/* Materials Start */}
-        <Col xxl="4" className="mb-5">
+        {/* <Col xxl="4" className="mb-5">
           <h2 className="small-title">Materials</h2>
           <Card className="mb-2 sh-17 sh-sm-8">
             <Card.Body className="py-0">
@@ -694,12 +725,12 @@ const SchoolDashboard = () => {
               </Row>
             </Card.Body>
           </Card>
-        </Col>
+        </Col> */}
         {/* Materials End */}
       </Row>
 
       {/* Teachers Start */}
-      <h2 className="small-title">Teachers</h2>
+      <h2 className="small-title">{f({ id: 'menu.school_dashboard_teacher' })}</h2>
       <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-6 g-2">
         <Col>
           <Card className="h-100">
@@ -711,13 +742,13 @@ const SchoolDashboard = () => {
                 Blaine Cottrell
               </NavLink>
               <div className="text-muted text-medium mb-2">Chemistry</div>
-              <Rating
+              {/* <Rating
                 initialRating={5}
                 readonly
                 emptySymbol={<i className="cs-star text-primary" />}
                 fullSymbol={<i className="cs-star-full text-primary" />}
-              />
-              <div className="text-muted d-inline-block text-small align-text-top">(572)</div>
+              /> */}
+              {/* <div className="text-muted d-inline-block text-small align-text-top">(572)</div> */}
             </Card.Body>
           </Card>
         </Col>
@@ -731,13 +762,13 @@ const SchoolDashboard = () => {
                 Kirby Peters
               </NavLink>
               <div className="text-muted text-medium mb-2">Geometry</div>
-              <Rating
+              {/* <Rating
                 initialRating={5}
                 readonly
                 emptySymbol={<i className="cs-star text-primary" />}
                 fullSymbol={<i className="cs-star-full text-primary" />}
               />
-              <div className="text-muted d-inline-block text-small align-text-top">(211)</div>
+              <div className="text-muted d-inline-block text-small align-text-top">(211)</div> */}
             </Card.Body>
           </Card>
         </Col>
@@ -751,13 +782,13 @@ const SchoolDashboard = () => {
                 Olli Hawkins
               </NavLink>
               <div className="text-muted text-medium mb-2">Physics</div>
-              <Rating
+              {/* <Rating
                 initialRating={5}
                 readonly
                 emptySymbol={<i className="cs-star text-primary" />}
                 fullSymbol={<i className="cs-star-full text-primary" />}
               />
-              <div className="text-muted d-inline-block text-small align-text-top">(28)</div>
+              <div className="text-muted d-inline-block text-small align-text-top">(28)</div> */}
             </Card.Body>
           </Card>
         </Col>
@@ -771,13 +802,13 @@ const SchoolDashboard = () => {
                 Emilia Antoine
               </NavLink>
               <div className="text-muted text-medium mb-2">Gymnastics</div>
-              <Rating
+              {/* <Rating
                 initialRating={5}
                 readonly
                 emptySymbol={<i className="cs-star text-primary" />}
                 fullSymbol={<i className="cs-star-full text-primary" />}
               />
-              <div className="text-muted d-inline-block text-small align-text-top">(75)</div>
+              <div className="text-muted d-inline-block text-small align-text-top">(75)</div> */}
             </Card.Body>
           </Card>
         </Col>
@@ -791,13 +822,13 @@ const SchoolDashboard = () => {
                 Kathryn Mengel
               </NavLink>
               <div className="text-muted text-medium mb-2">Biology</div>
-              <Rating
+              {/* <Rating
                 initialRating={5}
                 readonly
                 emptySymbol={<i className="cs-star text-primary" />}
                 fullSymbol={<i className="cs-star-full text-primary" />}
               />
-              <div className="text-muted d-inline-block text-small align-text-top">(46)</div>
+              <div className="text-muted d-inline-block text-small align-text-top">(46)</div> */}
             </Card.Body>
           </Card>
         </Col>
@@ -811,13 +842,13 @@ const SchoolDashboard = () => {
                 Daisy Hartley
               </NavLink>
               <div className="text-muted text-medium mb-2">Gymnastics</div>
-              <Rating
+              {/* <Rating
                 initialRating={5}
                 readonly
                 emptySymbol={<i className="cs-star text-primary" />}
                 fullSymbol={<i className="cs-star-full text-primary" />}
               />
-              <div className="text-muted d-inline-block text-small align-text-top">(91)</div>
+              <div className="text-muted d-inline-block text-small align-text-top">(91)</div> */}
             </Card.Body>
           </Card>
         </Col>

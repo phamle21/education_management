@@ -16,6 +16,7 @@ const StudentDetail = () => {
         { to: 'students/list', text: 'Students' },
         { to: 'students/:id/detail', text: 'Chi tiết' },
     ];
+
     return (
         <>
             <HtmlHead title={title} description={description} />
