@@ -40,7 +40,8 @@ Route::get('/courses/{id}/teacher', [CourseController::class, 'courseOfTeacher']
 /** User */
 Route::resource('users', UserController::class);
 Route::post('/users/check-account', [UserController::class, 'checkAccount']);
-Route::get('/roles', [UserController::class, 'getRoles']);
+Route::post('/users/update/{id}/{field}', [UserController::class, 'updateField']);
+Route::post('/users/delete-list', [UserController::class, 'deleteList']);
 
 /** Topics */
 Route::resource('topics', TopicController::class);
