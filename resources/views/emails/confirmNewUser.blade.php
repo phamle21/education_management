@@ -10,8 +10,8 @@
         <div class="header" style="width:100%;text-align:center">
             {{-- <img class="header-img" style="width:250px" src="https://www.ctu.edu.vn/images/upload/logomobile.png"
                 alt=""> --}}
-            <img class="header-img" style="width:250px" src="https://cms.groupeditors.com/img//8f9e2838-da40-4a25-aa39-66d8c7a5e4f5.jpg"
-                alt="">
+            <img class="header-img" style="width:250px"
+                src="https://cms.groupeditors.com/img//8f9e2838-da40-4a25-aa39-66d8c7a5e4f5.jpg" alt="">
             <h3>{{ env('APP_NAME') }} </h3>
         </div>
         <div class="content" style="margin-top:20px">
@@ -33,7 +33,7 @@
                     border-radius: 30px;
                     color: black;
                     padding: 0.2rem 0.4rem 0.2rem;
-                    ">{{ {{ $user->role }} }}</span>
+                    ">{{ $mailData['body']['role'] }}</span>
             </div>
             <div class="team-info" style="margin-bottom:15px">Password: <b> {{ $mailData['body']['password'] }} </b>
             </div>

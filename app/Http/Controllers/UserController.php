@@ -8,14 +8,21 @@ use App\Models\Image;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use stdClass;
 
 class UserController extends Controller
 {
     public function __construct()
     {
+        // Clear cache, config, route
+        Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('route:clear');
+
         function quickRandom($length = 8)
         {
             $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*';
@@ -86,6 +93,32 @@ class UserController extends Controller
                 Mail::to($email)->send(new SendMail($mailData));
             }
         }
+
+        function base64ImgToFile($img)
+        {
+            $folderPath = "storage/users/";
+
+            $image_parts = explode(";base64,", $img);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $imgName = uniqid() . '.' . $image_type;
+            $file = $folderPath . $imgName;
+
+            file_put_contents($file, $image_base64);
+
+            return 'users/' . $imgName;
+        }
+
+        function convertFileToBase64($file)
+        {
+            $path = "storage/$file";
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $data = file_get_contents($path);
+            $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+            return $base64;
+        }
     }
 
     /**
@@ -126,10 +159,10 @@ class UserController extends Controller
             $sort_by = 'asc';
         }
 
-        $arr_type = UserRole::getValues();
+        $arr_type = UserRole::getKeys();
         $arr_type[] = 'All';
 
-        if (!isset($request->type) || $request->type == null || UserRole::hasKey($request->type)) {
+        if (!isset($request->type) || $request->type == null) {
             $response = [
                 'status' => 'failed',
                 'msg' => 'Bạn chưa truyền type vào! Bạn phải truyền vào 1 trong các phần tử sau: [' . implode(', ', $arr_type) . ']'
@@ -158,7 +191,7 @@ class UserController extends Controller
 
         foreach ($user_list as $v) {
             $v->role = UserRole::getKey($v->role);
-            $v->avatar = $v->avatar == null ? 'http://' . $_SERVER['SERVER_NAME'] . '/images/avatar/avatar-default.png' : $v->avatar;
+            $v->avatar = url(Storage::url($v->avatar));
         }
 
         list($user_list_show, $page_index, $page_size, $page_count) =
@@ -198,7 +231,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if (isset($request->sortBy)) {
+        if (isset($request->sortBy) && count($request->sortBy) > 0) {
             $sortBy = $request->sortBy[0];
             $sort_by = $sortBy['desc'] ? 'desc' : 'asc';
         } else {
@@ -211,9 +244,14 @@ class UserController extends Controller
 
         $response = [];
         $new_pass = quickRandom(8);
+
+        // Upload file img, convert image base64 to image file
+        $img =  $request->item['avatar'];
+        $fileName = base64ImgToFile($img);
+
         $add = User::create([
             'name' => $request->item['name'],
-            'avatar' => $request->item['avatar'],
+            'avatar' => $fileName,
             'phone' => $request->item['phone'],
             'role' => $request->item['role'],
             'email' => $request->item['email'],
@@ -228,10 +266,9 @@ class UserController extends Controller
 
             $body = [
                 'name' => $user->name,
-                'avatar' => env('APP_URL') . '/users/get-avatar/' . $user->id,
                 'email' => $user->email,
                 'phone' => $user->phone,
-                'role' => UserRole::getKey($user->role),
+                'role' => $user->role,
                 'password' => $new_pass,
             ];
 
@@ -243,7 +280,7 @@ class UserController extends Controller
 
             foreach ($user_list as $v) {
                 $v->role = UserRole::getKey($v->role);
-                $v->avatar = $v->avatar == null ? 'http://' . $_SERVER['SERVER_NAME'] . '/images/avatar/avatar-default.png' : $v->avatar;
+                $v->avatar = url(Storage::url($v->avatar));
             }
 
             list($user_list_show, $page_index, $page_size, $page_count) = filterUserList($user_list, $request->pageIndex, $request->pageSize);
@@ -307,6 +344,8 @@ class UserController extends Controller
         }
 
         $user->role = UserRole::getKey($user->role);
+        $user->avatar = url(Storage::url($user->avatar));
+
         if ($user->avatar == null) {
             $user->avatar = 'http://' . $_SERVER['HTTP_HOST'] . '/images/avatar/avatar-default.png';
         }
@@ -432,15 +471,29 @@ class UserController extends Controller
         $response = [];
         $user_old = User::find($id);
 
-        if (isset($request->item['avatar']) && $request->item['avatar'] !== null) {
-            $avt = $request->item['avatar'];
+        // If isBase64
+        if (
+            isset($request->item['avatar'])
+            && $request->item['avatar'] !== null
+            && searchStr($request->item['avatar'], 'base64')
+            && searchStr($request->item['avatar'], 'data:')
+        ) {
+            $base64 = $request->item['avatar'];
         } else {
-            $avt = $user_old['avatar'];
+            $avt = $user_old->avatar;
+            // Convert file to base64
+            $base64 = convertFileToBase64($avt);
         }
+
+        // Xóa file cũ
+        Storage::delete('users/636abbfc51664.jpeg');
+
+        // Thêm ảnh mới
+        $fileName = base64ImgToFile($base64);
 
         $update = User::whereId($id)->update([
             'name' => $request->item['name'],
-            'avatar' => $avt,
+            'avatar' => $fileName,
             'address' => $request->item['address'],
             'phone' => $request->item['phone'],
             'email' => $request->item['email'],
@@ -455,7 +508,6 @@ class UserController extends Controller
 
             $body = [
                 'name' => $user->name,
-                'avatar' => env('APP_URL') . '/users/get-avatar/' . $user->id,
                 'email' => $user->email,
                 'phone' => $user->phone,
                 'role' => $user->role,
@@ -468,7 +520,7 @@ class UserController extends Controller
             $user_list = User::orderBy($sortBy['id'], $sort_by)->get();
             foreach ($user_list as $v) {
                 $v->role = UserRole::getKey($v->role);
-                $v->avatar = $v->avatar == null ? 'http://' . $_SERVER['SERVER_NAME'] . '/images/avatar/avatar-default.png' : $v->avatar;
+                $v->avatar = url(Storage::url($v->avatar));
             }
             list($user_list_show, $page_index, $page_size, $page_count) = filterUserList($user_list, $request->pageIndex, $request->pageSize);
 
@@ -677,7 +729,7 @@ class UserController extends Controller
 
         foreach ($user_list as $v) {
             $v->role = UserRole::getKey($v->role);
-            $v->avatar = $v->avatar == null ? 'http://' . $_SERVER['SERVER_NAME'] . '/images/avatar/avatar-default.png' : $v->avatar;
+            $v->avatar = url(Storage::url($v->avatar));
         }
         list($user_list_show, $page_index, $page_size, $page_count) = filterUserList($user_list, $request->pageIndex, $request->pageSize);
 
@@ -695,7 +747,7 @@ class UserController extends Controller
         return response()->json($response);
     }
 
-    public function getRoles(Request $request)
+    public function getRoles()
     {
         $response = [
             'status' => 'success',

@@ -44,4 +44,3 @@ Route::get('/roles', [UserController::class, 'getRoles']);
 
 /** Topics */
 Route::resource('topics', TopicController::class);
-

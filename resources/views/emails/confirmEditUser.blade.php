@@ -33,7 +33,7 @@
                     border-radius: 30px;
                     color: black;
                     padding: 0.2rem 0.4rem 0.2rem;
-                    ">{{ {{ $user->role }} }}</span>
+                    ">{{ $mailData['body']['role'] }}</span>
             </div>
             <br>
             <div class="ground-info" style="margin-bottom:15px;margin-top: 15px;">

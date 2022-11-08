@@ -33,13 +33,13 @@
                 </div>
                 <div class="league-info" style="margin-bottom:15px">Role:
                     <span
-                        style="
-                        margin-right:0.5rem;
-                        border:1px solid rgb(61, 61, 228);
-                        border-radius: 30px;
-                        color: black;
-                        padding: 0.2rem 0.4rem 0.2rem;
-                        ">{{ {{ $user->role }} }}</span>
+                    style="
+                    margin-right:0.5rem;
+                    border:1px solid rgb(61, 61, 228);
+                    border-radius: 30px;
+                    color: black;
+                    padding: 0.2rem 0.4rem 0.2rem;
+                    ">{{ $user->role }}</span>
                 </div>
                 <hr>
             @endforeach
