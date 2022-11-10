@@ -239,6 +239,9 @@ const enMessages = {
 
   // Topic
   'menu.topic_list_title': 'Topic List',
+  'menu.topic_title_add': 'Add Topic',  
+  'menu.topic_name': 'Topic Name',  
+
 
   // User
   'user.title_list': 'User List',

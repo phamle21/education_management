@@ -6,7 +6,7 @@ import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { lecturerListState, modalAddLEcturerState } from 'recoil_store';
+import { lecturerListState, modalAddLecturerState } from 'recoil_store';
 import apiBase from '../../app/axios/apiBase';
 import ModalAddLecturer from './components/ModalAdd';
 
@@ -21,7 +21,7 @@ const LecturerList = () => {
     { to: '/lecturers', text: f({ id: 'menu.lecturer' }) },
   ];
 
-  const [showModal, setShowModal] = useRecoilState(modalAddLEcturerState);
+  const [showModal, setShowModal] = useRecoilState(modalAddLecturerState);
 
   const [listLecturers, setListLecturers] = useRecoilState(lecturerListState);
 
@@ -161,7 +161,7 @@ const LecturerList = () => {
           </Row>
       }
 
-{
+      {
         // Modal Add Start
         <ModalAddLecturer show={showModal} onHide={handleCloseAdd} />
         // Modal Add End

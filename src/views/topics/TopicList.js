@@ -6,8 +6,9 @@ import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { topicListState } from 'recoil_store';
+import { modalAddTopicState, topicListState } from 'recoil_store';
 import apiBase from '../../app/axios/apiBase';
+import ModalAddTopic from './components/ModalAdd';
 
 const TopicList = () => {
     const { formatMessage: f } = useIntl();
@@ -22,6 +23,13 @@ const TopicList = () => {
 
     const [topicList, setTopicList] = useRecoilState(topicListState);
 
+    const [showModal, setShowModal] = useRecoilState(modalAddTopicState);
+
+
+    const handleCloseAdd = () => setShowModal(false);
+
+    const handleShowAdd = () => setShowModal(true);
+
     useEffect(() => {
         if (topicList.length < 1)
           apiBase.get("/topics",)
@@ -29,8 +37,8 @@ const TopicList = () => {
             .then(res => {
                 setTopicList(res.data.data);
             })
-      }, []);
-    
+      }, [topicList]);
+
 
     return (
         <>
@@ -55,7 +63,7 @@ const TopicList = () => {
                                 <CsLineIcons icon="close" />
                             </span>
                         </div>
-                        <Button variant="outline-primary" className="btn-icon btn-icon-start ms-1">
+                        <Button variant="outline-primary" className="btn-icon btn-icon-start ms-1" onClick={handleShowAdd}>
                             <CsLineIcons icon="plus" /> <span>{f({ id: 'menu.add' })}</span>
                         </Button>
                     </Col>
@@ -68,8 +76,8 @@ const TopicList = () => {
                 <Col xl="12" className="mb-6">
                     <Row className="g-2">
                         {
-                            topicList && topicList.map((topic) => (
-                                <Col xs="4" xl="4" className="sh-19" key={topic.id}>
+                            topicList && topicList.map((topic, i) => (
+                                <Col xs="4" xl="4" className="sh-19" key={i}>
                                     <Card className="h-100 hover-scale-up">
                                         <Card.Body className="text-center">
                                             <NavLink to="#">
@@ -88,6 +96,12 @@ const TopicList = () => {
                 </Col>
                 {/* Topics End */}
             </Row>
+
+            {
+                // Modal Add Start
+                <ModalAddTopic show={showModal} onHide={handleCloseAdd} />
+                // Modal Add End
+            }
         </>
     )
 }
