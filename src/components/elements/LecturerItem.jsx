@@ -8,7 +8,7 @@ export default function LecturerItem({ name, introduce, skills }) {
     return (
         <Wrapper className="whiteBg radius8 shadow" >
             <div>
-                <img src={Avt} alt="Avt" width={300}></img>
+                <img src={Avt} alt="Avt" width={300}/>
             </div>
             <div>
                 <h4 className="font25 extraBold">{name}</h4>
@@ -24,7 +24,7 @@ export default function LecturerItem({ name, introduce, skills }) {
                                         <CheckMark />
                                     </div>
                                 ) : (
-                                    <div style={{ minWidth: "20px" }}></div>
+                                    <div style={{ minWidth: "20px" }}/>
                                 )}
                             </div>
                             <p className="font18 extraBold">{item.name}</p>

@@ -51,7 +51,7 @@ export default function Courses() {
 
           {limit >= listCourses.length ?
             <div className="row flexCenter">
-              <div style={{ margin: "50px 0", width: "200px" }}></div>
+              <div style={{ margin: "50px 0", width: "200px" }}/>
             </div>
             :
             <div className="row flexCenter">

@@ -61,11 +61,6 @@ const appRoot = DEFAULT_PATHS.APP.endsWith('/') ? DEFAULT_PATHS.APP.slice(1, DEF
 const routesAndMenuItems = {
   mainMenuItems: [
     {
-      path: `${appRoot}/landing`,
-      exact: true,
-      component: landing.default,
-    },
-    {
       path: DEFAULT_PATHS.APP,
       exact: true,
       redirect: true,
@@ -193,7 +188,11 @@ const routesAndMenuItems = {
     // },
   ],
   sidebarItems: [
-
+    {
+      path: `${appRoot}/landing`,
+      exact: true,
+      component: landing.default,
+    },
   ],
 };
 export default routesAndMenuItems;

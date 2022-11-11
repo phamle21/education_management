@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 // Components
-import TestimonialBox from "../elements/TestimonialBox";
+import TestimonialBox from "./TestimonialBox";
 
 export default function TestimonialSlider() {
     const settings = {

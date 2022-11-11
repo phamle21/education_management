@@ -6,7 +6,7 @@ import BurgerIcon from "../../assets/svg/BurgerIcon";
 import LogoIcon from "../../assets/svg/Logo";
 import Backdrop from "../elements/Backdrop";
 // Components
-import Sidebar from "../Nav/Sidebar";
+import Sidebar from "./Sidebar";
 
 export default function TopNavbar() {
     const [y, setY] = useState(window.scrollY);
@@ -26,7 +26,7 @@ export default function TopNavbar() {
             {sidebarOpen && <Backdrop toggleSidebar={toggleSidebar} />}
             <Wrapper className="flexCenter animate whiteBg" style={y > 100 ? { height: "60px" } : { height: "80px" }}>
                 <NavInner className="container flexSpaceCenter">
-                    <Link className="pointer flexNullCenter" to="home" smooth={true}>
+                    <Link className="pointer flexNullCenter" to="home" smooth>
                         <LogoIcon />
                         <h1 style={{ marginLeft: "15px" }} className="font20 extraBold">
                             Code Academy
@@ -37,32 +37,32 @@ export default function TopNavbar() {
                     </BurderWrapper>
                     <UlWrapper className="flexNullCenter">
                         <li className="semiBold font15 pointer">
-                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="home" spy={true} smooth={true} offset={-80}>
+                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="home" spy smooth offset={-80}>
                                 Trang chủ
                             </Link>
                         </li>
                         <li className="semiBold font15 pointer">
-                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="services" spy={true} smooth={true} offset={-80}>
+                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="services" spy smooth offset={-80}>
                                 Dịch vụ
                             </Link>
                         </li>
                         <li className="semiBold font15 pointer">
-                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="projects" spy={true} smooth={true} offset={-80}>
+                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="projects" spy smooth offset={-80}>
                                 Khóa học
                             </Link>
                         </li>
                         {/* <li className="semiBold font15 pointer">
-                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="blog" spy={true} smooth={true} offset={-80}>
+                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="blog" spy smooth offset={-80}>
                                 Blog
                             </Link>
                         </li> */}
                         {/* <li className="semiBold font15 pointer">
-                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="pricing" spy={true} smooth={true} offset={-80}>
+                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="pricing" spy smooth offset={-80}>
                                 Giảng viên
                             </Link>
                         </li> */}
                         <li className="semiBold font15 pointer">
-                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="contact" spy={true} smooth={true} offset={-80}>
+                            <Link activeClass="active" style={{ padding: "10px 15px" }} to="contact" spy smooth offset={-80}>
                                 Liên hệ
                             </Link>
                         </li>
