@@ -1,0 +1,132 @@
+{
+  "name": "acorn-react",
+  "version": "1.0.1",
+  "private": true,
+  "proxy": "http://localhost:3000",
+  "dependencies": {
+    "@fullcalendar/bootstrap": "^5.9.0",
+    "@fullcalendar/daygrid": "^5.9.0",
+    "@fullcalendar/interaction": "^5.9.0",
+    "@fullcalendar/react": "^5.9.0",
+    "@fullcalendar/timegrid": "^5.9.0",
+    "@glidejs/glide": "^3.4.1",
+    "@reduxjs/toolkit": "^1.6.0",
+    "@testing-library/jest-dom": "^5.13.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^13.1.9",
+    "autosuggest-trie": "^2.1.1",
+    "axios": "^0.21.4",
+    "axios-mock-adapter": "^1.19.0",
+    "chart.js": "^3.5.1",
+    "chartjs-adapter-luxon": "^1.0.0",
+    "chartjs-plugin-crosshair": "^1.2.0",
+    "chartjs-plugin-datalabels": "^2.0.0",
+    "chartjs-plugin-streaming": "^2.0.0",
+    "clamp-js": "^0.7.0",
+    "classnames": "^2.3.1",
+    "date-fns": "^2.22.1",
+    "formik": "^2.2.9",
+    "fuse.js": "^6.4.6",
+    "intro.js": "^4.2.2",
+    "intro.js-react": "^0.5.0",
+    "luxon": "^2.0.1",
+    "overlayscrollbars": "^1.13.1",
+    "overlayscrollbars-react": "^0.2.3",
+    "plyr-react": "^3.0.8",
+    "quill": "^1.3.7",
+    "rc-slider": "^9.7.2",
+    "react": "^17.0.2",
+    "react-albus": "^2.0.0",
+    "react-autosuggest": "^10.1.0",
+    "react-bootstrap": "^2.0.0-rc.0",
+    "react-bootstrap-multiselect": "^2.4.1",
+    "react-circular-progressbar": "^2.0.4",
+    "react-contexify": "^5.0.0",
+    "react-countdown": "^2.3.2",
+    "react-datepicker": "^4.1.1",
+    "react-dom": "^17.0.2",
+    "react-dropzone-uploader": "^2.11.0",
+    "react-fuzzy-highlighter": "^1.0.0",
+    "react-helmet": "^6.1.0",
+    "react-hook-mousetrap": "^2.0.4",
+    "react-image-lightbox": "^5.1.4",
+    "react-intl": "^5.20.2",
+    "react-masonry-css": "^1.0.16",
+    "react-number-format": "^4.6.4",
+    "react-quilljs": "^1.2.17",
+    "react-rating": "^2.0.5",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
+    "react-select": "^4.3.1",
+    "react-sortablejs": "^6.0.0",
+    "react-syntax-highlighter": "^15.4.4",
+    "react-table": "^7.7.0",
+    "react-tag-autocomplete": "^6.2.0",
+    "react-toastify": "^7.0.4",
+    "recoil": "^0.7.6",
+    "reduxjs-toolkit-persist": "^7.0.1",
+    "sortablejs": "^1.14.0",
+    "sweetalert2": "^11.6.5",
+    "web-vitals": "^0.2.4",
+    "yup": "^0.32.9"
+  },
+  "scripts": {
+    "start-js": "react-scripts start --dev",
+    "start-css": "sass --style=compressed --watch src/sass/styles.scss:public/css/styles.css",
+    "start": "concurrently \"npm run start-js\" \"npm run start-css\"",
+    "build-js": "react-scripts build --prod",
+    "build-css": "sass --style=compressed --no-source-map src/sass/styles.scss:public/css/styles.css",
+    "build": "concurrently \"npm run build-css\" \"npm run build-js\"",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src/**/*.js",
+    "lint:fix": "eslint ./src --fix",
+    "precommit": "lint-staged",
+    "concurrently": "concurrently"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "babel-plugin-module-resolver": "^4.1.0",
+    "concurrently": "^6.2.0",
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "2.3.1",
+    "sass": "^1.42.1"
+  }
+}

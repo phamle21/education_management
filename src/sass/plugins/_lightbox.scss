@@ -1,0 +1,110 @@
+/*
+*
+* Lightbox
+*
+* Lightbox plugin styles.
+*
+*/
+
+.ReactModal__Overlay {
+  z-index: 1200 !important;
+}
+
+.ril__caption,
+.ril__toolbar {
+  background: initial !important;
+}
+
+.ril__builtinButton {
+  font-size: 1em;
+  line-height: 1rem;
+  border: initial;
+  box-shadow: initial !important;
+  transition: all var(--transition-time-short);
+  border-radius: var(--border-radius-md);
+  height: 40px !important;
+  width: 40px !important;
+  background-size: 16px !important;
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  opacity: 0.75 !important;
+
+  &:not([disabled]):hover {
+    opacity: 1 !important;
+    background-color: rgba(0, 0, 0, 1) !important;
+  }
+}
+
+.ril__toolbarItem {
+  margin: 2px !important;
+}
+
+.ril__outer {
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.ril__toolbar {
+  top: 10px !important;
+}
+
+.ril__navButtons {
+  height: 40px !important;
+  width: 40px !important;
+  padding: initial !important;
+  background-size: 16px !important;
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  opacity: 0.75 !important;
+  border-radius: var(--border-radius-md);
+  background-size: 20px !important;
+
+  &:not([disabled]):hover {
+    opacity: 1 !important;
+    background-color: rgba(0, 0, 0, 1) !important;
+  }
+}
+
+.ril__caption {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  .ril__captionContent {
+    color: var(--light-text) !important;
+    padding: 15px 20px !important;
+    margin: 0 auto !important;
+  }
+}
+
+.ril__navButtonNext {
+  right: 3rem !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 4L12.6464 9.64645C12.8417 9.84171 12.8417 10.1583 12.6464 10.3536L7 16'%3E%3C/path%3E%3C/svg%3E") !important;
+}
+
+.ril__navButtonPrev {
+  left: 3rem !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 16L7.35355 10.3536C7.15829 10.1583 7.15829 9.84171 7.35355 9.64645L13 4'%3E%3C/path%3E%3C/svg%3E") !important;
+}
+
+.ril__loadingContainer {
+  .spinner-border {
+    color: var(--light-text) !important;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -15px;
+    margin-top: -15px;
+    z-index: 1;
+  }
+}
+
+.ril-outer {
+  border-radius: initial !important;
+}
+
+.ril-outer.rounded-lg .ril-inner {
+  img.ril__image {
+    border-radius: var(--border-radius-lg);
+  }
+}
+
+.ril-outer.rounded-md .ril-inner {
+  img.ril__image {
+    border-radius: var(--border-radius-md);
+  }
+}

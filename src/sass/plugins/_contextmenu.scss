@@ -1,0 +1,45 @@
+/*
+*
+* Context Menu
+*
+* Context menu plugin styles.
+*
+*/
+
+.react-contexify {
+  box-shadow: initial !important;
+  border: 1px solid var(--separator) !important;
+  padding: 0.5rem 0 !important;
+  background-color: var(--foreground) !important;
+  border-radius: var(--border-radius-md) !important;
+}
+
+.react-contexify__item__content {
+  color: var(--body) !important;
+  background: initial !important;
+  border: initial !important;
+  font-size: 1em !important;
+  line-height: 1;
+  padding: 0.5rem 1.5rem !important;
+  font-family: var(--font);
+}
+
+.react-contexify__item:not(.react-contexify__item--disabled):hover > .react-contexify__item__content,
+.react-contexify__item:not(.react-contexify__item--disabled):focus > .react-contexify__item__content {
+  color: var(--primary) !important;
+}
+
+.submenu-arrow {
+  content: "";
+  border: initial;
+  border-width: initial;
+  right: 1rem;
+  width: 5px;
+  height: 5px;
+  border-top: 1px solid var(--body);
+  border-right: 1px solid var(--body);
+  transform: rotate(45deg);
+  order: 3;
+  margin-top: -2px;
+  position: absolute;
+}

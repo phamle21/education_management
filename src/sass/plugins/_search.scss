@@ -1,0 +1,29 @@
+/*
+*
+* Search
+*
+* Search autocomplete styles.
+*
+*/
+
+#searchPagesResults {
+    list-style: none;
+    padding-left: 0;
+  
+    .auto-complete-result-item {
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius-md) !important;
+      border: 1px solid var(--separator) !important;
+      margin-bottom: 5px;
+    }
+  
+    .auto-complete-result-item.autoComplete_selected,
+    .auto-complete-result-item:hover {
+      border: 1px solid var(--primary) !important;
+      cursor: pointer;
+    }
+  
+    .autoComplete_highlighted {
+      color: var(--primary) !important;
+    }
+  }
