@@ -1,0 +1,46 @@
+@import 'subject/subject.scss';
+@import '../font/font.scss';
+
+.section-manager {
+    padding: 40px 75px;
+    width: 100%;
+    background-color: $white;
+
+    .heading-manager {
+        margin-bottom: 20px;
+        justify-content: space-between;
+
+        .heading-title {
+            font-size: $fs-3;
+            font-weight: $fw-600;
+        }
+
+        .heading-btn {
+            font-size: $fs-6;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+
+    .table-manager {
+        .table-heading {
+            font-size: $fs-6;
+            padding: 12px;
+        }
+
+        .table-value {
+            font-size: $fs-6;
+        }
+
+        .table-action {
+            width: 220px;
+            justify-content: space-around;
+        }
+
+        .table-btn {
+            font-size: $fs-7;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+}

@@ -51,11 +51,20 @@ const misc = {
   material: lazy(() => import('views/misc/Material')),
   syllabus: lazy(() => import('views/misc/Syllabus')),
 };
+// ----------------------------------------------------------
+const landing = {
+  default: lazy(() => import('views/landing/index')),
+};
 
 const appRoot = DEFAULT_PATHS.APP.endsWith('/') ? DEFAULT_PATHS.APP.slice(1, DEFAULT_PATHS.APP.length) : DEFAULT_PATHS.APP;
 
 const routesAndMenuItems = {
   mainMenuItems: [
+    {
+      path: `${appRoot}/landing`,
+      exact: true,
+      component: landing.default,
+    },
     {
       path: DEFAULT_PATHS.APP,
       exact: true,

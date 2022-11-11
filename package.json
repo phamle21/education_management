@@ -59,7 +59,9 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
+    "react-scroll": "^1.8.8",
     "react-select": "^4.3.1",
+    "react-slick": "^0.29.0",
     "react-sortablejs": "^6.0.0",
     "react-syntax-highlighter": "^15.4.4",
     "react-table": "^7.7.0",
@@ -68,6 +70,7 @@
     "recoil": "^0.7.6",
     "reduxjs-toolkit-persist": "^7.0.1",
     "sortablejs": "^1.14.0",
+    "styled-components": "^5.3.6",
     "sweetalert2": "^11.6.7",
     "web-vitals": "^0.2.4",
     "yup": "^0.32.9"

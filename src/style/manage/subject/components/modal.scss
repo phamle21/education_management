@@ -1,0 +1,25 @@
+@import '../../../font/font.scss';
+
+.modal-custom {
+
+    .modal-custom-title {
+        font-size: $fs-4;
+        font-weight: $fw-600;
+    }
+
+    .modal-custom-label {
+        font-size: $fs-6;
+        font-weight: $fw-500;
+    }
+
+    .modal-custom-control {
+        font-size: $fs-6;
+    }
+
+    .modal-custom-btn {
+        font-size: $fs-6;
+        font-weight: $fw-600;
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
