@@ -239,6 +239,9 @@ const vnMessages = {
 
   // Topic
   'menu.topic_list_title': 'DANH SÁCH',
+  'menu.topic_title_add': 'Thêm Chủ Đề',  
+  'menu.topic_name': 'Tên chủ đề',  
+
 
   // User
   'user.title_list': 'Danh sách người dùng',

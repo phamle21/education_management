@@ -40,8 +40,14 @@ const detailCourseState = atom({
     default: {},
 })
 
-const modalAddLEcturerState = atom({
-    key: 'modalAddLEcturerState',
+const modalAddLecturerState = atom({
+    key: 'modalAddLecturerState',
+    default: false,
+})
+
+
+const modalAddTopicState = atom({
+    key: 'modalAddTopicState',
     default: false,
 })
 
@@ -59,5 +65,6 @@ export {
     selectLecturerState,
     selectTopicState,
     detailCourseState,
-    modalAddLEcturerState
+    modalAddLecturerState,
+    modalAddTopicState
 };

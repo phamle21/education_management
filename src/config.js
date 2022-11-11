@@ -7,8 +7,8 @@ export const USE_MULTI_LANGUAGE = true;
 
 // For detailed information: https://github.com/nfl/react-helmet#reference-guide
 export const REACT_HELMET_PROPS = {
-  defaultTitle: 'Acorn Admin Template',
-  titleTemplate: '%s | Acorn Admin Template',
+  defaultTitle: 'Code Academy',
+  titleTemplate: '%s | Code Academy',
 };
 
 export const DEFAULT_PATHS = {
