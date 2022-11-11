@@ -189,7 +189,7 @@ const vnMessages = {
   'menu.thursday': 'Thứ 5',
   'menu.friday': 'Thứ 6',
   'menu.sunday': 'Thứ 7',
-  'menu.calendar': 'Ljch biểu',
+  'menu.calendar': 'Lịch biểu',
   'menu.gender_female': 'Nữ',
   'menu.gender_male': 'Nam',
 

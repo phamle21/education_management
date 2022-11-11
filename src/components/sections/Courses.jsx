@@ -14,8 +14,8 @@ export default function Courses() {
     apiBase.get("/courses")
       .catch(err => console.log(err))
       .then(res => {
-        console.log(res.data.data);
-        setListCourses([...res.data.data]);
+        console.log(res);
+        setListCourses(res.data.data);
         console.log(listCourses);
       })
   }, []);
