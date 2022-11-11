@@ -1,14 +1,15 @@
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import HtmlHead from 'components/html-head/HtmlHead';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { modalAddTopicState, topicListState } from 'recoil_store';
 import apiBase from '../../app/axios/apiBase';
-import ModalAddTopic from './components/ModalAdd';
+import ModalAddTopic from './components/ModalAddTopic';
+import ModalEditTopic from './components/ModalEditTopic';
 
 const TopicList = () => {
     const { formatMessage: f } = useIntl();
@@ -22,13 +23,23 @@ const TopicList = () => {
     ];
 
     const [topicList, setTopicList] = useRecoilState(topicListState);
+    
+    const [topic, setTopic] = useState();
 
     const [showModal, setShowModal] = useRecoilState(modalAddTopicState);
 
+    const [showEditModal, setShowEditModal] = useState();
 
     const handleCloseAdd = () => setShowModal(false);
 
     const handleShowAdd = () => setShowModal(true);
+
+    const handleCloseEdit = () => setShowModal(false);
+
+    const handleShowEdit = (data) => {
+        setShowModal(true);
+        setTopic(data);
+    }
 
     useEffect(() => {
         if (topicList.length < 1)
@@ -76,14 +87,14 @@ const TopicList = () => {
                 <Col xl="12" className="mb-6">
                     <Row className="g-2">
                         {
-                            topicList && topicList.map((topic, i) => (
-                                <Col xs="4" xl="4" className="sh-19" key={i}>
+                            topicList && topicList.map((item, i) => (
+                                <Col xs="4" xl="4" className="sh-19" key={i} onClick={() => handleShowEdit(item)}>
                                     <Card className="h-100 hover-scale-up">
                                         <Card.Body className="text-center">
                                             <NavLink to="#">
                                                 <CsLineIcons icon="cupcake" className="text-primary" />
                                                 <p className="heading mt-3 text-body">
-                                                    {topic.name}
+                                                    {item.name}
                                                 </p>
                                                 <div className="text-extra-small fw-medium text-muted">14 COURSES</div>
                                             </NavLink>
@@ -101,6 +112,12 @@ const TopicList = () => {
                 // Modal Add Start
                 <ModalAddTopic show={showModal} onHide={handleCloseAdd} />
                 // Modal Add End
+            }
+
+            {
+                // Modal Edit Start
+                <ModalEditTopic show={showEditModal} onHide={handleCloseEdit}  data={topic}/>
+                // Modal Edit End
             }
         </>
     )
