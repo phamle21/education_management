@@ -31,6 +31,11 @@ import { Slide, ToastContainer } from 'react-toastify';
 // mock server register for demo
 import '@mock-api';
 
+// Slick
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import './style/style.scss';
+
 const Main = () => {
   const layoutlessRoutes = useMemo(() => getLayoutlessRoutes({ data: routesAndMenuItems }), []);
   return (
