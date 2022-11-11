@@ -35,8 +35,8 @@ class CourseController extends Controller
     {
         $course_list = Course::all();
         foreach ($course_list as $v) {
-            $v->teacher_name = User::find($v->user_id)->name;
-            $v->teacher_avatar = User::find($v->user_id)->getAvatar();
+            $v->teacher_name = User::withTrashed()->find($v->user_id)->name;
+            $v->teacher_avatar = User::withTrashed()->find($v->user_id)->getAvatar();
             $v->image = url(Storage::url($v->image));
             $v->topics;
             $v->totalCourseContent = count(CourseContent::where('course_id', $v->id)->get());
