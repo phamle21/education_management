@@ -3054,7 +3054,7 @@
     "is-blob" "^2.1.0"
     "is-buffer" "^2.0.5"
 
-"axios@^0.21.1", "axios@>= 0.9.0":
+"axios@^0.21.4", "axios@>= 0.9.0":
   "integrity" "sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg=="
   "resolved" "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz"
   "version" "0.21.4"
@@ -7768,6 +7768,11 @@
     "import-local" "^3.0.2"
     "jest-cli" "^26.6.0"
 
+"jquery@>=2.2.0":
+  "integrity" "sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw=="
+  "resolved" "https://registry.npmjs.org/jquery/-/jquery-3.6.1.tgz"
+  "version" "3.6.1"
+
 "js-tokens@^3.0.0 || ^4.0.0", "js-tokens@^4.0.0":
   "integrity" "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="
   "resolved" "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
@@ -10539,6 +10544,15 @@
     "section-iterator" "^2.0.0"
     "shallow-equal" "^1.2.1"
 
+"react-bootstrap-multiselect@^2.4.1":
+  "integrity" "sha512-JVoiesQeRMqvM3lioP/+E3EdenlSM8Zd77e83/6D/uNkV4JYkQ2wfiaVTt7nu4JurIRsS375ZHwJWpmyJ03JuA=="
+  "resolved" "https://registry.npmjs.org/react-bootstrap-multiselect/-/react-bootstrap-multiselect-2.4.1.tgz"
+  "version" "2.4.1"
+  dependencies:
+    "jquery" ">=2.2.0"
+    "object-assign" "^4.1.0"
+    "react" ">=15.0.0"
+
 "react-bootstrap@^2.0.0-rc.0":
   "integrity" "sha512-j/aLR+okzbYk61TM3eDOU1NqOqnUdwyVrF+ojoCRUxPdzc2R0xXvqyRsjSoyRoCo7n82Fs/LWjPCin/QJNdwvA=="
   "resolved" "https://registry.npmjs.org/react-bootstrap/-/react-bootstrap-2.5.0.tgz"
@@ -12438,7 +12452,7 @@
     "unquote" "~1.1.1"
     "util.promisify" "~1.0.0"
 
-"sweetalert2@^11.6.7":
+"sweetalert2@^11.6.5":
   "integrity" "sha512-nbsmUtfTodJvZ873sn61U0brrHtn8xi8wfn+bVVc9IV05fgOdDMhAhdQ2zQJBYsvggbbp46ZFHMr0/fZJnZPtQ=="
   "resolved" "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.6.7.tgz"
   "version" "11.6.7"

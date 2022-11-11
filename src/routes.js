@@ -107,7 +107,7 @@ const routesAndMenuItems = {
       icon: 'calendar',
       exact: true,
       redirect: true,
-      to: `${appRoot}/calendar`,
+      to: `${appRoot}/calendar/list`,
       subs: [
         { path: '/list', label: 'menu.calendar', component: calendar.list },
       ],
