@@ -3,7 +3,7 @@ import { Button, Form, CloseButton, Modal, OverlayTrigger, Tooltip, ToggleButton
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import Select from 'react-select';
 import { useRecoilState } from 'recoil';
-import { roleListState } from 'store_recoil';
+import { roleListState } from 'recoil_store';
 import { useIntl } from 'react-intl';
 import apiBase from 'app/axios/apiBase';
 import Swal from 'sweetalert2';
@@ -14,7 +14,7 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
 
   const { selectedFlatRows, setIsOpenAddEditModal, isOpenAddEditModal, setIsOpenDeleteConfirmModal } = tableInstance;
 
-  const emptyItem = useState({ id: '', avatar: '', name: '', status: 'Active', email: '', phone: '', roles: [] });
+  const emptyItem = useState({ id: '', avatar: '', name: '', status: 'Active', email: '', phone: '', role: '' });
 
   const [selectedItem, setSelectedItem] = useState(emptyItem);
 
@@ -23,12 +23,11 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
   const [roleList, setRoleList] = useRecoilState(roleListState);
 
   const [optionList, setOptionList] = useState([]);
-
-  const [selectOption, setSelectOption] = useState([]);
+  const [selectOption, setSelectOption] = useState();
 
   const [checkSubmit, setCheckSubmit] = React.useState(true);
 
-  const defaultMess = { avatar: '', name: '', status: '', email: '', phone: '', roles: '' };
+  const defaultMess = { avatar: '', name: '', status: '', email: '', phone: '', role: '' };
   const [errors, setErrors] = React.useState(JSON.parse(JSON.stringify(defaultMess)));
   const [warning, setWarning] = React.useState(JSON.parse(JSON.stringify(defaultMess)));
   const [success, setSuccess] = React.useState(JSON.parse(JSON.stringify(defaultMess)));
@@ -67,10 +66,12 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
 
   useEffect(() => {
     if (isOpenAddEditModal && selectedFlatRows.length === 1) {
-      setSelectedItem(selectedFlatRows[0].original);
-      if (selectedFlatRows[0].original.roles) {
-        setSelectOption([selectedFlatRows[0].original.roles.map(item => ({ value: item.id, label: item.name }))][0])
-      }
+      const objTemp = JSON.parse(JSON.stringify(selectedFlatRows[0].original));
+      objTemp.role = `role_${objTemp.role}`
+
+      setSelectedItem(objTemp);
+      setSelectOption({ value: `role_${selectedFlatRows[0].original.role}`, label: selectedFlatRows[0].original.role });
+
     } else {
       setSelectedItem(emptyItem);
     }
@@ -102,6 +103,7 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
           if (res.data.status === "phone_exists") {
             // Set err phone
             setErrors({ ...errors, phone: f({ id: 'user.check.err.phone_exists' }) });
+            setSuccess({ ...success, phone: '' });
             setWarning({ ...warning, phone: '' });
 
             setCheckSubmit(false)
@@ -146,6 +148,7 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
 
             // Set err email
             setErrors({ ...errors, email: f({ id: 'user.check.err.email_exists' }) });
+            setSuccess({ ...success, email: '' });
             setWarning({ ...warning, email: '' });
             setCheckSubmit(false)
           } else {
@@ -186,10 +189,9 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
     checkPhoneField(event.target.value);
     setSelectedItem({ ...selectedItem, phone: event.target.value });
   };
-  const changeRoles = (options) => {
-    setSelectOption(options);
-    setSelectedItem({ ...selectedItem, roles: options.map(option => ({ id: option.value })) });
-
+  const changeRole = (selected) => {
+    setSelectOption(selected)
+    setSelectedItem({ ...selectedItem, role: selectOption.value });
   };
   const changeStatus = (event) => {
     setSelectedItem({ ...selectedItem, status: event.target.value });
@@ -212,7 +214,7 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
   const saveItem = () => {
     let check = true;
 
-    if (!selectedItem.avatar || !selectedItem.name || !selectedItem.status || !selectedItem.email || !selectedItem.phone) {
+    if (!selectedItem.avatar || !selectedItem.name || !selectedItem.status || !selectedItem.email || !selectedItem.phone || !selectedItem.role) {
       check = false;
     }
 
@@ -233,8 +235,8 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
     if (!selectedItem.phone) {
       objTemp.phone = f({ id: 'user.check.err.phone' });
     }
-    if (!selectedItem.roles) {
-      objTemp.roles = f({ id: 'user.check.err.roles' });
+    if (!selectedItem.role) {
+      objTemp.role = f({ id: 'user.check.err.roles' });
     }
 
     setErrors(objTemp);
@@ -254,7 +256,6 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
       })
     }
   };
-
 
   return (
     <>
@@ -306,18 +307,15 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
 
               <Select
                 classNamePrefix="react-select"
-                closeMenuOnSelect={false}
                 isSearchable={false}
-                isMulti
-                required
-                value={selectOption}
                 options={optionList}
-                onChange={changeRoles}
-                placeholder="Roles"
+                value={selectOption}
+                onChange={changeRole}
+                placeholder=""
               />
-              {errors.roles.length > 0 && <span className="text-danger ms-2">{errors.roles}</span>}
-              {warning.roles.length > 0 && <span className="text-warning ms-2">{warning.roles}</span>}
-              {success.roles.length > 0 && <span className="text-success ms-2">{success.roles}</span>}
+              {errors.role.length > 0 && <span className="text-danger ms-2">{errors.role}</span>}
+              {warning.role.length > 0 && <span className="text-warning ms-2">{warning.role}</span>}
+              {success.role.length > 0 && <span className="text-success ms-2">{success.role}</span>}
 
             </div>
             <div className="mb-3 filled w-100 d-flex flex-column">

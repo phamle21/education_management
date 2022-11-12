@@ -47,4 +47,5 @@ export const USER_ROLE = {
   Editor: 'editor',
 };
 
-export const API_URL = 'http://localhost:8000';
+// export const API_URL = 'http://localhost:8000';
+export const API_URL = 'http://education_management.local';

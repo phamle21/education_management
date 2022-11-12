@@ -1,0 +1,26 @@
+.sidebar {
+  width: 240px;
+  background-color: $primaryColor;
+
+  &_minimum {
+    width: 100px;
+  }
+
+  .link_sidebar {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 8px;
+    height: 60px;
+    color: black;
+    background-color: $kappel15;
+    border-bottom: 2px $tertiaryColor;
+    font-family: $leagueSpartan;
+    font-size: $fs-6;
+    font-weight: $fw-600;
+
+    &:hover {
+      background-color: $kappel;
+    }
+  }
+}

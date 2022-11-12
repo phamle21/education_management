@@ -10,14 +10,20 @@ const Unauthorized = lazy(() => import('views/default/Unauthorized'));
 const InvalidAccess = lazy(() => import('views/default/InvalidAccess'));
 const App = lazy(() => import('App.js'));
 const Home = lazy(() => import('views/default/Home'));
+const Landing = lazy(() => import('views/landing/index'));
 
 /*
 { path: "/path", exact: true, component: ViewHome },
 // or
-{ path: "/path", component: ViewHome},
+{ path: "/path", component: UserDetail},
 // or
 { path: "/path", exact: true, redirect: true, to: "/redirectPath" },
 */
+const NORMAL_PATHS = {
+  HOME: '/',
+  LANDING: '/landing',
+};
+
 const defaultRoutes = [
   { path: DEFAULT_PATHS.NOTFOUND, exact: true, component: NotFound },
   { path: DEFAULT_PATHS.LOGIN, exact: true, component: Login },
@@ -27,7 +33,9 @@ const defaultRoutes = [
   { path: DEFAULT_PATHS.UNAUTHORIZED, exact: true, component: Unauthorized },
   { path: DEFAULT_PATHS.INVALID_ACCESS, exact: true, component: InvalidAccess },
   { path: DEFAULT_PATHS.APP, component: App },
-  { path: '/', exact: true, component: Home },
+  // ---- TRANG NGUOI DUNG ----
+  { path: NORMAL_PATHS.HOME, exact: true, component: Landing },
+  { path: NORMAL_PATHS.LANDING, exact: true, component: Landing },
 ];
 
 export default defaultRoutes;

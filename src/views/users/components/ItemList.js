@@ -18,7 +18,7 @@ const ItemList = ({ tableInstance }) => {
       <div className="list mb-5">
         {page.length > 0 ? page.map((row, i) => {
           prepareRow(row);
-          const { status, roles, name, email, phone, avatar } = row.original;
+          const { status, role, name, email, phone, avatar } = row.original;
           const { checked, onChange } = row.getToggleRowSelectedProps();
 
           return (
@@ -39,7 +39,7 @@ const ItemList = ({ tableInstance }) => {
                         <div className="text-small text-wrap text-muted text-truncate position">{email}<br />{phone}</div>
                       </a>
                       <Col xs="12" lg="3" className="d-flex flex-wrap pe-1 mb-2 mb-lg-0 align-items-center justify-content-start order-3">
-                        {roles.length > 0 ? roles.map((role, index) => <span key={index} className="badge bg-outline-primary group me-1 mb-1">{role.name}</span>) : <></>}
+                        <span className="badge fs-6 bg-outline-primary group mb-1">{role}</span>
                       </Col>
                       <Col xs="12" lg="3" className="d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center align-items-center order-4">
                         <div className="lh-1 text-alternate email">

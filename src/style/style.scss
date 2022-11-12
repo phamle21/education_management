@@ -1,0 +1,17 @@
+@import 'color/color.scss';
+@import 'manage/manage.scss';
+@import 'font/font.scss';
+@import 'admin/admin.scss';
+
+
+* {
+  font-family: $sansPro;
+  color: black;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}

@@ -1,0 +1,45 @@
+@import '../../color/color.scss';
+
+.navbar {
+  background-color: $white;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    padding: 0;
+    margin: 0;
+  }
+
+  .action {
+    padding: 20px 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .avt {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    .user-name {
+      margin-bottom: 0;
+      background-color: white;
+      color: black;
+      border: none;
+      font-weight: 600;
+    }
+
+    .action-menu {
+      width: 140px;
+    }
+
+    .action-value:active {
+      background-color: $kappel;
+    }
+  }
+}

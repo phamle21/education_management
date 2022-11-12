@@ -97,8 +97,6 @@ export const deleteContact =
       const response = await apiBase.post(`/users/delete-list`, { sortBy, pageSize, pageIndex, ids });
 
       if (response.data.status === 'success') {
-        console.log(`mess`)
-        console.log(mess)
         Swal.fire({
           title: 'Success',
           icon: 'success',

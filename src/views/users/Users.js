@@ -49,8 +49,8 @@ const UsersApp = () => {
         },
       },
       {
-        Header: 'Roles',
-        accessor: 'roles',
+        Header: 'Role',
+        accessor: 'role',
         sortable: false,
         headerClassName: 'col-3 col-lg-3 d-flex flex-column pe-1 justify-content-center',
       },

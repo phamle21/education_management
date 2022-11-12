@@ -12,7 +12,7 @@ export const REACT_HELMET_PROPS = {
 };
 
 export const DEFAULT_PATHS = {
-  APP: '/',
+  APP: '/admin',
   LOGIN: '/login',
   REGISTER: '/register',
   FORGOT_PASSWORD: '/forgot-password',
