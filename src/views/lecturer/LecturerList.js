@@ -44,7 +44,7 @@ const LecturerList = () => {
       })
         .catch(err => console.log(err))
         .then(res => {
-          setListLecturers(res.data.data);
+          setListLecturers(res.data.items);
         })
   }, []);
 
@@ -89,7 +89,7 @@ const LecturerList = () => {
                   <div className="sw-13 position-relative mb-3 mx-auto">
                     <img src={lecturer.avatar} className="img-fluid rounded-xl" alt="thumb" />
                   </div>
-                  <NavLink to={`/lecturers/${lecturer.id}/detail`} className="mb-3 body-link">
+                  <NavLink to={`/admin/lecturers/${lecturer.id}/detail`} className="mb-3 body-link">
                     {lecturer.name}
                   </NavLink>
                   {/* <div className="text-muted text-medium mb-2">Chemistry</div>
@@ -136,7 +136,7 @@ const LecturerList = () => {
                     </Col>
                   </Row>
                   <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mt-4">
-                    <NavLink to={`/lecturers/${lecturer.id}/detail`} className="btn btn-outline-primary w-100 me-1 btn-sm">
+                    <NavLink to={`/admin/lecturers/${lecturer.id}/detail`} className="btn btn-outline-primary w-100 me-1 btn-sm">
                       {f({ id: 'menu.detail' })}
                     </NavLink>
                     {/* <Button variant="outline-primary" className="btn-icon btn-icon-only" size="sm">

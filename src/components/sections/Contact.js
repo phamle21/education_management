@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 // Assets
-import ContactImg1 from "../../assets/img/contact-1.png";
+import ContactImg1 from "../../assets/img/contact1.jpeg";
 import ContactImg2 from "../../assets/img/home1.jpeg";
 import ContactImg3 from "../../assets/img/home_page.jpeg";
 

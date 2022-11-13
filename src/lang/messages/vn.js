@@ -193,6 +193,7 @@ const vnMessages = {
   'menu.gender_female': 'Nữ',
   'menu.gender_male': 'Nam',
 
+
   // Course
   'menu.course_list_title': 'DANH SÁCH',
   'menu.course_title_add': 'Thêm khóa học',

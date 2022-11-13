@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Row, Col, Breadcrumb } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 const Footer = () => {
   useEffect(() => {
@@ -15,7 +15,7 @@ const Footer = () => {
         <Container>
           <Row>
             <Col xs="12" sm="6">
-              <p className="mb-0 text-muted text-medium">Copyright 2022</p>
+              <p className="mb-0 text-muted text-medium">Code Academy Copyright 2022</p>
             </Col>
             {/* <Col sm="6" className="d-none d-sm-block">
               <Breadcrumb className="pt-0 pe-0 mb-0 float-end">

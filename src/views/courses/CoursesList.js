@@ -84,11 +84,11 @@ const ElearningDashboard = () => {
 
   const title = f({ id: 'menu.course_list_title' });
 
-  const description = 'Elearning Portal Course List Page';
+  const description = 'Academy Course List Page';
 
   const breadcrumbs = [
     { to: '', text: f({ id: 'menu.home' }) },
-    { to: 'courses/explore', text: f({ id: 'menu.courses' }) },
+    { to: '/courses/list', text: f({ id: 'menu.courses' }) },
   ];
 
   const [showModal, setShowModal] = useRecoilState(modalAddCourseState);
@@ -210,7 +210,7 @@ const ElearningDashboard = () => {
                     <Card.Img src={course.image} className="card-img-top sh-22" alt="card image" />
                     <Card.Body className="py-4 pb-2" style={{ maxHeight: '5rem' }}>
                       <h5 className="heading mb-0" >
-                        <NavLink to={`/courses/${course.id}/detail`} className="body-link stretched-link">
+                        <NavLink to={`/admin/courses/${course.id}/detail`} className="body-link stretched-link">
                           {course.name}
                         </NavLink>
                       </h5>
@@ -263,7 +263,7 @@ const ElearningDashboard = () => {
                         </Col>
                       </Row>
                       <div className="card-text mb-0 mt-3">
-                        <NavLink to={`/users/${course.user_id}/detail`} className="d-flex flex-column justify-content-center align-items-center">
+                        <NavLink to={`/admin/courses/${course.id}/detail`} className="d-flex flex-column justify-content-center align-items-center">
                           <div className="sw-5 d-inline-block position-relative">
                             <img src={course.teacher_avatar} className="img-fluid rounded-xl border" alt="thumb" />
                           </div>

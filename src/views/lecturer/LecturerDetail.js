@@ -3,7 +3,7 @@ import Clamp from 'components/clamp';
 import HtmlHead from 'components/html-head/HtmlHead';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import React from 'react';
-import { Button, Card, Col, FormControl, InputGroup, Row } from 'react-bootstrap';
+import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import Rating from 'react-rating';
 import { NavLink, useParams } from 'react-router-dom';
@@ -346,7 +346,7 @@ const LecturerDetail = () => {
           {/* Courses End */}
 
           {/* Comments Start */}
-          <h2 className="small-title">Comments</h2>
+          {/* <h2 className="small-title">Comments</h2>
           <Card>
             <Card.Body>
               <div className="d-flex align-items-center border-bottom border-separator-light pb-3 mt-3">
@@ -469,7 +469,7 @@ const LecturerDetail = () => {
                 </InputGroup>
               </div>
             </Card.Body>
-          </Card>
+          </Card> */}
           {/* Comments End */}
         </Col>
       </Row>

@@ -30,8 +30,8 @@ const CoursesDetail = () => {
 
   const breadcrumbs = [
     { to: '', text: f({ id: 'menu.home' }) },
-    { to: 'courses/list', text: f({ id: 'menu.courses' }) },
-    { to: `courses/${params.id}/detail`, text: f({ id: 'menu.detail' }) },
+    { to: '/courses/list', text: f({ id: 'menu.courses' }) },
+    { to: `/courses/${params.id}/detail`, text: f({ id: 'menu.detail' }) },
   ];
 
   const [course, setCourse] = useRecoilState(detailCourseState);

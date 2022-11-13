@@ -1,4 +1,4 @@
-import { LAYOUT, MENU_BEHAVIOUR, NAV_COLOR, MENU_PLACEMENT, RADIUS, THEME_COLOR, USER_ROLE } from 'constants.js';
+import { LAYOUT, MENU_BEHAVIOUR, MENU_PLACEMENT, NAV_COLOR, RADIUS, THEME_COLOR, USER_ROLE } from 'constants.js';
 
 export const IS_DEMO = true;
 export const IS_AUTH_GUARD_ACTIVE = true;
@@ -7,8 +7,8 @@ export const USE_MULTI_LANGUAGE = true;
 
 // For detailed information: https://github.com/nfl/react-helmet#reference-guide
 export const REACT_HELMET_PROPS = {
-  defaultTitle: 'Sports Tournaments',
-  titleTemplate: '%s | Sports Tournaments',
+  defaultTitle: 'Code Academy',
+  titleTemplate: '%s | Code Academy',
 };
 
 export const DEFAULT_PATHS = {

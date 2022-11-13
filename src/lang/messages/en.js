@@ -191,6 +191,7 @@ const enMessages = {
   'menu.sunday': 'Sunday',
   'menu.gender_female': 'Female',
   'menu.gender_male': 'Male',
+  'menu.load_more': 'Load more',
 
   // Courses
   'menu.course_list_title': 'Course List',
