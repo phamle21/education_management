@@ -118,8 +118,27 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Study::class);
     }
 
+    public function courseOfTeacher()
+    {
+        $course_list = Course::where('user_id', $this->id)->get();
+
+        foreach ($course_list as $v) {
+            $v->teacher_name = User::withTrashed()->find($v->user_id)->name;
+            $v->teacher_avatar = User::withTrashed()->find($v->user_id)->getAvatar();
+            $v->image = url(Storage::url($v->image));
+            $v->topics;
+            $v->totalCourseContent = count(CourseContent::where('course_id', $v->id)->get());
+        }
+
+        return $course_list;
+    }
+
     public function getAvatar()
     {
         return url(Storage::url($this->avatar));
+    }
+
+    public function getOtherInfor(){
+        return UserInformation::where('user_id', $this->id)->get();
     }
 }

@@ -960,6 +960,64 @@
                     }
                 ]
             }
+        },
+        "/api/users/get-roles": {
+            "post": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "get roles",
+                "description": "",
+                "operationId": "getRoles",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/teacher/{id}/details": {
+            "post": {
+                "tags": [
+                    "Teacher"
+                ],
+                "summary": "Check Account Exists User",
+                "description": "",
+                "operationId": "teacherDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
         }
     }
 }

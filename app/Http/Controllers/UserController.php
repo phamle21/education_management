@@ -746,7 +746,23 @@ class UserController extends Controller
 
         return response()->json($response);
     }
-
+    /**
+     * @OA\Post(
+     *      path="/api/users/get-roles",
+     *      operationId="getRoles",
+     *      tags={"Roles"},
+     *      summary="get roles",
+     *      description="",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
     public function getRoles()
     {
         $response = [
@@ -755,5 +771,68 @@ class UserController extends Controller
             'data' => UserRole::toArray()
         ];
         return response()->json($response);
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/api/teacher/{id}/details",
+     *      operationId="teacherDetails",
+     *      tags={"Teacher"},
+     *      summary="Check Account Exists User",
+     *      description="",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *      @OA\Parameter(
+     *            name="id",
+     *            description="id",
+     *            example="1",
+     *            required=true,
+     *            in="query",
+     *            @OA\Schema(
+     *                type="string"
+     *            )
+     *        ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
+    public function teacherDetails($id)
+    {
+        if (!User::whereId($id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Không tồn tại id này!!!',
+            ]);
+        }
+
+        $teacher = User::find($id);
+
+        if (UserRole::Teacher != $teacher->role) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Không tồn tại giáo viên này!!!',
+            ]);
+        }
+
+        $teacher->role = [
+            'key' => $teacher->role,
+            'name' => UserRole::getKey($teacher->role)
+        ];
+
+        $teacher->avatar = url(Storage::url($teacher->avatar));
+
+        $teacher->courses = $teacher->courseOfTeacher();
+
+        $teacher->otherInformation = $teacher->getOtherInfor();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lấy thành công chi tiết giáo viên',
+            'teacher' => $teacher
+        ]);
     }
 }

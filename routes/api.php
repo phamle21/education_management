@@ -42,6 +42,10 @@ Route::resource('users', UserController::class);
 Route::post('/users/check-account', [UserController::class, 'checkAccount']);
 Route::post('/users/update/{id}/{field}', [UserController::class, 'updateField']);
 Route::post('/users/delete-list', [UserController::class, 'deleteList']);
+Route::post('/users/get-roles', [UserController::class, 'getRoles']);
 
 /** Topics */
 Route::resource('topics', TopicController::class);
+
+/** Teacher */
+Route::get('/teacher/{id}/details', [UserController::class, 'teacherDetails']);
