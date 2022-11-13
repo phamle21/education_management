@@ -840,7 +840,7 @@ class UserController extends Controller
      * @OA\Get(
      *      path="/api/student/{id}/details",
      *      operationId="studentDetails",
-     *      tags={"Studnet"},
+     *      tags={"Student"},
      *      summary="details",
      *      description="",
      *      @OA\Response(
