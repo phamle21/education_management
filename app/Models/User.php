@@ -105,17 +105,16 @@ class User extends Authenticatable implements JWTSubject
 
     public function studyInfo()
     {
-        $studyInfo = $this->studyCourse;
+        $courseOfStudent = $this->studyCourse;
 
-        foreach ($studyInfo as $v) {
-            $course = Course::find($v->id);
-            $v['mark'] = $course->mark ? $course->mark : 0;
-            $v['finished'] = $course->finished ? $course->finished : 'Unfinished';
-            $v['tuition_paid'] = $course->tuition_paid ? $course->tuition_paid : 0;
+        foreach ($courseOfStudent as $v) {
+            $v->image = url(Storage::url($v->image));
+            $v['mark'] = $v->mark ? $v->mark : 0;
+            $v['finished'] = $v->finished ? $v->finished : 'Unfinished';
+            $v['tuition_paid'] = $v->tuition_paid ? $v->tuition_paid : 0;
         }
 
-        return $studyInfo;
-        return $this->hasMany(Study::class);
+        return $courseOfStudent;
     }
 
     public function courseOfTeacher()

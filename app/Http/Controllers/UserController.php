@@ -778,7 +778,7 @@ class UserController extends Controller
      *      path="/api/teacher/{id}/details",
      *      operationId="teacherDetails",
      *      tags={"Teacher"},
-     *      summary="Check Account Exists User",
+     *      summary="details",
      *      description="",
      *      @OA\Response(
      *          response=200,
@@ -833,6 +833,69 @@ class UserController extends Controller
             'status' => 'success',
             'msg' => 'Lấy thành công chi tiết giáo viên',
             'teacher' => $teacher
+        ]);
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/api/student/{id}/details",
+     *      operationId="studentDetails",
+     *      tags={"Studnet"},
+     *      summary="details",
+     *      description="",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *      @OA\Parameter(
+     *            name="id",
+     *            description="id",
+     *            example="1",
+     *            required=true,
+     *            in="query",
+     *            @OA\Schema(
+     *                type="string"
+     *            )
+     *        ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
+    public function studentDetails($id)
+    {
+        if (!User::whereId($id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Không tồn tại id này!!!',
+            ]);
+        }
+
+        $student = User::find($id);
+
+        if (UserRole::Student != $student->role) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Không tồn tại học sinh này!!!',
+            ]);
+        }
+
+        $student->role = [
+            'key' => $student->role,
+            'name' => UserRole::getKey($student->role)
+        ];
+
+        $student->avatar = url(Storage::url($student->avatar));
+
+        $student->studyInfo();
+        
+        $student->otherInformation = $student->getOtherInfor();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lấy thành công chi tiết học sinh',
+            'student' => $student
         ]);
     }
 }

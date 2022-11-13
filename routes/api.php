@@ -49,3 +49,6 @@ Route::resource('topics', TopicController::class);
 
 /** Teacher */
 Route::get('/teacher/{id}/details', [UserController::class, 'teacherDetails']);
+
+/** Student */
+Route::get('/student/{id}/details', [UserController::class, 'studentDetails']);
