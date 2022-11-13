@@ -774,7 +774,7 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Get(
      *      path="/api/teacher/{id}/details",
      *      operationId="teacherDetails",
      *      tags={"Teacher"},
@@ -837,7 +837,7 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Get(
      *      path="/api/student/{id}/details",
      *      operationId="studentDetails",
      *      tags={"Studnet"},
@@ -889,7 +889,7 @@ class UserController extends Controller
         $student->avatar = url(Storage::url($student->avatar));
 
         $student->studyInfo();
-        
+
         $student->otherInformation = $student->getOtherInfor();
 
         return response()->json([

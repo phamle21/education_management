@@ -985,13 +985,48 @@
             }
         },
         "/api/teacher/{id}/details": {
-            "post": {
+            "get": {
                 "tags": [
                     "Teacher"
                 ],
-                "summary": "Check Account Exists User",
+                "summary": "details",
                 "description": "",
                 "operationId": "teacherDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/student/{id}/details": {
+            "get": {
+                "tags": [
+                    "Studnet"
+                ],
+                "summary": "details",
+                "description": "",
+                "operationId": "studentDetails",
                 "parameters": [
                     {
                         "name": "id",
