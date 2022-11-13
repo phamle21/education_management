@@ -789,7 +789,7 @@ class UserController extends Controller
      *            description="id",
      *            example="1",
      *            required=true,
-     *            in="query",
+     *            in="path",
      *            @OA\Schema(
      *                type="string"
      *            )
@@ -852,7 +852,7 @@ class UserController extends Controller
      *            description="id",
      *            example="1",
      *            required=true,
-     *            in="query",
+     *            in="path",
      *            @OA\Schema(
      *                type="string"
      *            )
