@@ -55,6 +55,17 @@ const roleListState = atom({
     key: 'roleListState',
     default: [{ id: 'role_Admin', name: 'Admin' }, { id: 'role_Teacher', name: 'Teacher' }, { id: 'role_Student', name: 'Student' }]
 })
+
+const lecturerDetailState = atom({
+    key: 'lecturerDetailState',
+    default: [],
+})
+
+const coursesOfLecturerState = atom({
+    key: 'coursesOfLecturerState',
+    default: [],
+})
+
 export {
     roleListState,
     courseListShowState,
@@ -66,5 +77,7 @@ export {
     selectTopicState,
     detailCourseState,
     modalAddLecturerState,
-    modalAddTopicState
+    modalAddTopicState,
+    lecturerDetailState,
+    coursesOfLecturerState
 };

@@ -34,10 +34,10 @@ const TopicList = () => {
 
     const handleShowAdd = () => setShowModal(true);
 
-    const handleCloseEdit = () => setShowModal(false);
+    const handleCloseEdit = () => setShowEditModal(false);
 
     const handleShowEdit = (data) => {
-        setShowModal(true);
+        setShowEditModal(true);
         setTopic(data);
     }
 

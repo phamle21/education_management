@@ -1,3 +1,4 @@
+import DropzonePreview from 'components/dropzone/DropzonePreview';
 import NotificationIcon from 'components/notification/NotificationIconSuccess';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import Moment from 'moment';
@@ -6,6 +7,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Dropzone, { defaultClassNames } from 'react-dropzone-uploader';
+import 'react-dropzone-uploader/dist/styles.css';
 import { useIntl } from 'react-intl';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
@@ -45,10 +48,28 @@ const ModalAddCourse = ({ show, onHide, }) => {
 
     const [courseObj, setCourseObj] = useState('');
 
+    const [fileContent, setFileContent] = useState();
+
+    const getUploadParams = () => ({ url: 'https://httpbin.org/post' });
+
+    const onChangeStatus = (fileWithMeta, status) => {
+        setSelectedImage(fileWithMeta.file);
+        console.log(selectedImage);
+        // console.log(fileWithMeta);
+        // console.log(status);
+      };
+
+    const onChangeFile = (fileWithMeta, status) => {
+        setFileContent(fileWithMeta.file);
+        console.log(fileWithMeta);
+        console.log(status);
+    };
+
 
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             setSelectedImage(e.target.files[0]);
+            console.log(selectedImage);
         }
     };
 
@@ -152,6 +173,20 @@ const ModalAddCourse = ({ show, onHide, }) => {
                                 />
                             </div>
                             <div className="mb-4 filled">
+                            <Dropzone
+                                getUploadParams={getUploadParams}
+                                PreviewComponent={DropzonePreview}
+                                submitButtonContent={null}
+                                accept="image/*"
+                                submitButtonDisabled
+                                SubmitButtonComponent={null}
+                                inputWithFilesContent={null}
+                                onChangeStatus={onChangeStatus}
+                                classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
+                                inputContent="Drop Image"
+                                />
+                            </div>
+                            <div className="mb-4 filled">
                                 <CsLineIcons icon="image" />
                                 <Form.Control
                                     type='file'
@@ -234,6 +269,19 @@ const ModalAddCourse = ({ show, onHide, }) => {
                                     rows={3}
                                     placeholder={f({ id: 'menu.course_objectives' })}
                                     onChange={(e) => setCourseObj(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-4 filled">
+                            <Dropzone
+                                getUploadParams={getUploadParams}
+                                PreviewComponent={DropzonePreview}
+                                submitButtonContent={null}
+                                submitButtonDisabled
+                                SubmitButtonComponent={null}
+                                inputWithFilesContent={null}
+                                onChangeStatus={onChangeFile}
+                                classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
+                                inputContent={f({ id: 'menu.drop_excel' })}
                                 />
                             </div>
                         </Form>

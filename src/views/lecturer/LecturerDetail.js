@@ -1,26 +1,39 @@
+import apiBase from 'app/axios/apiBase';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import Clamp from 'components/clamp';
 import HtmlHead from 'components/html-head/HtmlHead';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import Rating from 'react-rating';
 import { NavLink, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { coursesOfLecturerState } from 'recoil_store';
 
 const LecturerDetail = () => {
   const { formatMessage: f } = useIntl();
 
-  const title = 'Chi tiết';
-  const description = 'Elearning Portal Lecturer Detail Page';
+  const title = f({ id: 'menu.detail' });
+  const description = 'Code Academy Lecturer Detail Page';
 
   const params = useParams();
 
   const breadcrumbs = [
     { to: '', text: f({ id: 'menu.home' }) },
     { to: 'lecturers/list', text: f({ id: 'menu.lecturer' }) },
-    { to: `lecturers/${params.id}/detail`, text: f({ id: f({ id: 'menu.detail' }) }) },
   ];
+
+  const [listCourses, setListCourse] = useRecoilState(coursesOfLecturerState);
+
+  useEffect(() => {
+    if(listCourses.length < 1) {
+      apiBase.get(`/courses/${params.id}/teacher`)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
+    }
+  },[]);
+
   return (
     <>
       <HtmlHead title={title} description={description} />
@@ -89,7 +102,7 @@ const LecturerDetail = () => {
 
         <Col xl="8" xxl="9">
           {/* Stats Start */}
-          <h2 className="small-title">Stats</h2>
+          <h2 className="small-title">{f({ id: 'menu.stats' })}</h2>
           <Row className="g-2 mb-5">
             <Col sm="6" lg="3">
               <Card className="hover-border-primary">
@@ -98,12 +111,12 @@ const LecturerDetail = () => {
                     <span>Courses</span>
                     <CsLineIcons icon="presentation" className="text-primary" />
                   </div>
-                  <div className="text-small text-muted mb-1">3 New</div>
+                  {/* <div className="text-small text-muted mb-1">3 New</div> */}
                   <div className="cta-1 text-primary">35</div>
                 </Card.Body>
               </Card>
             </Col>
-            <Col sm="6" lg="3">
+            {/* <Col sm="6" lg="3">
               <Card className="hover-border-primary">
                 <Card.Body>
                   <div className="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
@@ -114,20 +127,20 @@ const LecturerDetail = () => {
                   <div className="cta-1 text-primary">4.85</div>
                 </Card.Body>
               </Card>
-            </Col>
+            </Col> */}
             <Col sm="6" lg="3">
               <Card className="hover-border-primary">
                 <Card.Body>
                   <div className="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
-                    <span>Trainee</span>
+                    <span>{f({ id: 'menu.students' })}</span>
                     <CsLineIcons icon="diploma" className="text-primary" />
                   </div>
-                  <div className="text-small text-muted mb-1">~456 Monthly</div>
+                  {/* <div className="text-small text-muted mb-1">~456 Monthly</div> */}
                   <div className="cta-1 text-primary">24.453</div>
                 </Card.Body>
               </Card>
             </Col>
-            <Col sm="6" lg="3">
+            {/* <Col sm="6" lg="3">
               <Card className="hover-border-primary">
                 <Card.Body>
                   <div className="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
@@ -138,7 +151,7 @@ const LecturerDetail = () => {
                   <div className="cta-1 text-primary">245 Hours</div>
                 </Card.Body>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
           {/* Stats End */}
 

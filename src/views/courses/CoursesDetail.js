@@ -6,7 +6,7 @@ import Plyr from 'plyr-react';
 import React, { useEffect } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { detailCourseState } from 'recoil_store';
 import apiBase from '../../app/axios/apiBase';
@@ -641,67 +641,57 @@ const CoursesDetail = () => {
           </Card> */}
           {/* Tags End */}
 
-          {/* Badges Start */}
-          {/* <h2 className="small-title">Badges</h2>
-          <Card className="mb-2 sh-15">
-            <Card.Body className="text-center align-items-center d-flex flex-row">
-              <div className="d-flex sw-6 sh-6 bg-gradient-light align-items-center justify-content-center rounded-xl position-relative ms-1">
-                <CsLineIcons icon="burger" className="text-white" />
-                <div className="achievement bg position-absolute">
-                  <svg width="75" height="75" viewBox="0 0 75 75" fill="black" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M15.3422 7.24333C21.5482 2.69119 29.2117 0 37.5 0C45.7883 0 53.4518 2.69119 59.6578 7.24333C60.5562 7.90233 60.7431 9.15516 60.0752 10.0416C59.4073 10.9281 58.1375 11.1124 57.2391 10.4534C51.7048 6.39402 44.8833 4 37.5 4C30.1167 4 23.2952 6.39403 17.7609 10.4535C16.8625 11.1124 15.5927 10.9281 14.9248 10.0416C14.2569 9.15516 14.4438 7.90233 15.3422 7.24333ZM65.0942 15.1001C66.006 14.4592 67.2717 14.6688 67.9213 15.5684C72.3763 21.7377 75 29.3164 75 37.5C75 45.6836 72.3763 53.2623 67.9213 59.4316C67.2717 60.3311 66.006 60.5408 65.0942 59.8999C64.1825 59.2589 63.97 58.0101 64.6196 57.1105C68.599 51.5998 70.9459 44.8284 70.9459 37.5C70.9459 30.1716 68.599 23.4002 64.6196 17.8895C63.97 16.9899 64.1825 15.7411 65.0942 15.1001ZM9.90579 15.1001C10.8175 15.7411 11.03 16.9899 10.3804 17.8895C6.40105 23.4002 4.05405 30.1716 4.05405 37.5C4.05405 44.8284 6.40105 51.5998 10.3804 57.1105C11.03 58.0101 10.8175 59.2589 9.90579 59.8999C8.99405 60.5408 7.72832 60.3312 7.07871 59.4316C2.62373 53.2623 0 45.6836 0 37.5C0 29.3164 2.62373 21.7377 7.07871 15.5684C7.72832 14.6689 8.99404 14.4592 9.90579 15.1001ZM14.9248 64.9584C15.5927 64.0719 16.8625 63.8876 17.7609 64.5466C23.2952 68.606 30.1167 71 37.5 71C44.8833 71 51.7048 68.606 57.2391 64.5465C58.1375 63.8876 59.4073 64.0719 60.0752 64.9584C60.7431 65.8448 60.5562 67.0977 59.6578 67.7567C53.4518 72.3088 45.7883 75 37.5 75C29.2117 75 21.5483 72.3088 15.3422 67.7567C14.4438 67.0977 14.2569 65.8448 14.9248 64.9584Z"
-                    />
-                  </svg>
-                </div>
-                <div className="achievement level position-absolute">
-                  <svg width="75" height="75" viewBox="0 0 75 75" fill="black" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M15.3422 7.24333C21.5482 2.69119 29.2117 0 37.5 0C45.7883 0 53.4517 2.69119 59.6578 7.24333C60.5562 7.90233 60.7431 9.15516 60.0752 10.0416C59.4073 10.9281 58.1375 11.1124 57.2391 10.4534C51.7048 6.39402 44.8833 4 37.5 4C30.1167 4 23.2952 6.39403 17.7609 10.4535C16.8625 11.1124 15.5927 10.9281 14.9248 10.0416C14.2569 9.15516 14.4438 7.90233 15.3422 7.24333Z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div className="ms-5 text-start">
-                <p className="mb-1">Sandwich Novice</p>
-                <p className="mb-0 text-primary">Level 1</p>
-              </div>
-            </Card.Body>
-          </Card>
-          <Card className="mb-2 sh-15">
-            <Card.Body className="text-center align-items-center d-flex flex-row">
-              <div className="d-flex sw-6 sh-6 bg-gradient-light align-items-center justify-content-center rounded-xl position-relative ms-1">
-                <CsLineIcons icon="cupcake" className="text-white" />
-                <div className="achievement bg position-absolute">
-                  <svg width="75" height="75" viewBox="0 0 75 75" fill="black" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M15.3422 7.24333C21.5482 2.69119 29.2117 0 37.5 0C45.7883 0 53.4518 2.69119 59.6578 7.24333C60.5562 7.90233 60.7431 9.15516 60.0752 10.0416C59.4073 10.9281 58.1375 11.1124 57.2391 10.4534C51.7048 6.39402 44.8833 4 37.5 4C30.1167 4 23.2952 6.39403 17.7609 10.4535C16.8625 11.1124 15.5927 10.9281 14.9248 10.0416C14.2569 9.15516 14.4438 7.90233 15.3422 7.24333ZM65.0942 15.1001C66.006 14.4592 67.2717 14.6688 67.9213 15.5684C72.3763 21.7377 75 29.3164 75 37.5C75 45.6836 72.3763 53.2623 67.9213 59.4316C67.2717 60.3311 66.006 60.5408 65.0942 59.8999C64.1825 59.2589 63.97 58.0101 64.6196 57.1105C68.599 51.5998 70.9459 44.8284 70.9459 37.5C70.9459 30.1716 68.599 23.4002 64.6196 17.8895C63.97 16.9899 64.1825 15.7411 65.0942 15.1001ZM9.90579 15.1001C10.8175 15.7411 11.03 16.9899 10.3804 17.8895C6.40105 23.4002 4.05405 30.1716 4.05405 37.5C4.05405 44.8284 6.40105 51.5998 10.3804 57.1105C11.03 58.0101 10.8175 59.2589 9.90579 59.8999C8.99405 60.5408 7.72832 60.3312 7.07871 59.4316C2.62373 53.2623 0 45.6836 0 37.5C0 29.3164 2.62373 21.7377 7.07871 15.5684C7.72832 14.6689 8.99404 14.4592 9.90579 15.1001ZM14.9248 64.9584C15.5927 64.0719 16.8625 63.8876 17.7609 64.5466C23.2952 68.606 30.1167 71 37.5 71C44.8833 71 51.7048 68.606 57.2391 64.5465C58.1375 63.8876 59.4073 64.0719 60.0752 64.9584C60.7431 65.8448 60.5562 67.0977 59.6578 67.7567C53.4518 72.3088 45.7883 75 37.5 75C29.2117 75 21.5483 72.3088 15.3422 67.7567C14.4438 67.0977 14.2569 65.8448 14.9248 64.9584Z"
-                    />
-                  </svg>
-                </div>
-                <div className="achievement level position-absolute">
-                  <svg width="75" height="75" viewBox="0 0 75 75" fill="black" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M15.3422 7.24333C21.5482 2.69119 29.2117 0 37.5 0C45.7883 0 53.4517 2.69119 59.6578 7.24333C60.5562 7.90233 60.7431 9.15516 60.0752 10.0416C59.4073 10.9281 58.1375 11.1124 57.2391 10.4534C51.7048 6.39402 44.8833 4 37.5 4C30.1167 4 23.2952 6.39403 17.7609 10.4535C16.8625 11.1124 15.5927 10.9281 14.9248 10.0416C14.2569 9.15516 14.4438 7.90233 15.3422 7.24333ZM65.0942 15.1001C66.006 14.4592 67.2717 14.6688 67.9213 15.5684C72.3763 21.7377 75 29.3164 75 37.5C75 45.6836 72.3763 53.2623 67.9213 59.4316C67.2717 60.3311 66.006 60.5408 65.0942 59.8999C64.1825 59.2589 63.97 58.0101 64.6196 57.1105C68.599 51.5998 70.9459 44.8284 70.9459 37.5C70.9459 30.1716 68.5989 23.4002 64.6196 17.8895C63.97 16.9899 64.1825 15.7411 65.0942 15.1001Z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div className="ms-5 text-start">
-                <p className="mb-1">Cake Apprentice</p>
-                <p className="mb-0 text-primary">Level 2</p>
-              </div>
-            </Card.Body>
-          </Card> */}
-          {/* Badges End */}
+          {/* List Student Start */}
+          <h2 className="small-title">{f({ id: 'menu.list_students' })}</h2>
+          <Card className="mb-2" id="introSecond">
+              <Row className="g-0 sh-12">
+                <Col xs="auto">
+                  <NavLink to="/student/:id/detail">
+                    <img src="/img/product/small/product-1.webp" alt="user" className="card-img card-img-horizontal sw-13 sw-lg-15" />
+                  </NavLink>
+                </Col>
+                <Col>
+                  <Card.Body className="pt-0 pb-0 h-100">
+                    <Row className="g-0 h-100 align-content-center">
+                      <Col md="7" className="d-flex flex-column mb-2 mb-md-0">
+                        <NavLink to="/student/:id/detail">Kommissbrot</NavLink>
+                      </Col>
+                      <Col md="5" className="d-flex align-items-center justify-content-md-end">
+                        <Button variant="outline-primary" size="sm" className="btn-icon btn-icon-start ms-1">
+                          <CsLineIcons icon="bin" width="15" height="15" className="me-xxl-2" />
+                          <span className="d-none d-xxl-inline-block">Delete</span>
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Col>
+              </Row>
+            </Card>
+            <Card className="mb-2" id="introSecond">
+              <Row className="g-0 sh-12">
+                <Col xs="auto">
+                  <NavLink to="/student/:id/detail">
+                    <img src="/img/product/small/product-1.webp" alt="user" className="card-img card-img-horizontal sw-13 sw-lg-15" />
+                  </NavLink>
+                </Col>
+                <Col>
+                  <Card.Body className="pt-0 pb-0 h-100">
+                    <Row className="g-0 h-100 align-content-center">
+                      <Col md="7" className="d-flex flex-column mb-2 mb-md-0">
+                        <NavLink to="/student/:id/detail">Kommissbrot</NavLink>
+                      </Col>
+                      <Col md="5" className="d-flex align-items-center justify-content-md-end">
+                        <Button variant="outline-primary" size="sm" className="btn-icon btn-icon-start ms-1">
+                          <CsLineIcons icon="bin" width="15" height="15" className="me-xxl-2" />
+                          <span className="d-none d-xxl-inline-block">Delete</span>
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Col>
+              </Row>
+            </Card>
+            {/* List Student End */}
         </Col>
       </Row>
     </>

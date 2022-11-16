@@ -1,25 +1,27 @@
 import NotificationIcon from 'components/notification/NotificationIconSuccess';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useIntl } from 'react-intl';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useRecoilState } from 'recoil';
-import { topicListState } from 'recoil_store';
 import apiBase from '../../../app/axios/apiBase';
 
 const ModalEditTopic = ({show, onHide, data}) => {
     const { formatMessage: f } = useIntl();
 
-    const [topicName, setTopicName] = useState(data && data.name);
-
-    const [topicList, setTopicList] = useRecoilState(topicListState);
+    const [topicName, setTopicName] = useState();
 
     const notify = () => toast(
-        <NotificationIcon icon='check' title='Success' content='Add Topic Succesfully!' />,
+        <NotificationIcon icon='check' title='Success' content='Update Topic Succesfully!' />,
     );
+
+    useEffect(() => {
+        if(data) {
+            setTopicName(data.name);
+        }
+    });
 
     const handleSave = () => {
         apiBase.post("topics", {
@@ -28,7 +30,6 @@ const ModalEditTopic = ({show, onHide, data}) => {
         .catch(err => console.log(err))
         .then(res => {
             if (res.data != null) {
-                setTopicList([...topicList, res.data.data]);
                 onHide();
                 notify();
             }
@@ -39,15 +40,15 @@ const ModalEditTopic = ({show, onHide, data}) => {
         <>
         <Modal className="modal-close-out" show={show} onHide={onHide} centered>
             <Modal.Header closeButton>
-                <Modal.Title>{f({ id: 'menu.topic_title_add' })}</Modal.Title>
+                <Modal.Title>{f({ id: 'menu.topic_title_edit' })}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
                     <div className="mb-4 filled">
                         <CsLineIcons icon="user" />
                         <Form.Control
-                            autoFocus
                             value={topicName}
+                            autoFocus
                             placeholder={f({ id: 'menu.topic_name' })}
                             onChange={(e) => setTopicName(e.target.value)}
                         />

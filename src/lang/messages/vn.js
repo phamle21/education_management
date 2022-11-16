@@ -192,20 +192,20 @@ const vnMessages = {
   'menu.calendar': 'Lịch biểu',
   'menu.gender_female': 'Nữ',
   'menu.gender_male': 'Nam',
-
+  'menu.list_students': 'Danh sách học viên',
 
   // Course
   'menu.course_list_title': 'DANH SÁCH',
   'menu.course_title_add': 'Thêm khóa học',
   'menu.course_name': 'Tên khóa học',
   'menu.course_short_description': 'Mô tả ngắn',
-  'menu.course_image': 'Hình minh họa',
+  'menu.course_image': 'Tải lên hình ảnh của khóa học',
   'menu.course_teacher_name': 'Tên giảng viên',
   'menu.course_start_day': 'Ngày bắt đầu',
   'menu.course_end_day': 'Ngày kết thúc',
   'menu.course_quantity': 'Số lượng học viên',
   'menu.course_fees': 'Học phí',
-  'menu.course_objectives': 'Mục tiêu khóa học',
+  'menu.drop_excel': 'Tải lên tệp nội dung khóa học',
 
   // Course Detail
   'menu.duration_detail': 'Thời gian',
@@ -242,6 +242,7 @@ const vnMessages = {
   'menu.topic_list_title': 'DANH SÁCH',
   'menu.topic_title_add': 'Thêm Chủ Đề',  
   'menu.topic_name': 'Tên chủ đề',  
+  'menu.topic_title_edit': 'Cập Nhật Chủ Đề', 
 
 
   // User

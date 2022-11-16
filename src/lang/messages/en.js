@@ -192,13 +192,14 @@ const enMessages = {
   'menu.gender_female': 'Female',
   'menu.gender_male': 'Male',
   'menu.load_more': 'Load more',
+  'menu.list_students': 'List Students',
 
   // Courses
   'menu.course_list_title': 'Course List',
   'menu.course_title_add': 'Add Course',
   'menu.course_name': 'Course name',
   'menu.course_short_description': 'Short description',
-  'menu.course_image': 'Image',
+  'menu.course_image': 'Drop the image file of the course',
   'menu.course_teacher_name': 'Teacher name',
   'menu.course_start_day': 'Day start',
   'menu.course_end_day': 'Day end',
@@ -206,6 +207,7 @@ const enMessages = {
   'menu.course_fees': 'Course fees',
   'menu.course_objectives': 'Course objectives',
   'menu.at-a-glance': 'At a glance',
+  'menu.drop_excel': 'Drop course content file',
 
   // Course Detail
   'menu.duration_detail': 'Duration',
@@ -242,6 +244,7 @@ const enMessages = {
   'menu.topic_list_title': 'Topic List',
   'menu.topic_title_add': 'Add Topic',  
   'menu.topic_name': 'Topic Name',  
+  'menu.topic_title_edit': 'Edit Topic', 
 
 
   // User
