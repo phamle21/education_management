@@ -995,7 +995,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "id",
                         "required": true,
                         "schema": {
@@ -1030,7 +1030,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "id",
                         "required": true,
                         "schema": {

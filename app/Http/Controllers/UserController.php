@@ -76,7 +76,7 @@ class UserController extends Controller
             return [$user_list_show, $page_index, $page_size, $page_count];
         }
 
-        function sendMail($to, $subject = null, $title, $body, $view)
+        function sendMail($to, $subject, $title, $body, $view)
         {
             $mailData = [
                 'view' => $view,
