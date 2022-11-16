@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0941649826',
                 'status' => 'Active',
                 'gender' => 'Male',
-                'avatar' => 'users/avatar-default.png',
+                'avatar' => 'users/avatar-default.gif',
                 'role' => UserRole::Admin,
             ],
             [
@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0387473591',
                 'status' => 'Active',
                 'gender' => 'Female',
-                'avatar' => 'users/avatar-default.png',
+                'avatar' => 'users/avatar-default.gif',
                 'role' => UserRole::Admin,
             ]
         ]);

@@ -61,7 +61,7 @@ class UserController extends Controller
             }
 
             $page_index = $pageIndex;
-            $page_size = $pageSize != 0 ?  $pageSize : count($result_list);
+            $page_size = $pageSize != 0 ?  $pageSize : (count($result_list) > 0 ? count($result_list) : 1);
             $page_count = ceil(count($result_list) / $page_size);
 
             $user_list_show = [];
