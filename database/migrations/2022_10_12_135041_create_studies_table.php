@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('mark')->nullable();
+            $table->integer('mark')->default(-1);
             $table->dateTime('finished')->nullable();
             $table->double('tuition_paid')->nullable();
             $table->timestamps();

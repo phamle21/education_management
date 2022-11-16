@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('course_contents', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('content');
+            $table->longText('content');
             $table->unsignedBigInteger('course_id');
             $table->timestamps();
         });

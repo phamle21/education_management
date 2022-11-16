@@ -5,6 +5,14 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Enums\UserRole;
+use App\Imports\AttendancesImport;
+use App\Imports\CourseContentsImport;
+use App\Imports\CoursesImport;
+use App\Imports\OptionsImport;
+use App\Imports\SchedulesImport;
+use App\Imports\TopicsImport;
+use App\Imports\UserInformationsImport;
+use App\Imports\UsersImport;
 use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\CourseContent;
@@ -19,6 +27,7 @@ use App\Models\UserInformation;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DatabaseSeeder extends Seeder
 {
@@ -56,55 +65,31 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
-        foreach (User::all() as $v) {
-            Image::create([
-                'type' => 'User',
-                'type_name' => 'avatar',
-                'name' => 'Avatar of ' . $v->name,
-                'path' => 'avatar-default.png',
-                'type_id' => $v->id
-            ]);
-        }
+        Excel::import(new OptionsImport, public_path('data-import/options.xlsx'));
+        Excel::import(new UsersImport, public_path('data-import/users.xlsx'));
+        Excel::import(new UserInformationsImport, public_path('data-import/user-informations.xlsx'));
+        Excel::import(new CoursesImport, public_path('data-import/courses.xlsx'));
+        Excel::import(new CourseContentsImport, public_path('data-import/course-contents.xlsx'));
+        Excel::import(new TopicsImport, public_path('data-import/topics.xlsx'));
+        Excel::import(new SchedulesImport, public_path('data-import/schedules.xlsx'));
+        Excel::import(new TopicsImport, public_path('data-import/users.xlsx'));
 
-        Option::insert([
-            [
-                'name' => 'logo_name',
-                'value' => 'Logo',
-            ],
-            [
-                'name' => 'logo_path',
-                'path' => '/images/system/logo.png'
-            ],
-            [
-                'name' => 'name_site',
-                'value' => 'Sport Management'
-            ]
-        ]);
-
-        User::factory(10)->create();
-
-        foreach (User::all() as $v) {
-            UserInformation::insert([
-                'user_id' => $v->id,
-                'key' => 'degree',
-                'information' => 'Sư phạm CNTT',
-            ]);
-        }
-
-        UserInformation::factory(10)->create();
-        Course::factory(10)->create();
-        CourseContent::factory(10)->create();
-        Topic::factory(10)->create();
-
+        // Course - Topics
         foreach (Course::all() as $v) {
+            CourseTopic::insert([
+                'course_id' => $v->id,
+                'topic_id' => Topic::all()->random()->id,
+            ]);
+            CourseTopic::insert([
+                'course_id' => $v->id,
+                'topic_id' => Topic::all()->random()->id,
+            ]);
             CourseTopic::insert([
                 'course_id' => $v->id,
                 'topic_id' => Topic::all()->random()->id,
             ]);
         }
 
-        Schedule::factory(10)->create();
-        Study::factory(10)->create();
-        Attendance::factory(10)->create();
+        Study::factory(20)->create();
     }
 }

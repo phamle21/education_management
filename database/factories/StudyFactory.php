@@ -22,8 +22,6 @@ class StudyFactory extends Factory
         return [
             'course_id' => Course::all()->random()->id,
             'user_id' => User::all()->random()->id,
-            'mark' => $this->faker->numberBetween($min = 0, $max = 100),
-            'finished' => $this->faker->dateTimeBetween($startDate = $course->start, $endDate = $course->end, $timezone = null),
             'tuition_paid' => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = 10000000),
         ];
     }

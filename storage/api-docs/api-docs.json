@@ -1022,7 +1022,7 @@
         "/api/student/{id}/details": {
             "get": {
                 "tags": [
-                    "Studnet"
+                    "Student"
                 ],
                 "summary": "details",
                 "description": "",
