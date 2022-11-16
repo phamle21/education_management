@@ -72,7 +72,6 @@ class DatabaseSeeder extends Seeder
         Excel::import(new CourseContentsImport, public_path('data-import/course-contents.xlsx'));
         Excel::import(new TopicsImport, public_path('data-import/topics.xlsx'));
         Excel::import(new SchedulesImport, public_path('data-import/schedules.xlsx'));
-        Excel::import(new TopicsImport, public_path('data-import/users.xlsx'));
 
         // Course - Topics
         foreach (Course::all() as $v) {
