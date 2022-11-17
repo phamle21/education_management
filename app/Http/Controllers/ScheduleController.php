@@ -3,83 +3,235 @@
 namespace App\Http\Controllers;
 
 use App\Models\Schedule;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      path="/api/schedules",
+     *      operationId="getSchedule",
+     *      tags={"Schedule"},
+     *      summary="Get schedule list",
+     *      description="Returns schedule list",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if (isset($request->startStr) && isset($request->endStr)) {
+            $start_date = Carbon::parse($request->startStr)->toDateTimeString();
+            $end_date = Carbon::parse($request->endStr)->toDateTimeString();
+
+            $schedule = Schedule::where([
+                ['date_time_start', '>=', $start_date],
+                ['date_time_end', '<=', $end_date],
+            ])->get();
+        } else {
+            $schedule = Schedule::all();
+        }
+
+
+        foreach ($schedule as $v) {
+            $v->courseName = $v->course()->name;
+            $v->title = $v->course()->name;
+            $v->courseId = $v->course_id;
+            $v->start = str_replace(' ', 'T', $v->date_time_start);
+            $v->end = str_replace(' ', 'T', $v->date_time_end);
+            $v->category = 'Education';
+        }
+
+        return response()->json($schedule);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\POST(
+     *      path="/api/schedules",
+     *      operationId="createSchedule",
+     *      tags={"Schedule"},
+     *      summary="create schedule",
+     *      description="Returns schedule list",
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="courseID",
+     *                     type="integer"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="start",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="end",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="location",
+     *                     type="string"
+     *                 ),
+     *                 example={"courseID": "1", "start": "2022-11-18T03:12:00", "end": "2022-11-18T05:00:00", "location": "dia chi"}
+     *             )
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
      */
     public function store(Request $request)
     {
-        //
+        Schedule::create([
+            'course_id' => $request->item['courseId'],
+            'date_time_start' => Carbon::parse($request->item['start'])->format('Y-m-d H:i:s'),
+            'date_time_end' => Carbon::parse($request->item['end'])->format('Y-m-d H:i:s'),
+            'location' => $request->item['location'],
+        ]);
+
+        $schedule = Schedule::all();
+
+        foreach ($schedule as $v) {
+            $v->courseName = $v->course()->name;
+            $v->title = $v->course()->name;
+            $v->courseId = $v->course_id;
+            $v->start = str_replace(' ', 'T', $v->date_time_start);
+            $v->end = str_replace(' ', 'T', $v->date_time_end);
+            $v->category = 'Education';
+        }
+
+        return response()->json($schedule);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Schedule $schedule)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Schedule $schedule)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
+     * @OA\PATCH(
+     *      path="/api/schedules/{id}",
+     *      operationId="updateSchedule",
+     *      tags={"Schedule"},
+     *      summary="update schedule",
+     *      description="Returns schedule list",
+     *      @OA\Parameter(
+     *            name="id",
+     *            description="id",
+     *            example="1",
+     *            required=true,
+     *            in="path",
+     *            @OA\Schema(
+     *                type="integer",
+     *            )
+     *        ),
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="courseID",
+     *                     type="integer"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="start",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="end",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="location",
+     *                     type="string"
+     *                 ),
+     *                 example={"courseID": "1", "start": "2022-11-18T03:12:00", "end": "2022-11-18T05:00:00", "location": "dia chi"}
+     *             )
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
      */
     public function update(Request $request, Schedule $schedule)
     {
-        //
+        Schedule::find($schedule->id)->update([
+            'course_id' => $request->item['courseId'],
+            'date_time_start' => Carbon::parse($request->item['start'])->format('Y-m-d H:i:s'),
+            'date_time_end' => Carbon::parse($request->item['end'])->format('Y-m-d H:i:s'),
+            'location' => $request->item['location'],
+        ]);
+
+        $schedule = Schedule::all();
+
+        foreach ($schedule as $v) {
+            $v->courseName = $v->course()->name;
+            $v->title = $v->course()->name;
+            $v->courseId = $v->course_id;
+            $v->start = str_replace(' ', 'T', $v->date_time_start);
+            $v->end = str_replace(' ', 'T', $v->date_time_end);
+            $v->category = 'Education';
+        }
+
+        return response()->json($schedule);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *      path="/api/schedules",
+     *      operationId="deleteSchedule",
+     *      tags={"Schedule"},
+     *      summary="delete schedule",
+     *      description="Returns schedule list",
+     *      @OA\Parameter(
+     *            name="id",
+     *            description="id",
+     *            example="1",
+     *            required=true,
+     *            in="path",
+     *            @OA\Schema(
+     *                type="integer",
+     *            )
+     *        ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
      */
     public function destroy(Schedule $schedule)
     {
-        //
+        $schedule->delete();
+
+        $schedule = Schedule::all();
+
+        foreach ($schedule as $v) {
+            $v->courseName = $v->course()->name;
+            $v->title = $v->course()->name;
+            $v->courseId = $v->course_id;
+            $v->start = str_replace(' ', 'T', $v->date_time_start);
+            $v->end = str_replace(' ', 'T', $v->date_time_end);
+            $v->category = 'Education';
+        }
+
+        return response()->json($schedule);
     }
 }

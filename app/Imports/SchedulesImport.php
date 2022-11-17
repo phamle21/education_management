@@ -3,8 +3,10 @@
 namespace App\Imports;
 
 use App\Models\Schedule;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class SchedulesImport implements ToModel, WithStartRow
 {
@@ -17,8 +19,8 @@ class SchedulesImport implements ToModel, WithStartRow
     {
         return new Schedule([
             'course_id' => $row[0],
-            'date_time_start' => date('Y-m-d', strtotime($row[1])),
-            'date_time_end' => date('Y-m-d', strtotime($row[2])),
+            'date_time_start' => Carbon::createFromFormat('d/m/Y H:i:s', $row[1])->format('Y-m-d H:i:s'),
+            'date_time_end' => Carbon::createFromFormat('d/m/Y H:i:s', $row[2])->format('Y-m-d H:i:s'),
             'location' => $row[3],
         ]);
     }

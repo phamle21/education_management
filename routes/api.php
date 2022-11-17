@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TopicController;
 
 /*
@@ -56,3 +56,6 @@ Route::get('/student/{id}/details', [UserController::class, 'studentDetails']);
 
 /** Ckeditor */
 Route::post('upload-image-ckeditor', [CourseContentController::class, 'storeImage'])->name('ckeditor.image.upload');
+
+/** Schedule */
+Route::resource('schedules', ScheduleController::class);

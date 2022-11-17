@@ -20,4 +20,9 @@ class Schedule extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function course(){
+
+        return Course::find($this->course_id);
+    }
 }
