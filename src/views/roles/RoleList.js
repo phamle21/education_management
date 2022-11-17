@@ -5,7 +5,7 @@ import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { editRoleState, roleListState } from 'store_recoil';
+import { editRoleState, roleListState } from 'recoil_store';
 import ModalAddRole from './components/ModalAddRole';
 import ModalEditRole from './components/ModalEditRole';
 

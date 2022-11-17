@@ -29,6 +29,7 @@ export const getEvents = (startStr, endStr) => async (dispatch) => {
 
 export const createEvent = (item) => async (dispatch) => {
   const response = await axios.post(`${SERVICE_URL}/apps/events`, { item });
+  console.log(response)
   dispatch(setEvents(response.data));
 };
 

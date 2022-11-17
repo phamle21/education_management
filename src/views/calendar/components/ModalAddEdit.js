@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { courseListState } from 'recoil_store';
+import apiBase from 'app/axios/apiBase';
 import { Button, Form, Modal, OverlayTrigger, Tooltip, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
@@ -7,9 +10,15 @@ import DatePicker from 'react-datepicker';
 import { createEvent, deleteEvent, updateEvent } from '../calendarSlice';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const ModalAddEdit = ({ show = false, onHide = () => {} }) => {
+const ModalAddEdit = ({ show = false, onHide = () => { } }) => {
   const dispatch = useDispatch();
+
   const [isShowDeleteConfirmModal, setIsShowDeleteConfirmModal] = useState(false);
+
+  const [courseList, setCourseList] = useRecoilState(courseListState);
+
+  const [optionList, setOptionList] = useState([]);
+
   const convertStringToDate = (dateStr, key) => {
     const date = dateStr && typeof dateStr === 'string' ? new Date(dateStr) : new Date();
     return { [`${key}Date`]: date, [`${key}Time`]: `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}` };
@@ -18,7 +27,14 @@ const ModalAddEdit = ({ show = false, onHide = () => {} }) => {
   const convertDateToString = (date, time) => {
     return `${(typeof date === 'string' ? new Date(date) : date).toISOString().replace(/T.*$/, '')}T${time}:00`;
   };
+
   const { selectedEvent } = useSelector((state) => state.calendar);
+
+  const [selectOption, setSelectOption] = useState({
+    value: selectedEvent.courseId,
+    label: selectedEvent.courseName
+  });
+
   const [selectedItem, setSelectedItem] = useState({
     ...selectedEvent,
     ...convertStringToDate(selectedEvent.start, 'start'),
@@ -38,11 +54,30 @@ const ModalAddEdit = ({ show = false, onHide = () => {} }) => {
     return options;
   }, []);
 
-  const categories = [
-    { value: 'Work', label: 'Work', color: 'border-primary' },
-    { value: 'Personal', label: 'Personal', color: 'border-tertiary' },
-    { value: 'Education', label: 'Education', color: 'border-secondary' },
-  ];
+  React.useEffect(() => {
+    if (courseList.length < 1) {
+      apiBase.get('/courses').then(res => {
+        setCourseList(res.data.data)
+        const arrTemp = [];
+        res.data.data.forEach(item => {
+          arrTemp.push({
+            value: item.id,
+            label: item.name,
+          })
+        })
+        setOptionList(arrTemp);
+      })
+    } else {
+      const arrTemp = [];
+      courseList.forEach(item => {
+        arrTemp.push({
+          value: item.id,
+          label: item.name,
+        })
+      })
+      setOptionList(arrTemp);
+    }
+  }, []);
 
   const formatOptionLabel = ({ label, color }) => (
     <div>
@@ -50,11 +85,14 @@ const ModalAddEdit = ({ show = false, onHide = () => {} }) => {
       <span className="align-middle d-inline-block lh-1">{label}</span>
     </div>
   );
-  const changeTitle = (event) => {
-    setSelectedItem({ ...selectedItem, title: event.target.value });
+
+  const changeLocation = (event) => {
+    setSelectedItem({ ...selectedItem, location: event.target.value });
   };
-  const changeCategory = (categoryItem) => {
-    setSelectedItem({ ...selectedItem, category: categoryItem.value });
+  const changeCourseSelect = (selected) => {
+    setSelectOption(selected)
+    setSelectedItem({ ...selectedItem, id: selected.value });
+    setSelectedItem({ ...selectedItem, courseId: selected.value });
   };
   const changeStartDate = (date) => {
     if (date) setSelectedItem({ ...selectedItem, startDate: date, start: convertDateToString(date, selectedItem.startTime) });
@@ -84,9 +122,11 @@ const ModalAddEdit = ({ show = false, onHide = () => {} }) => {
     }
     onHide();
   };
+
   const deleteItem = () => {
     setIsShowDeleteConfirmModal(true);
   };
+
   const deleteItemApprove = () => {
     if (selectedItem.id !== 0) {
       dispatch(deleteEvent(selectedItem.id));
@@ -104,19 +144,18 @@ const ModalAddEdit = ({ show = false, onHide = () => {} }) => {
         <Modal.Body className="d-flex flex-column">
           <Form>
             <div className="mb-3 top-label">
-              <Form.Control type="text" defaultValue={selectedItem ? selectedItem.title : ''} onChange={changeTitle} />
-              <Form.Label>TITLE</Form.Label>
-            </div>
-            <div className="mb-3 top-label">
               <Select
                 classNamePrefix="react-select"
-                options={categories}
-                formatOptionLabel={formatOptionLabel}
-                value={selectedItem ? categories.find((x) => x.value === selectedItem.category) : ''}
-                onChange={changeCategory}
+                options={optionList}
+                value={selectOption}
+                onChange={changeCourseSelect}
                 placeholder=""
               />
-              <span>CATEGORY</span>
+              <span>Course</span>
+            </div>
+            <div className="mb-3 top-label">
+              <Form.Control type="text" defaultValue={selectedItem ? selectedItem.location : ''} onChange={changeLocation} />
+              <Form.Label>LOCATION</Form.Label>
             </div>
             <Row className="g-0">
               <Col className="pe-2">
@@ -187,7 +226,7 @@ const ModalAddEdit = ({ show = false, onHide = () => {} }) => {
         </Modal.Header>
         <Modal.Body className="d-flex flex-column">
           <p>
-            <span className="fw-bold">{selectedItem.title}</span> <span>will be deleted. Are you sure?</span>
+            <span className="fw-bold">{`${selectedItem.courseName} (${selectedItem.location})`}</span> <span>will be deleted. Are you sure?</span>
           </p>
         </Modal.Body>
         <Modal.Footer>

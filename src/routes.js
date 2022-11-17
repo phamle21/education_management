@@ -17,6 +17,7 @@ const courses = {
 };
 
 const calendar = {
+  // list: lazy(() => import('views/apps/calendar/Calendar')),
   list: lazy(() => import('views/calendar/Calendar')),
 };
 

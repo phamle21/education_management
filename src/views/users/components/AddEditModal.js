@@ -23,6 +23,7 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
   const [roleList, setRoleList] = useRecoilState(roleListState);
 
   const [optionList, setOptionList] = useState([]);
+  
   const [selectOption, setSelectOption] = useState();
 
   const [checkSubmit, setCheckSubmit] = React.useState(true);

@@ -64,7 +64,7 @@ const CalendarApp = () => {
     });
     setEvents(coloredEvents);
 
-    return () => {};
+    return () => { };
   }, [eventsNoColors, themeValues]);
 
   const onPrevButtonClick = () => {
@@ -80,7 +80,16 @@ const CalendarApp = () => {
   };
   const onNewEventClick = () => {
     try {
-      dispatch(setSelectedEvent({ id: 0, title: 'New Event', start: '', end: '' }));
+      const t = new Date();
+      const date = (`0${t.getDate()}`).slice(-2);
+      const month = (`0${(t.getMonth() + 1)}`).slice(-2);
+      const year = t.getFullYear();
+      const hours = (`0${t.getHours()}`).slice(-2);
+      const minutes = (`0${t.getMinutes()}`).slice(-2);
+      const seconds = (`0${t.getSeconds()}`).slice(-2);
+      const time = `${year}-${month}-${date}T${hours}:${minutes}:${seconds}`;
+
+      dispatch(setSelectedEvent({ id: 0, courseName: '', start: time, end: time }));
       setIsShowModalAddEdit(true);
     } catch (e) {
       console.log('This action could not be completed');
@@ -89,6 +98,7 @@ const CalendarApp = () => {
   const viewDidMount = ({ view }) => {
     setDateTitle(view.title);
   };
+
   const changeView = (view) => {
     setSelectedView(view);
     if (calendarRef.current) {
@@ -107,7 +117,7 @@ const CalendarApp = () => {
     const calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
     try {
-      dispatch(setSelectedEvent({ id: 0, title: 'New Event', start: selectInfo.startStr, end: selectInfo.endStr }));
+      dispatch(setSelectedEvent({ id: 0, start: selectInfo.startStr, end: selectInfo.endStr }));
       setIsShowModalAddEdit(true);
     } catch (e) {
       console.log('This action could not be completed');
@@ -115,9 +125,11 @@ const CalendarApp = () => {
   };
 
   const handleEventClick = (clickInfo) => {
+
     const { id, url } = clickInfo.event;
+
     if (!url) {
-      dispatch(setSelectedEvent(events.find((x) => x.id === id)));
+      dispatch(setSelectedEvent(events.find((x) => String(x.id) === id)));
       setIsShowModalAddEdit(true);
     }
   };
@@ -135,8 +147,8 @@ const CalendarApp = () => {
   const handleEventChange = (changeInfo) => {
     try {
       const event = changeInfo.event.toPlainObject();
-      const { id, start, title, end, extendedProps } = event;
-      dispatch(updateEvent({ id, start, end, title, category: extendedProps.category, color: extendedProps.color }));
+      const { id, start, location, end, extendedProps } = event;
+      dispatch(updateEvent({ id, start, end, location, courseName: extendedProps.courseName, color: extendedProps.color }));
     } catch (e) {
       console.log('This action could not be completed');
       changeInfo.revert();

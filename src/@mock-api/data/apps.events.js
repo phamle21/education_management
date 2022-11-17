@@ -122,6 +122,7 @@ let eventsData = [
   },
 ];
 api.onGet(`${SERVICE_URL}/apps/events`).reply(200, eventsData);
+
 api.onPost(`${SERVICE_URL}/apps/events`).reply((config) => {
   const requestData = JSON.parse(config.data);
   const { item } = requestData;

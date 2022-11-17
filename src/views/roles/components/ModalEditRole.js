@@ -5,7 +5,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilState } from 'recoil';
-import { editRoleState, roleListState } from 'store_recoil';
+import { editRoleState, roleListState } from 'recoil_store';
 import Swal from 'sweetalert2';
 
 const ModalEditRole = ({ show, onHide, data }) => {

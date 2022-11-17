@@ -5,7 +5,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilState } from 'recoil';
-import { roleListState } from 'store_recoil';
+import { roleListState } from 'recoil_store';
 
 const ModalAddRole = ({show, onHide}) => {
 
