@@ -82,7 +82,7 @@ const LecturerList = () => {
 
       <Row className="row-cols-1 row-cols-sm-2 row-cols-xl-3 row-cols-xxl-4 g-3">
         {
-          listLecturers && listLecturers.map((lecturer) => (
+          listLecturers && listLecturers.slice(0, limit).map((lecturer) => (
             <Col key={lecturer.id}>
               <Card className="h-100">
                 <Card.Body className="text-center">
