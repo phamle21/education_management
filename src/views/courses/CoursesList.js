@@ -24,6 +24,8 @@ const FilterMenuContent = () => {
     e.preventDefault();
     const { filterTopic } = e.target.elements;
 
+    const courseListTemp = JSON.parse(JSON.stringify(courseList));
+
     let arrTemp = [];
 
     let arrfilterId = [];
@@ -35,7 +37,7 @@ const FilterMenuContent = () => {
     })
 
     if (arrfilterId.length > 0) {
-      courseList.forEach(course => {
+      courseListTemp.forEach(course => {
         if (course.topics.length > 0) {
           course.topics.forEach(topic => {
             arrfilterId.forEach(id => {

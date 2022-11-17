@@ -215,6 +215,9 @@ const enMessages = {
   'menu.num_chapter': 'Chapter',
   'menu.course_intro': 'Course Introduction',
   'menu.table_of_contents': 'Table Of Contents',
+  'course.detail.topics':'Topics',
+  'course.detail.content_course': 'Content of Courses',
+  'course.detail.remove': 'Remove',
 
   // Lecturer
   'menu.lecturer_list_title': 'Lecturer List',
@@ -281,5 +284,7 @@ const enMessages = {
   'user.check.success.phone': 'Usable phone number',
   'user.check.success.email': 'Usable email',
   'user.check.success.name': 'Usable fullname',
+
+  
 };
 export default enMessages;

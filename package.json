@@ -4,6 +4,9 @@
   "private": true,
   "proxy": "http://localhost:3000",
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^35.3.1",
+    "@ckeditor/ckeditor5-media-embed": "^35.3.1",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@fullcalendar/bootstrap": "^5.9.0",
     "@fullcalendar/daygrid": "^5.9.0",
     "@fullcalendar/interaction": "^5.9.0",

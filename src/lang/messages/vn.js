@@ -213,6 +213,9 @@ const vnMessages = {
   'menu.num_chapter': 'Bài',
   'menu.course_intro': 'Giới thiệu khóa học',
   'menu.table_of_contents': 'Mục lục',
+  'course.detail.topics': 'Danh mục',
+  'course.detail.content_course': 'Nội dung của khóa học',
+  'course.detail.remove': 'Xóa',
 
   // Lecturer
   'menu.lecturer_list_title': 'DANH SÁCH',
@@ -240,9 +243,9 @@ const vnMessages = {
 
   // Topic
   'menu.topic_list_title': 'DANH SÁCH',
-  'menu.topic_title_add': 'Thêm Chủ Đề',  
-  'menu.topic_name': 'Tên chủ đề',  
-  'menu.topic_title_edit': 'Cập Nhật Chủ Đề', 
+  'menu.topic_title_add': 'Thêm Chủ Đề',
+  'menu.topic_name': 'Tên chủ đề',
+  'menu.topic_title_edit': 'Cập Nhật Chủ Đề',
 
 
   // User
@@ -280,5 +283,7 @@ const vnMessages = {
   'user.check.success.phone': 'Số điện thoại có thể sử dụng',
   'user.check.success.email': 'Email có thể sử dụng',
   'user.check.success.name': 'Họ và tên hợp lệ',
+
+
 };
 export default vnMessages;
