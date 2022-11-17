@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\SchedulesImport;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ScheduleController extends Controller
 {
@@ -220,6 +222,58 @@ class ScheduleController extends Controller
     public function destroy(Schedule $schedule)
     {
         $schedule->delete();
+
+        $schedule = Schedule::all();
+
+        foreach ($schedule as $v) {
+            $v->courseName = $v->course()->name;
+            $v->title = $v->course()->name;
+            $v->courseId = $v->course_id;
+            $v->start = str_replace(' ', 'T', $v->date_time_start);
+            $v->end = str_replace(' ', 'T', $v->date_time_end);
+            $v->category = 'Education';
+        }
+
+        return response()->json($schedule);
+    }
+
+    /**
+     * @OA\POST(
+     *      path="/api/schedules/import",
+     *      operationId="importSchedule",
+     *      tags={"Schedule"},
+     *      summary="import schedule list",
+     *      description="Returns schedule list",
+     *      @OA\RequestBody(
+     *          @OA\MediaType(
+     *               mediaType="multipart/form-data",
+     *               @OA\Schema(
+     *                   type="object",
+     *                   @OA\Property(
+     *                      property="import-file",
+     *                      type="array",
+     *                      @OA\Items(
+     *                           type="string",
+     *                           format="binary",
+     *                      ),
+     *                   ),
+     *               ),
+     *           )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
+    public function import(Request $request)
+    {
+        
+        Excel::import(new SchedulesImport, request()->file('import-file'));
 
         $schedule = Schedule::all();
 

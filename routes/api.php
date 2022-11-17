@@ -59,3 +59,4 @@ Route::post('upload-image-ckeditor', [CourseContentController::class, 'storeImag
 
 /** Schedule */
 Route::resource('schedules', ScheduleController::class);
+Route::post('/schedules/import', [ScheduleController::class, 'import']);
