@@ -1,9 +1,9 @@
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { useFormik } from 'formik';
 import React from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { API_URL } from '../../../constants';
 
 const ValidationFormikBasic = ({ contentEdit, setSemiFullExample }) => {
@@ -18,6 +18,7 @@ const ValidationFormikBasic = ({ contentEdit, setSemiFullExample }) => {
   }
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
+  
   const { handleSubmit, handleChange, values, touched, errors } = formik;
 
   function uploadAdapter(loader) {
@@ -48,6 +49,7 @@ const ValidationFormikBasic = ({ contentEdit, setSemiFullExample }) => {
       }
     };
   }
+  
   function uploadPlugin(editor) {
     editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
       return uploadAdapter(loader);
