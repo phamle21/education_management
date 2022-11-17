@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { courseListState } from 'recoil_store';
+import apiBase from 'app/axios/apiBase';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col, Card, Button, Dropdown } from 'react-bootstrap';
 import HtmlHead from 'components/html-head/HtmlHead';
@@ -28,11 +31,6 @@ const CustomToggle = React.forwardRef(({ onClick }, ref) => (
   </Button>
 ));
 
-const colorsMap = [
-  { color: 'primary', category: 'Work' },
-  { color: 'secondary', category: 'Education' },
-  { color: 'tertiary', category: 'Personal' },
-];
 const CalendarApp = () => {
   const htmlTitle = 'Calendar';
   const htmlDescription = 'Implementation for a basic events and schedule application that built on top of Full Calendar plugin.';
@@ -51,11 +49,27 @@ const CalendarApp = () => {
   const [selectedView, setSelectedView] = useState('dayGridMonth');
   const [isShowModalAddEdit, setIsShowModalAddEdit] = useState(false);
 
+  const [colorsMap, setColorsMap] = React.useState([
+    { color: 'primary', courseColor: 1 },
+    { color: 'secondary', courseColor: 2 },
+    { color: 'tertiary', courseColor: 3 },
+    { color: 'quaternary', courseColor: 4 },
+    { color: 'body', courseColor: 5 },
+    { color: 'alternate', courseColor: 6 },
+    { color: 'lightText', courseColor: 7 },
+    { color: 'warning', courseColor: 8 },
+    { color: 'danger', courseColor: 9 },
+    { color: 'success', courseColor: 10 },
+    { color: 'info', courseColor: 11 },
+  ]);
+
   useEffect(() => {
     const coloredEvents = eventsNoColors.map((event) => {
+      console.log(`event test `)
+      console.log(event)
       const coloredEvent = { ...event };
-      if (event.category) {
-        const foundColor = colorsMap.find((x) => x.category === event.category);
+      if (event.course_id) {
+        const foundColor = colorsMap.find((x) => x.courseColor === event.course_id);
         if (foundColor) {
           coloredEvent.color = themeValues[foundColor.color];
         }
