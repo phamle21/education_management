@@ -53,4 +53,16 @@ class Course extends Model
             'course_id'
         );
     }
+
+    public function studentOfCourse()
+    {
+        return $this->hasManyThrough(
+            User::class,
+            Study::class,
+            'user_id',
+            'id',
+            'id',
+            'course_id'
+        );
+    }
 }

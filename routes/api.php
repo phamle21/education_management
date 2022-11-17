@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseContentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
@@ -52,3 +53,6 @@ Route::get('/teacher/{id}/details', [UserController::class, 'teacherDetails']);
 
 /** Student */
 Route::get('/student/{id}/details', [UserController::class, 'studentDetails']);
+
+/** Ckeditor */
+Route::post('upload-image-ckeditor', [CourseContentController::class, 'storeImage'])->name('ckeditor.image.upload');

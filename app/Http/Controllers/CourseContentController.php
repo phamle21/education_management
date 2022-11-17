@@ -7,79 +7,18 @@ use Illuminate\Http\Request;
 
 class CourseContentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function storeImage(Request $request)
     {
-        //
-    }
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time() . '.' . $extension;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+            $request->file('upload')->move(public_path('storage/ckeditor-media'), $fileName);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CourseContent  $courseContent
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CourseContent $courseContent)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CourseContent  $courseContent
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CourseContent $courseContent)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CourseContent  $courseContent
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, CourseContent $courseContent)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CourseContent  $courseContent
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(CourseContent $courseContent)
-    {
-        //
+            $url = asset('storage/ckeditor-media/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
+        }
     }
 }

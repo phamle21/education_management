@@ -352,6 +352,12 @@ class CourseController extends Controller
             $course->teacher_name = User::find($course->user_id)->name;
             $course->teacher_avatar = User::find($course->user_id)->getAvatar();
             $course->image = url(Storage::url($course->image));
+            $course->topics;
+            $course->studentOfCourse;
+
+            foreach ($course->studentOfCourse as $v) {
+                $v->avatar = url(Storage::url($v->avatar));
+            }
 
             $response = [
                 'status' => 'success',
