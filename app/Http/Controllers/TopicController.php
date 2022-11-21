@@ -170,12 +170,12 @@ class TopicController extends Controller
 
             if ($update) {
 
-                $topic = Topic::find($id);
+                $topics = Topic::all();
 
                 $response = [
                     'status' => 'success',
                     'msg' => 'Update "' . $request->name . '" completed.',
-                    'data' => $topic
+                    'data' => $topics
                 ];
             } else {
                 $response = [
