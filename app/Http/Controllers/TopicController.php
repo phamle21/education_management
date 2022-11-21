@@ -243,7 +243,8 @@ class TopicController extends Controller
 
                 $response = [
                     'status' => 'success',
-                    'msg' => 'Delete topic completed'
+                    'msg' => 'Delete topic completed',
+                    'data' => Topic::all()
                 ];
             } else {
                 $response = [

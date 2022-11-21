@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\StudyController;
 use App\Http\Controllers\TopicController;
+use App\Models\Study;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,3 +62,6 @@ Route::post('upload-image-ckeditor', [CourseContentController::class, 'storeImag
 /** Schedule */
 Route::resource('schedules', ScheduleController::class);
 Route::post('/schedules/import', [ScheduleController::class, 'import']);
+
+/** Study */
+Route::resource('/studies', StudyController::class);
