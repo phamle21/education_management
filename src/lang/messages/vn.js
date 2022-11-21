@@ -216,6 +216,7 @@ const vnMessages = {
   'course.detail.topics': 'Danh mục',
   'course.detail.content_course': 'Nội dung của khóa học',
   'course.detail.remove': 'Xóa',
+  'course.detail_add_student': 'Thêm học viên',
 
   // Lecturer
   'menu.lecturer_list_title': 'DANH SÁCH',

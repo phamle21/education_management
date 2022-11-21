@@ -1,16 +1,16 @@
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import HtmlHead from 'components/html-head/HtmlHead';
-import { DEFAULT_PATHS } from 'config';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import Moment from 'moment';
 import Plyr from 'plyr-react';
 import React, { useEffect } from 'react';
-import { Button, Card, Col, Row, Accordion, Modal, useAccordionButton } from 'react-bootstrap';
+import { Accordion, Button, Card, Col, Modal, Row, useAccordionButton } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
-import { NavLink, Redirect, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { detailCourseState } from 'recoil_store';
+import { detailCourseState, modalShowSelectStudentExistsState, studentListState } from 'recoil_store';
 import apiBase from '../../app/axios/apiBase';
+import ModalAddStudents from './modal/ModalAddStudents';
 import ValidationFormikBasic from './modal/ValidationFormikBasic';
 
 function CustomAccordionToggle({ children, eventKey }) {
@@ -44,6 +44,8 @@ const CoursesDetail = () => {
 
   const [semiFullExample, setSemiFullExample] = React.useState(false);
 
+  const [modalAddStudents, setModalAddStudents] = React.useState(false);
+
   const [contentEdit, setContentEdit] = React.useState();
 
   const breadcrumbs = [
@@ -54,13 +56,29 @@ const CoursesDetail = () => {
 
   const [course, setCourse] = useRecoilState(detailCourseState);
 
+  const [listStudents, setListStudents] = useRecoilState(studentListState);
+
+  const [listStudentsExists, setListStudentsExists] = useRecoilState(modalShowSelectStudentExistsState);
+
   const [courseContents, setCourseContents] = React.useState();
 
   useEffect(() => {
+    if (listStudents.length < 1) {
+      apiBase.get("/users", {
+        params: {
+          type: 'Student',
+        }
+      })
+        .catch(err => console.log(err))
+        .then(res => {
+          setListStudents(res.data.items);
+        })
+    }
     apiBase.get(`/courses/${params.id}`)
       .catch(err => console.log(err))
       .then(res => {
         setCourse(res.data.data);
+        setListStudentsExists(res.data.data.student_of_course);
       })
 
     apiBase.get(`/courses/${params.id}/content`)
@@ -90,7 +108,7 @@ const CoursesDetail = () => {
           {/* Title End */}
 
           {/* Top Buttons Start */}
-          <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+          {/* <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
             <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto">
               <CsLineIcons icon="edit" /> <span>{`${f({ id: 'menu.edit' })} ${f({ id: 'menu.course_intro' })}`}</span>
             </Button>
@@ -103,6 +121,11 @@ const CoursesDetail = () => {
           <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
             <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto">
               <CsLineIcons icon="edit" /> <span>{`${f({ id: 'menu.edit' })} ${f({ id: 'menu.at-a-glance' })}`}</span>
+            </Button>
+          </Col> */}
+          <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setModalAddStudents(true)}>
+              <CsLineIcons icon="plus" /> <span>{f({ id: 'course.detail_add_student' })}</span>
             </Button>
           </Col>
           {/* Top Buttons End */}
@@ -275,7 +298,7 @@ const CoursesDetail = () => {
         </Col>
       </Row>
 
-      {/* ================================================ M O D A L ===================================================== */}
+      {/* Modal Edit Content Start */}
       <Modal show={semiFullExample} onHide={() => setSemiFullExample(false)} size="semi-full" centered>
         <Modal.Header closeButton>
           <Modal.Title>Edit Content Of Course</Modal.Title>
@@ -283,8 +306,20 @@ const CoursesDetail = () => {
         <Modal.Body>
           <ValidationFormikBasic contentEdit={contentEdit} setSemiFullExample={setSemiFullExample} />
         </Modal.Body>
-
       </Modal>
+      {/* Modal Edit Content End */}
+
+      {/* Modal Add Student Start */}
+      <Modal show={modalAddStudents} onHide={() => setModalAddStudents(false)} size="semi-full" centered>
+        <Modal.Header closeButton>
+          <Modal.Title>{f({ id: 'course.detail_add_student' })}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='overflow-auto'>
+          <ModalAddStudents setModalAddStudents={setModalAddStudents} />
+        </Modal.Body>
+      </Modal>
+      {/* Modal Add Student End */}
+
     </>
   );
 };

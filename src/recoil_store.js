@@ -86,7 +86,13 @@ const studentListState = atom({
     default: [],
 })
 
+const modalShowSelectStudentExistsState = atom({
+    key: 'modalShowSelectStudentExistsState',
+    default: [],
+})
+
 export {
+    modalShowSelectStudentExistsState,
     roleListState,
     courseListShowState,
     topicListState,

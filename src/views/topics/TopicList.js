@@ -96,7 +96,7 @@ const TopicList = () => {
                                                 <p className="heading mt-3 text-body">
                                                     {item.name}
                                                 </p>
-                                                <div className="text-extra-small fw-medium text-muted">14 COURSES</div>
+                                                <div className="text-extra-small fw-medium text-muted">{item.countCourse} COURSES</div>
                                             </NavLink>
                                         </Card.Body>
                                     </Card>

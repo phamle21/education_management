@@ -218,6 +218,7 @@ const enMessages = {
   'course.detail.topics':'Topics',
   'course.detail.content_course': 'Content of Courses',
   'course.detail.remove': 'Remove',
+  'course.detail_add_student': 'Add Students',
 
   // Lecturer
   'menu.lecturer_list_title': 'Lecturer List',
