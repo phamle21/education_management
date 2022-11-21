@@ -739,6 +739,50 @@
                 ]
             }
         },
+        "/api/studies": {
+            "post": {
+                "tags": [
+                    "Study"
+                ],
+                "summary": "Create Study",
+                "description": "",
+                "operationId": "createStudy",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "course_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "user_id": "1",
+                                    "course_id": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
         "/api/topics": {
             "get": {
                 "tags": [
@@ -829,18 +873,18 @@
                     }
                 ]
             },
-            "post": {
+            "delete": {
                 "tags": [
                     "Topics"
                 ],
-                "summary": "Create Topic",
-                "description": "",
-                "operationId": "createUpdateTopics",
+                "summary": "Delete topics",
+                "description": "Returns status delete",
+                "operationId": "deleteTopic",
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
-                        "description": "id of topic",
+                        "in": "path",
+                        "description": "topic_id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -862,18 +906,18 @@
                     }
                 ]
             },
-            "delete": {
+            "patch": {
                 "tags": [
                     "Topics"
                 ],
-                "summary": "Delete topics",
-                "description": "Returns status delete",
-                "operationId": "deleteTopic",
+                "summary": "Update Topic",
+                "description": "",
+                "operationId": "pdateTopics",
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "path",
-                        "description": "topic_id",
+                        "in": "query",
+                        "description": "id of topic",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -881,6 +925,23 @@
                         "example": "1"
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "new name"
+                                }
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"

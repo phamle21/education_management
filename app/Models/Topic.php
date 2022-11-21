@@ -18,4 +18,15 @@ class Topic extends Model
         'updated_at',
         'laravel_through_key',
     ];
+
+    public function courses(){
+        return $this->hasManyThrough(
+            Course::class,
+            CourseTopic::class,
+            'topic_id',
+            'id',
+            'id',
+            'course_id',
+        );
+    }
 }

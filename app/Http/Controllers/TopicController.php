@@ -27,6 +27,10 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::all();
+        foreach ($topics as $v) {
+            $v->courses;
+            $v->countCourse = count($v->courses);
+        }
 
         $response = [
             'status' => 'success',
@@ -72,10 +76,16 @@ class TopicController extends Controller
 
         if ($add) {
 
+            $topics = Topic::all();
+            foreach ($topics as $v) {
+                $v->courses;
+                $v->countCourse = count($v->courses);
+            }
+
             $response = [
                 'status' => 'success',
                 'msg' => 'Thêm danh mục thành công',
-                'data' => $add
+                'data' => $topics
             ];
         } else {
             $response = [
@@ -183,6 +193,11 @@ class TopicController extends Controller
             if ($update) {
 
                 $topics = Topic::all();
+                foreach ($topics as $v) {
+                    $v->courses;
+                    $v->countCourse = count($v->courses);
+                }
+
 
                 $response = [
                     'status' => 'success',
@@ -241,10 +256,16 @@ class TopicController extends Controller
 
             if ($topic->delete()) {
 
+                $topics = Topic::all();
+                foreach ($topics as $v) {
+                    $v->courses;
+                    $v->countCourse = count($v->courses);
+                }
+
                 $response = [
                     'status' => 'success',
                     'msg' => 'Delete topic completed',
-                    'data' => Topic::all()
+                    'data' => $topics
                 ];
             } else {
                 $response = [
