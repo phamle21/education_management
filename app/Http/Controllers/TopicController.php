@@ -154,6 +154,18 @@ class TopicController extends Controller
      *                type="integer",
      *            )
      *        ),
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="name",
+     *                     type="string"
+     *                 ),
+     *                 example={"name": "new name"}
+     *             )
+     *         )
+     *     ),
      *       @OA\Response(response=400, description="Bad request"),
      *       security={
      *           {"api_key_security_example": {}}
