@@ -134,7 +134,7 @@ class TopicController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Patch(
      *      path="/api/topics/{id}",
      *      operationId="pdateTopics",
      *      tags={"Topics"},
