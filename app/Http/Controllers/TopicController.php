@@ -136,9 +136,9 @@ class TopicController extends Controller
     /**
      * @OA\Post(
      *      path="/api/topics/{id}",
-     *      operationId="createUpdateTopics",
+     *      operationId="pdateTopics",
      *      tags={"Topics"},
-     *      summary="Create Topic",
+     *      summary="Update Topic",
      *      description="",
      *      @OA\Response(
      *          response=200,
