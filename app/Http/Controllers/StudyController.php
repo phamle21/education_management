@@ -117,7 +117,7 @@ class StudyController extends Controller
      *             @OA\Schema(
      *                 @OA\Property(
      *                     property="user_id",
-     *                  type="string",
+     *                      type="string",
      *                 ),
      *                 @OA\Property(
      *                     property="course_id",
@@ -139,13 +139,13 @@ class StudyController extends Controller
      */
     public function destroy(Request $request)
     {
-        // $del = Study::where([
-        //     ['user_id' => $request->user_id],
-        //     ['course_id' => $request->course_id],
-        // ])->delete();
+        Study::where([
+            ['user_id', $request->user_id],
+            ['course_id', $request->course_id]
+        ])->delete();
 
-        if (Course::where('id', $request->course_id)->exists()) {
-            $course = Course::find($request->course_id);
+        if (Course::whereId($request->user_id)->exists()) {
+            $course = Course::find($request->user_id);
             $course->teacher_name = User::find($course->user_id)->name;
             $course->teacher_avatar = User::find($course->user_id)->getAvatar();
             $course->image = url(Storage::url($course->image));
