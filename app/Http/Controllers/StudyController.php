@@ -27,14 +27,14 @@ class StudyController extends Controller
      *             @OA\Schema(
      *                 @OA\Property(
      *                     property="user_id[]",
-        *                  type="array",
-        *                  @OA\Items(type="string", format="id"),
+     *                  type="array",
+     *                  @OA\Items(type="string", format="id"),
      *                 ),
      *                 @OA\Property(
      *                     property="course_id",
      *                     type="string"
      *                 ),
-     *                 example={"user_id": [1,2,3,4], "course_id": "1"}
+     *                 example={"user_id": "[1,2,3,4]", "course_id": "1"}
      *             )
      *         )
      *     ),
@@ -105,47 +105,54 @@ class StudyController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Study  $study
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *      path="/api/studies",
+     *      operationId="deleteStudy",
+     *      tags={"Study"},
+     *      summary="delete Study",
+     *      description="Returns Study list",
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="user_id",
+     *                  type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="course_id",
+     *                     type="string"
+     *                 ),
+     *                 example={"user_id": "1", "course_id": "1"}
+     *             )
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
      */
-    public function show(Study $study)
+    public function destroy(Request $request)
     {
-        //
-    }
+        $del = Study::where([
+            ['user_id' => $request->user_id],
+            ['course_id' => $request->course_id],
+        ])->delete();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Study  $study
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Study $study)
-    {
-        //
-    }
+        $list = Study::where([
+            ['user_id' => $request->user_id],
+            ['course_id' => $request->course_id],
+        ])->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Study  $study
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Study $study)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Study  $study
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Study $study)
-    {
-        //
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Xóa thành công học sinh khỏi lớp học.',
+            'data' => $list
+        ]);
     }
 }

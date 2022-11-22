@@ -599,7 +599,9 @@
                         "api_key_security_example": []
                     }
                 ]
-            },
+            }
+        },
+        "/api/schedules/{id}": {
             "delete": {
                 "tags": [
                     "Schedule"
@@ -632,9 +634,7 @@
                         "api_key_security_example": []
                     }
                 ]
-            }
-        },
-        "/api/schedules/{id}": {
+            },
             "patch": {
                 "tags": [
                     "Schedule"
@@ -766,6 +766,48 @@
                                 "type": "object",
                                 "example": {
                                     "user_id": "[1,2,3,4]",
+                                    "course_id": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Study"
+                ],
+                "summary": "delete Study",
+                "description": "Returns Study list",
+                "operationId": "deleteStudy",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "course_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "user_id": "1",
                                     "course_id": "1"
                                 }
                             }

@@ -64,4 +64,5 @@ Route::resource('schedules', ScheduleController::class);
 Route::post('/schedules/import', [ScheduleController::class, 'import']);
 
 /** Study */
-Route::resource('/studies', StudyController::class);
+Route::post('/studies', [StudyController::class, 'store']);
+Route::delete('/studies', [StudyController::class, 'destroy']);

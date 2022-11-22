@@ -194,7 +194,7 @@ class ScheduleController extends Controller
 
     /**
      * @OA\Delete(
-     *      path="/api/schedules",
+     *      path="/api/schedules/{id}",
      *      operationId="deleteSchedule",
      *      tags={"Schedule"},
      *      summary="delete schedule",
@@ -272,7 +272,7 @@ class ScheduleController extends Controller
      */
     public function import(Request $request)
     {
-        
+
         Excel::import(new SchedulesImport, request()->file('import-file'));
 
         $schedule = Schedule::all();
