@@ -59,10 +59,10 @@ class Course extends Model
         return $this->hasManyThrough(
             User::class,
             Study::class,
-            'user_id',
+            'course_id',
             'id',
             'id',
-            'course_id'
+            'user_id'
         );
     }
 }

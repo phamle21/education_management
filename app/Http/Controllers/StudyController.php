@@ -26,14 +26,15 @@ class StudyController extends Controller
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 @OA\Property(
-     *                     property="user_id",
-     *                     type="string"
+     *                     property="user_id[]",
+        *                  type="array",
+        *                  @OA\Items(type="string", format="id"),
      *                 ),
      *                 @OA\Property(
      *                     property="course_id",
      *                     type="string"
      *                 ),
-     *                 example={"user_id": "1", "course_id": "1"}
+     *                 example={"user_id": [1,2,3,4], "course_id": "1"}
      *             )
      *         )
      *     ),
@@ -45,10 +46,26 @@ class StudyController extends Controller
      */
     public function store(Request $request)
     {
-        $add = Study::create([
-            'user_id' => $request->user_id,
-            'course_id' => $request->course_id,
-        ]);
+        if (!isset($request->user_id) || $request->user_id < 1) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Không có học sinh nào ',
+            ]);
+        }
+
+        if (!is_array($request->user_id)) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Các user_id không phải một mảng ',
+                't' => gettype($request->user_id)
+            ]);
+        }
+        foreach ($request->user_id as $v) {
+            $add = Study::create([
+                'user_id' => $v,
+                'course_id' => $request->course_id,
+            ]);
+        }
 
         if ($add) {
 

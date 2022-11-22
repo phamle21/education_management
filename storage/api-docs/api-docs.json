@@ -752,8 +752,12 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "user_id": {
-                                        "type": "string"
+                                    "user_id[]": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "id"
+                                        }
                                     },
                                     "course_id": {
                                         "type": "string"
@@ -761,7 +765,7 @@
                                 },
                                 "type": "object",
                                 "example": {
-                                    "user_id": "1",
+                                    "user_id": "[1,2,3,4]",
                                     "course_id": "1"
                                 }
                             }
