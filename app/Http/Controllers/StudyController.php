@@ -144,10 +144,7 @@ class StudyController extends Controller
             ['course_id' => $request->course_id],
         ])->delete();
 
-        $list = Study::where([
-            ['user_id' => $request->user_id],
-            ['course_id' => $request->course_id],
-        ])->get();
+        $list = Course::find($request->course_id)->studentOfCourse;
 
         return response()->json([
             'status' => 'success',
