@@ -144,12 +144,21 @@ class StudyController extends Controller
             ['course_id' => $request->course_id],
         ])->delete();
 
-        $list = Course::find($request->course_id)->studentOfCourse;
+        $course = Course::find($request->course_id);
+        $course->teacher_name = User::find($course->user_id)->name;
+        $course->teacher_avatar = User::find($course->user_id)->getAvatar();
+        $course->image = url(Storage::url($course->image));
+        $course->topics;
+        $course->studentOfCourse;
+
+        foreach ($course->studentOfCourse as $v) {
+            $v->avatar = url(Storage::url($v->avatar));
+        }
 
         return response()->json([
             'status' => 'success',
             'msg' => 'Xóa thành công học sinh khỏi lớp học.',
-            'data' => $list
+            'data' => $course
         ]);
     }
 }
