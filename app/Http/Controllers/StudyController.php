@@ -144,8 +144,8 @@ class StudyController extends Controller
             ['course_id', $request->course_id]
         ])->delete();
 
-        if (Course::whereId($request->user_id)->exists()) {
-            $course = Course::find($request->user_id);
+        if (Course::whereId($request->course_id)->exists()) {
+            $course = Course::find($request->course_id);
             $course->teacher_name = User::find($course->user_id)->name;
             $course->teacher_avatar = User::find($course->user_id)->getAvatar();
             $course->image = url(Storage::url($course->image));
