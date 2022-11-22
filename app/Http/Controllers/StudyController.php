@@ -144,21 +144,31 @@ class StudyController extends Controller
             ['course_id' => $request->course_id],
         ])->delete();
 
-        $course = Course::find($request->course_id);
-        $course->teacher_name = User::find($course->user_id)->name;
-        $course->teacher_avatar = User::find($course->user_id)->getAvatar();
-        $course->image = url(Storage::url($course->image));
-        $course->topics;
-        $course->studentOfCourse;
+        if (Course::where('id', $request->course_id)->exists()) {
+            $course = Course::find($request->course_id);
+            $course->teacher_name = User::find($course->user_id)->name;
+            $course->teacher_avatar = User::find($course->user_id)->getAvatar();
+            $course->image = url(Storage::url($course->image));
+            $course->topics;
+            $course->studentOfCourse;
 
-        foreach ($course->studentOfCourse as $v) {
-            $v->avatar = url(Storage::url($v->avatar));
+            foreach ($course->studentOfCourse as $v) {
+                $v->avatar = url(Storage::url($v->avatar));
+            }
+
+            $response = [
+                'status' => 'success',
+                'msg' => 'Xóa thành công học sinh khỏi lớp học!',
+                'description' => 'Trả về chi tiết khóa học',
+                'data' => $course
+            ];
+        } else {
+            $response = [
+                'status' => 'failed',
+                'msg' => 'Khóa học không tồn tại'
+            ];
         }
 
-        return response()->json([
-            'status' => 'success',
-            'msg' => 'Xóa thành công học sinh khỏi lớp học.',
-            'data' => $course
-        ]);
+        return response()->json($response);
     }
 }
