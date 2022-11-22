@@ -139,10 +139,10 @@ class StudyController extends Controller
      */
     public function destroy(Request $request)
     {
-        $del = Study::where([
-            ['user_id' => $request->user_id],
-            ['course_id' => $request->course_id],
-        ])->delete();
+        // $del = Study::where([
+        //     ['user_id' => $request->user_id],
+        //     ['course_id' => $request->course_id],
+        // ])->delete();
 
         if (Course::where('id', $request->course_id)->exists()) {
             $course = Course::find($request->course_id);
