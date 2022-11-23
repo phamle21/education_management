@@ -71,4 +71,5 @@ Route::delete('/studies', [StudyController::class, 'destroy']);
 
 /** Attendance */
 Route::get('/attendances/schedule', [AttendanceController::class, 'show']);
+Route::post('/attendances', [AttendanceController::class, 'attendances']);
 
