@@ -5,6 +5,46 @@
         "version": "1.0"
     },
     "paths": {
+        "/api/attendances/schedule": {
+            "get": {
+                "tags": [
+                    "Attendance"
+                ],
+                "summary": "get student list of schedule",
+                "description": "Returns student list",
+                "operationId": "getListStudentSchedule",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "schedule_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "course_id": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [
