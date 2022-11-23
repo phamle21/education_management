@@ -1,5 +1,6 @@
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import HtmlHead from 'components/html-head/HtmlHead';
+import NotificationIcon from 'components/notification/NotificationIconSuccess';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import Moment from 'moment';
 import Plyr from 'plyr-react';
@@ -7,8 +8,9 @@ import React, { useEffect } from 'react';
 import { Accordion, Button, Card, Col, Modal, Row, useAccordionButton } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { NavLink, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
-import { detailCourseState, modalShowSelectStudentExistsState, studentListState } from 'recoil_store';
+import { detailCourseState, studentListState } from 'recoil_store';
 import apiBase from '../../app/axios/apiBase';
 import ModalAddStudents from './modal/ModalAddStudents';
 import ValidationFormikBasic from './modal/ValidationFormikBasic';
@@ -58,8 +60,6 @@ const CoursesDetail = () => {
 
   const [listStudents, setListStudents] = useRecoilState(studentListState);
 
-  const [listStudentsExists, setListStudentsExists] = useRecoilState(modalShowSelectStudentExistsState);
-
   const [courseContents, setCourseContents] = React.useState();
 
   useEffect(() => {
@@ -78,7 +78,6 @@ const CoursesDetail = () => {
       .catch(err => console.log(err))
       .then(res => {
         setCourse(res.data.data);
-        setListStudentsExists(res.data.data.student_of_course);
       })
 
     apiBase.get(`/courses/${params.id}/content`)
@@ -92,6 +91,25 @@ const CoursesDetail = () => {
   const handleGotoEditContent = (content) => {
     setSemiFullExample(true)
     setContentEdit(content)
+  }
+
+  const notify = () => toast(
+    <NotificationIcon icon='check' title='Success' content='Remove Students Succesfully!' />,
+  );
+
+  const handleRemove = (item) => {
+
+    apiBase.post('/studies/delete', {
+      user_id: item.id,
+      course_id: params.id
+    })
+      .catch(err => console.log(err))
+      .then(res => {
+        console.log(res);
+        if (res.data)
+          setCourse(res.data.data);
+        notify();
+      })
   }
 
   return (
@@ -123,6 +141,11 @@ const CoursesDetail = () => {
               <CsLineIcons icon="edit" /> <span>{`${f({ id: 'menu.edit' })} ${f({ id: 'menu.at-a-glance' })}`}</span>
             </Button>
           </Col> */}
+          <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setModalAddStudents(true)}>
+              <CsLineIcons icon="plus" /> <span>{f({ id: 'course.detail_add_student' })}</span>
+            </Button>
+          </Col>
           <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
             <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setModalAddStudents(true)}>
               <CsLineIcons icon="plus" /> <span>{f({ id: 'course.detail_add_student' })}</span>
@@ -280,7 +303,7 @@ const CoursesDetail = () => {
                             <NavLink to={`/student/${student.id}/detail`}>{student.name}</NavLink>
                           </Col>
                           <Col md="4" className="d-flex align-items-center justify-content-md-end">
-                            <Button variant="outline-primary" size="sm" className="btn-icon btn-icon-start ms-1">
+                            <Button variant="outline-primary" size="sm" className="btn-icon btn-icon-start ms-1" onClick={() => handleRemove(student)}>
                               <CsLineIcons icon="bin" width="15" height="15" className="me-xxl-2" />
                               <span className="d-none d-xxl-inline-block">{f({ id: 'course.detail.remove' })}</span>
                             </Button>
