@@ -1,4 +1,3 @@
-import apiBase from 'app/axios/apiBase';
 import NotificationIcon from 'components/notification/NotificationIconSuccess';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import React, { useEffect, useState } from 'react';
@@ -8,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import { detailCourseState, studentListState } from 'recoil_store';
 
-const ModalAddStudents = ({ setModalAddStudents }) => {
+const ModalListStudents = ({ setModalCheckPresence }) => {
 
     const [listStudents, setListStudents] = useRecoilState(studentListState);
 
@@ -21,35 +20,35 @@ const ModalAddStudents = ({ setModalAddStudents }) => {
     const [course, setCourse] = useRecoilState(detailCourseState);
 
     useEffect(() => {
-        if (listStudents.length < 1)
-            apiBase.get("/users", {
-                params: {
-                    type: 'Student',
-                }
-            })
-                .catch(err => console.log(err))
-                .then(res => {
-                    setListStudents(res.data.items);
-                })
+        // if (listStudents.length < 1)
+        //     apiBase.get("/users", {
+        //         params: {
+        //             type: 'Student',
+        //         }
+        //     })
+        //         .catch(err => console.log(err))
+        //         .then(res => {
+        //             setListStudents(res.data.items);
+        //         })
     }, []);
 
     const funcSetListShowSelect = () => {
-        const listTemp = [];
+        // const listTemp = [];
 
-        listStudents.forEach(item => {
-            let check = true;
-            course.student_of_course.forEach(exists => {
-                if (item.id === exists.id) {
-                    check = false;
-                }
-            })
+        // listStudents.forEach(item => {
+        //     let check = true;
+        //     course.student_of_course.forEach(exists => {
+        //         if (item.id === exists.id) {
+        //             check = false;
+        //         }
+        //     })
 
-            if (check) {
-                listTemp.push(item);
-            }
-        })
+        //     if (check) {
+        //         listTemp.push(item);
+        //     }
+        // })
 
-        setListShowSelect(listTemp);
+        // setListShowSelect(listTemp);
     }
 
     useEffect(() => {
@@ -74,15 +73,15 @@ const ModalAddStudents = ({ setModalAddStudents }) => {
     const handleSubmitStudy = (e) => {
         e.preventDefault();
 
-        apiBase.post('/studies', {
-            user_id: checkboxList,
-            course_id: params.id,
-        }).then(res => {
-            setCourse(res.data.data)
-            setModalAddStudents(false)
-            funcSetListShowSelect()
-            notify()
-        }).catch(err => console.log(err));
+        // apiBase.post('/studies', {
+        //     user_id: checkboxList,
+        //     course_id: params.id,
+        // }).then(res => {
+        //     setCourse(res.data.data)
+        //     setModalAddStudents(false)
+        //     funcSetListShowSelect()
+        //     notify()
+        // }).catch(err => console.log(err));
     }
 
     return (
@@ -114,7 +113,7 @@ const ModalAddStudents = ({ setModalAddStudents }) => {
                     </Col>
                 </Row>
                 <Row className="d-flex justify-content-end">
-                    <Button className="w-auto mx-2" variant="secondary" type="button" onClick={() => setModalAddStudents(false)}>Cancel</Button>
+                    <Button className="w-auto mx-2" variant="secondary" type="button" onClick={() => setModalCheckPresence(false)}>Cancel</Button>
                     <Button className="w-auto mx-2" type="submit">Save</Button>
                 </Row>
             </form>
@@ -122,4 +121,4 @@ const ModalAddStudents = ({ setModalAddStudents }) => {
     )
 }
 
-export default ModalAddStudents;
+export default ModalListStudents;

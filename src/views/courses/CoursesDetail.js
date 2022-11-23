@@ -148,7 +148,7 @@ const CoursesDetail = () => {
           </Col>
           <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
             <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setModalAddStudents(true)}>
-              <CsLineIcons icon="plus" /> <span>{f({ id: 'course.detail_add_student' })}</span>
+              <CsLineIcons icon="plus" /> <span>{f({ id: 'course.detail_add_presence' })}</span>
             </Button>
           </Col>
           {/* Top Buttons End */}

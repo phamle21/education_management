@@ -18,12 +18,12 @@ const TopicList = () => {
     const description = 'Code Academy Topics List Page';
 
     const breadcrumbs = [
-        { to: '', text:  f({ id: 'menu.home' }) }, 
-        { to: '/topics', text:  f({ id: 'menu.topics' }) },
+        { to: '', text: f({ id: 'menu.home' }) },
+        { to: '/topics', text: f({ id: 'menu.topics' }) },
     ];
 
     const [topicList, setTopicList] = useRecoilState(topicListState);
-    
+
     const [topic, setTopic] = useState();
 
     const [showModal, setShowModal] = useRecoilState(modalAddTopicState);
@@ -43,12 +43,12 @@ const TopicList = () => {
 
     useEffect(() => {
         if (topicList.length < 1)
-          apiBase.get("/topics",)
-            .catch(err => console.log(err))
-            .then(res => {
-                setTopicList(res.data.data);
-            })
-      }, [topicList]);
+            apiBase.get("/topics",)
+                .catch(err => console.log(err))
+                .then(res => {
+                    setTopicList(res.data.data);
+                })
+    }, [topicList]);
 
 
     return (
@@ -116,7 +116,7 @@ const TopicList = () => {
 
             {
                 // Modal Edit Start
-                <ModalEditTopic show={showEditModal} onHide={handleCloseEdit}  data={topic}/>
+                <ModalEditTopic show={showEditModal} onHide={handleCloseEdit} data={topic} />
                 // Modal Edit End
             }
         </>

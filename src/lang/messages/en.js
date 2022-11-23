@@ -193,6 +193,7 @@ const enMessages = {
   'menu.gender_male': 'Male',
   'menu.load_more': 'Load more',
   'menu.list_students': 'List Students',
+  'menu.export': 'Export',
 
   // Courses
   'menu.course_list_title': 'Course List',
@@ -215,10 +216,11 @@ const enMessages = {
   'menu.num_chapter': 'Chapter',
   'menu.course_intro': 'Course Introduction',
   'menu.table_of_contents': 'Table Of Contents',
-  'course.detail.topics':'Topics',
+  'course.detail.topics': 'Topics',
   'course.detail.content_course': 'Content of Courses',
   'course.detail.remove': 'Remove',
   'course.detail_add_student': 'Add Students',
+  'course.detail_add_presence': 'Presence',
 
   // Lecturer
   'menu.lecturer_list_title': 'Lecturer List',
@@ -246,9 +248,9 @@ const enMessages = {
 
   // Topic
   'menu.topic_list_title': 'Topic List',
-  'menu.topic_title_add': 'Add Topic',  
-  'menu.topic_name': 'Topic Name',  
-  'menu.topic_title_edit': 'Edit Topic', 
+  'menu.topic_title_add': 'Add Topic',
+  'menu.topic_name': 'Topic Name',
+  'menu.topic_title_edit': 'Edit Topic',
 
 
   // User
@@ -286,6 +288,10 @@ const enMessages = {
   'user.check.success.email': 'Usable email',
   'user.check.success.name': 'Usable fullname',
 
-  
+  // Presence List
+  'menu.presence': 'Presence',
+  'menu.presence_list': 'Presence List',
+
+
 };
 export default enMessages;

@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { useIntl } from 'react-intl';
-import { useSelector, useDispatch } from 'react-redux';
-import { Row, Col, Form } from 'react-bootstrap';
-import { useTable, useGlobalFilter, useSortBy, usePagination, useRowSelect, useRowState, useAsyncDebounce } from 'react-table';
-import HtmlHead from 'components/html-head/HtmlHead';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
-import { createContact, deleteContact, getContacts, updateContact } from './contactsSlice';
-import ItemList from './components/ItemList';
-import ItemListPagination from './components/ItemListPagination';
+import HtmlHead from 'components/html-head/HtmlHead';
+import React, { useEffect, useState } from 'react';
+import { Col, Form, Row } from 'react-bootstrap';
+import { useIntl } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAsyncDebounce, useGlobalFilter, usePagination, useRowSelect, useRowState, useSortBy, useTable } from 'react-table';
 import AddEditModal from './components/AddEditModal';
-import ItemListHeader from './components/ItemListHeader';
-import CheckAll from './components/CheckAll';
-import SearchInput from './components/SearchInput';
 import AddNewButton from './components/AddNewButton';
-import MobileSortDropdown from './components/MobileSortDropdown';
+import CheckAll from './components/CheckAll';
 import DeleteConfirmModal from './components/DeleteConfirmModal';
+import ItemList from './components/ItemList';
+import ItemListHeader from './components/ItemListHeader';
+import ItemListPagination from './components/ItemListPagination';
+import MobileSortDropdown from './components/MobileSortDropdown';
+import SearchInput from './components/SearchInput';
+import { createContact, deleteContact, getContacts, updateContact } from './contactsSlice';
 
 const UsersApp = () => {
   const { formatMessage: f } = useIntl();
 
   const title = f({ id: 'user.title_list' });
-  const description = 'User directory application that built with the help of List.js. Can be searched, paged and sorted.';
+  const description = 'List users of Code Academy';
 
   const breadcrumbs = [
     { to: '', text: f({ id: 'menu.home' }) },

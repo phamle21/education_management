@@ -21,6 +21,11 @@ const calendar = {
   list: lazy(() => import('views/calendar/Calendar')),
 };
 
+const presence = {
+  list: lazy(() => import('views/presence/PresenceList')),
+  // detail: lazy(() => import('views/student/StudentDetail')),
+};
+
 const quiz = {
   list: lazy(() => import('views/quiz/QuizList')),
   detail: lazy(() => import('views/quiz/QuizDetail')),
@@ -111,6 +116,18 @@ const routesAndMenuItems = {
       to: `${appRoot}/calendar/list`,
       subs: [
         { path: '/list', label: 'menu.calendar', component: calendar.list },
+      ],
+    },
+    {
+      path: `${appRoot}/presence`,
+      label: 'menu.presence',
+      icon: 'list',
+      exact: true,
+      redirect: true,
+      to: `${appRoot}/presence/list`,
+      subs: [
+        { path: '/list', label: 'menu.list', component: presence.list },
+        // { path: '/:id/detail', label: 'menu.detail', component: students.detail, hideInMenu: true },
       ],
     },
     // {

@@ -193,6 +193,7 @@ const vnMessages = {
   'menu.gender_female': 'Nữ',
   'menu.gender_male': 'Nam',
   'menu.list_students': 'Danh sách học viên',
+  'menu.export': 'Xuất file',
 
   // Course
   'menu.course_list_title': 'DANH SÁCH',
@@ -217,6 +218,7 @@ const vnMessages = {
   'course.detail.content_course': 'Nội dung của khóa học',
   'course.detail.remove': 'Xóa',
   'course.detail_add_student': 'Thêm học viên',
+  'course.detail_add_presence': 'Điểm danh',
 
   // Lecturer
   'menu.lecturer_list_title': 'DANH SÁCH',
@@ -285,6 +287,8 @@ const vnMessages = {
   'user.check.success.email': 'Email có thể sử dụng',
   'user.check.success.name': 'Họ và tên hợp lệ',
 
-
+  // Presence List
+  'menu.presence': 'Điểm danh',
+  'menu.presence_list': 'Danh sách điểm danh',
 };
 export default vnMessages;
