@@ -21,7 +21,7 @@ class Schedule extends Model
         'updated_at'
     ];
 
-    public function course(){
+    public function courses(){
 
         return Course::find($this->course_id);
     }

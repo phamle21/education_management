@@ -739,6 +739,46 @@
                 ]
             }
         },
+        "/api/schedules/course": {
+            "post": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "get schedulOfCoursee list",
+                "description": "Returns schedule list",
+                "operationId": "getScheduleOfCourse",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "course_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "course_id": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
         "/api/studies": {
             "post": {
                 "tags": [

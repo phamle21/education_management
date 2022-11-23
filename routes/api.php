@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseContentController;
 use Illuminate\Http\Request;
@@ -62,7 +63,13 @@ Route::post('upload-image-ckeditor', [CourseContentController::class, 'storeImag
 /** Schedule */
 Route::resource('schedules', ScheduleController::class);
 Route::post('/schedules/import', [ScheduleController::class, 'import']);
+Route::post('/schedules/course', [ScheduleController::class, 'scheduleOfCourse']);
 
 /** Study */
 Route::post('/studies', [StudyController::class, 'store']);
 Route::delete('/studies', [StudyController::class, 'destroy']);
+
+/** Attendance */
+Route::post('/attendances', [AttendanceController::class, 'attendance']);
+Route::post('/attendances', [AttendanceController::class, 'attendance']);
+

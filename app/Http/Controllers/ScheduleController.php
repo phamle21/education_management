@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Imports\SchedulesImport;
+use App\Models\Course;
 use App\Models\Schedule;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -287,5 +289,55 @@ class ScheduleController extends Controller
         }
 
         return response()->json($schedule);
+    }
+
+    /**
+     * @OA\POST(
+     *      path="/api/schedules/course",
+     *      operationId="getScheduleOfCourse",
+     *      tags={"Schedule"},
+     *      summary="get schedulOfCoursee list",
+     *      description="Returns schedule list",
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="course_id",
+     *                     type="integer"
+     *                 ),
+     *                 example={"course_id": "1"}
+     *             )
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
+    public function scheduleOfCourse(Request $request)
+    {
+        $course = Course::find($request->course_id);
+
+        $course->schedules;
+        foreach ($course->schedules as $v) {
+            $temp = new DateTime($v->date_time_start);
+            $v->dateNameStart = $temp->format('l');
+
+            $temp2 = new DateTime($v->date_time_end);
+            $v->dateNameEnd = $temp2->format('l');
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Lấy thành công thời khóa biểu của khóa học',
+            'description' => 'Trả về khóa học và lịch học',
+            'data' => $course
+        ]);
     }
 }

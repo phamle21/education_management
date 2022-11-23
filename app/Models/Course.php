@@ -65,4 +65,9 @@ class Course extends Model
             'user_id'
         );
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
 }
