@@ -12,7 +12,7 @@
                 ],
                 "summary": "get student list of schedule",
                 "description": "Returns student list",
-                "operationId": "getListStudentSchedule",
+                "operationId": "getAttendance",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -24,7 +24,7 @@
                                 },
                                 "type": "object",
                                 "example": {
-                                    "course_id": "1"
+                                    "schedule_id": "1"
                                 }
                             }
                         }
@@ -71,7 +71,7 @@
                                 },
                                 "type": "object",
                                 "example": {
-                                    "course_id": "1",
+                                    "schedule_id": "1",
                                     "user_id": "[1,2,3,4]"
                                 }
                             }

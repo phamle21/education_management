@@ -12,7 +12,7 @@ class AttendanceController extends Controller
     /**
      * @OA\GET(
      *      path="/api/attendances/schedule",
-     *      operationId="getListStudentSchedule",
+     *      operationId="getAttendance",
      *      tags={"Attendance"},
      *      summary="get student list of schedule",
      *      description="Returns student list",
@@ -24,7 +24,7 @@ class AttendanceController extends Controller
      *                     property="schedule_id",
      *                     type="integer"
      *                 ),
-     *                 example={"course_id": "1"}
+     *                 example={"schedule_id": "1"}
      *             )
      *         )
      *     ),
@@ -90,7 +90,7 @@ class AttendanceController extends Controller
      *                      type="array",
      *                      @OA\Items(type="string", format="id"),
      *                 ),
-     *                 example={"course_id": "1", "user_id": "[1,2,3,4]"}
+     *                 example={"schedule_id": "1", "user_id": "[1,2,3,4]"}
      *             )
      *         )
      *     ),
