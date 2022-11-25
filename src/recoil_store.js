@@ -40,6 +40,11 @@ const detailCourseState = atom({
     default: {},
 })
 
+const detailScheduleState = atom({
+    key: 'detailScheduleState',
+    default: {},
+})
+
 const modalAddLecturerState = atom({
     key: 'modalAddLecturerState',
     default: false,
@@ -86,12 +91,19 @@ const studentListState = atom({
     default: [],
 })
 
+const schedulesListState = atom({
+    key: 'schedulesListState',
+    default: [],
+})
+
 const modalShowSelectStudentExistsState = atom({
     key: 'modalShowSelectStudentExistsState',
     default: [],
 })
 
 export {
+    detailScheduleState,
+    schedulesListState,
     modalShowSelectStudentExistsState,
     roleListState,
     courseListShowState,

@@ -1,3 +1,4 @@
+import apiBase from 'app/axios/apiBase';
 import NotificationIcon from 'components/notification/NotificationIconSuccess';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import React, { useEffect, useState } from 'react';
@@ -7,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import { detailCourseState, studentListState } from 'recoil_store';
 
-const ModalListStudents = ({ setModalCheckPresence }) => {
+const ModalListStudents = ({ setModalCheckPresence, data }) => {
 
     const [listStudents, setListStudents] = useRecoilState(studentListState);
 
@@ -17,20 +18,24 @@ const ModalListStudents = ({ setModalCheckPresence }) => {
 
     const params = useParams();
 
+    console.log(params);
+
     const [course, setCourse] = useRecoilState(detailCourseState);
 
     useEffect(() => {
-        // if (listStudents.length < 1)
-        //     apiBase.get("/users", {
-        //         params: {
-        //             type: 'Student',
-        //         }
-        //     })
-        //         .catch(err => console.log(err))
-        //         .then(res => {
-        //             setListStudents(res.data.items);
-        //         })
-    }, []);
+        apiBase.get("/attendances/schedule", {
+            params: {
+                'schedule_id': data && data.id,
+            }
+        })
+            .catch(err => console.log(err))
+            .then(res => {
+                console.log(data && data.id);
+                console.log(res.data.data);
+                setListStudents(res.data.data);
+                console.log(listStudents);
+            })
+    }, [data]);
 
     const funcSetListShowSelect = () => {
         // const listTemp = [];
@@ -67,21 +72,21 @@ const ModalListStudents = ({ setModalCheckPresence }) => {
     }
 
     const notify = () => toast(
-        <NotificationIcon icon='check' title='Success' content='Add List Students Succesfully!' />,
+        <NotificationIcon icon='check' title='Success' content='Check Presence Of Students Succesfully!' />,
     );
 
     const handleSubmitStudy = (e) => {
         e.preventDefault();
 
-        // apiBase.post('/studies', {
-        //     user_id: checkboxList,
-        //     course_id: params.id,
-        // }).then(res => {
-        //     setCourse(res.data.data)
-        //     setModalAddStudents(false)
-        //     funcSetListShowSelect()
-        //     notify()
-        // }).catch(err => console.log(err));
+        apiBase.post('/attendances', {
+            user_id: checkboxList,
+            schedule_id: data && data.id,
+        }).then(res => {
+            setCourse(res.data.data)
+            setModalCheckPresence(false)
+            funcSetListShowSelect()
+            notify()
+        }).catch(err => console.log(err));
     }
 
     return (
@@ -92,10 +97,17 @@ const ModalListStudents = ({ setModalCheckPresence }) => {
                         <Card body>
                             <Row className="g-2">
                                 {
-                                    listShowSelect && listShowSelect.map((student, i) => (
+                                    listStudents && listStudents.map((student, i) => (
                                         <Col xs="3" key={i}>
                                             <label className="form-check custom-card w-100 position-relative p-10 m-10">
-                                                <input type="checkbox" name='user_id[]' value={student.id} className="form-check-input position-absolute e-2 t-2 z-index-1" onChange={handleCheckbox} />
+                                                <input
+                                                    type="checkbox"
+                                                    name='user_id[]'
+                                                    value={student.id}
+                                                    className="form-check-input position-absolute e-2 t-2 z-index-1"
+                                                    onChange={handleCheckbox}
+                                                    defaultChecked={student.attendance}
+                                                />
                                                 <span className="card form-check-label w-100 custom-border">
                                                     <span className="card-body text-center">
                                                         <CsLineIcons icon="banana" className="cs-icon icon text-primary" />
