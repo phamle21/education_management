@@ -86,11 +86,11 @@ class AttendanceController extends Controller
      *                     type="integer"
      *                 ),
      *                  @OA\Property(
-     *                      property="user_id[]",
+     *                      property="user_ids[]",
      *                      type="array",
      *                      @OA\Items(type="string", format="id"),
      *                 ),
-     *                 example={"schedule_id": "1", "user_id": "[1,2,3,4]"}
+     *                 example={"schedule_id": "1", "user_ids": "[1,2,3,4]"}
      *             )
      *         )
      *     ),
@@ -109,7 +109,7 @@ class AttendanceController extends Controller
         Attendance::where('schedule_id', $request->schedule_id)->delete();
         $schedule_id = $request->schedule_id;
         $list_user_id = $request->user_ids;
-
+        
         foreach ($list_user_id as $id) {
             Attendance::create([
                 'schedule_id' => $schedule_id,

@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseContentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudyController;
@@ -73,3 +74,5 @@ Route::delete('/studies', [StudyController::class, 'destroy']);
 Route::get('/attendances/schedule', [AttendanceController::class, 'show']);
 Route::post('/attendances', [AttendanceController::class, 'attendances']);
 
+/** Dashboard */
+Route::get('/dashboard', [DashboardController::class, 'index']);
