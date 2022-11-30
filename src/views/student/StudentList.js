@@ -25,20 +25,20 @@ const StudentList = () => {
 
     const loadMore = () => {
         setLimit(limit + 8);
-      }
-    
-      useEffect(() => {
+    }
+
+    useEffect(() => {
         if (listStudents.length < 1)
-          apiBase.get("/users", {
-            params: {
-              type: 'Student',
-            }
-          })
-            .catch(err => console.log(err))
-            .then(res => {
-                setListStudents(res.data.items);
+            apiBase.get("/users", {
+                params: {
+                    type: 'Student',
+                }
             })
-      }, []);
+                .catch(err => console.log(err))
+                .then(res => {
+                    setListStudents(res.data.items);
+                })
+    }, []);
 
     return (
         <>
@@ -65,8 +65,8 @@ const StudentList = () => {
                                     <div className="sw-13 position-relative mb-3 mx-auto">
                                         <img src={student.avatar} className="img-fluid rounded-xl" alt="thumb" />
                                     </div>
-                                    <NavLink to="/student/:id/detail" className="mb-3 body-link">
-                                       {student.name}
+                                    <NavLink to={`/admin/students/${student.id}/detail`} className="mb-3 body-link">
+                                        {student.name}
                                     </NavLink>
                                     <div className="text-muted text-medium mb-2">{student.email}</div>
                                 </Card.Body>
@@ -78,14 +78,14 @@ const StudentList = () => {
 
             {
                 limit >= listStudents.length ?
-                null :
-                <Row>
-                    <Col xs="12" className="text-center mt-5">
-                        <Button variant="outline-primary" className="sw-30" onClick={() => loadMore()}>
-                            {f({ id: 'menu.load_more' })}
-                        </Button>
-                    </Col>
-                </Row>
+                    null :
+                    <Row>
+                        <Col xs="12" className="text-center mt-5">
+                            <Button variant="outline-primary" className="sw-30" onClick={() => loadMore()}>
+                                {f({ id: 'menu.load_more' })}
+                            </Button>
+                        </Col>
+                    </Row>
             }
         </>
     );

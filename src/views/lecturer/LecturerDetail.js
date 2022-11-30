@@ -3,7 +3,7 @@ import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import Clamp from 'components/clamp';
 import HtmlHead from 'components/html-head/HtmlHead';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import Rating from 'react-rating';
@@ -26,13 +26,24 @@ const LecturerDetail = () => {
 
   const [listCourses, setListCourse] = useRecoilState(coursesOfLecturerState);
 
+  const [lecturerDetail, setLecturerDetail] = useState();
+
   useEffect(() => {
-    if(listCourses.length < 1) {
+    if (listCourses.length < 1) {
       apiBase.get(`/courses/${params.id}/teacher`)
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err))
     }
-  },[]);
+  }, []);
+
+  useEffect(() => {
+    apiBase.get(`/teacher/${params.id}/details`)
+      .then(res => {
+        console.log(res.data);
+        setLecturerDetail(res.data.teacher);
+      })
+      .catch(err => console.log(err))
+  }, []);
 
   return (
     <>
@@ -59,22 +70,23 @@ const LecturerDetail = () => {
               <div className="d-flex align-items-center flex-column mb-5">
                 <div className="mb-5 d-flex align-items-center flex-column">
                   <div className="sw-13 position-relative mb-3">
-                    <img src="/img/profile/profile-6.webp" className="img-fluid rounded-xl" alt="thumb" />
+                    <img src={lecturerDetail && lecturerDetail.avatar} className="img-fluid rounded-xl" alt="thumb" />
                   </div>
-                  <div className="h5 mb-0">Eneida Farzana</div>
-                  <div className="text-muted mb-2">Spanish</div>
-                  <div className="text-muted text-center">Cake oat cake sugar plum caramels fruitcake tart dessert jelly beans pudding.</div>
+                  <div className="h5 mb-0">{lecturerDetail && lecturerDetail.name}</div>
+                  <div className="text-muted mb-2">{lecturerDetail && lecturerDetail.gender}</div>
+                  <div className="text-muted mb-2">{lecturerDetail && lecturerDetail.birthday}</div>
+                  {/* <div className="text-muted text-center">Cake oat cake sugar plum caramels fruitcake tart dessert jelly beans pudding.</div> */}
                 </div>
                 <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100">
                   <Button variant="primary" className="w-100 me-2">
-                    Courses
+                    Update
                   </Button>
-                  <Button variant="outline-primary" className="w-100 me-2">
+                  {/* <Button variant="outline-primary" className="w-100 me-2">
                     Follow
                   </Button>
                   <Button variant="outline-primary" className="btn-icon btn-icon-only">
                     <CsLineIcons icon="more-horizontal" />
-                  </Button>
+                  </Button> */}
                 </div>
               </div>
               <div className="mb-5">
@@ -87,12 +99,16 @@ const LecturerDetail = () => {
               <div className="mb-5">
                 <p className="text-small text-muted mb-2">CONTACT</p>
                 <NavLink to="#" className="d-block body-link mb-1">
-                  <CsLineIcons icon="screen" className="me-2" size="17" />
-                  <span className="align-middle">blainecottrell.com</span>
+                  <CsLineIcons icon="phone" className="me-2" size="17" />
+                  <span className="align-middle">{lecturerDetail && lecturerDetail.phone}</span>
+                </NavLink>
+                <NavLink to="#" className="d-block body-link mb-1">
+                  <CsLineIcons icon="home" className="me-2" size="17" />
+                  <span className="align-middle">{lecturerDetail && lecturerDetail.address}</span>
                 </NavLink>
                 <NavLink to="#" className="d-block body-link mb-1">
                   <CsLineIcons icon="email" className="me-2" size="17" />
-                  <span className="align-middle">contact@blainecottrell.com</span>
+                  <span className="align-middle">{lecturerDetail && lecturerDetail.email}</span>
                 </NavLink>
               </div>
             </Card.Body>
