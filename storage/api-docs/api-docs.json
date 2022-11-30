@@ -10,8 +10,8 @@
                 "tags": [
                     "Attendance"
                 ],
-                "summary": "get student list of schedule",
-                "description": "Returns student list",
+                "summary": "get attendance list of schedule",
+                "description": "Returns attendance list",
                 "operationId": "getAttendance",
                 "requestBody": {
                     "content": {
@@ -51,7 +51,7 @@
                     "Attendance"
                 ],
                 "summary": "add or update attendance",
-                "description": "Returns student list",
+                "description": "Returns attandance list",
                 "operationId": "addUpadteAttendance",
                 "requestBody": {
                     "content": {
@@ -300,7 +300,8 @@
         "/api/courses/{id}/content": {
             "get": {
                 "tags": [
-                    "Courses"
+                    "Courses",
+                    "Course Content"
                 ],
                 "summary": "Get courses content",
                 "description": "Returns courses content",
@@ -616,7 +617,7 @@
                 ]
             }
         },
-        "/api/dashbboard": {
+        "/api/dashboard": {
             "get": {
                 "tags": [
                     "Dashboard"

@@ -38,6 +38,7 @@ class DashboardController extends Controller
             $v_course->image = url(Storage::url($v_course->image));
             $v_course->totalSchedules = $v_course->schedules->count();
             $v_course->totalStudySessionLearned = 0;
+            
             foreach ($v_course->schedules as $v_schedule) {
                 if (strtotime($v_schedule->date_time_end) < strtotime(now())) {
                     $v_course->totalStudySessionLearned++;

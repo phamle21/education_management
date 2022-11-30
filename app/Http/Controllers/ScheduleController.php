@@ -45,8 +45,8 @@ class ScheduleController extends Controller
 
 
         foreach ($schedule as $v) {
-            $v->courseName = $v->course()->name;
-            $v->title = $v->course()->name;
+            $v->courseName = $v->courses()->name;
+            $v->title = $v->courses()->name;
             $v->courseId = $v->course_id;
             $v->start = str_replace(' ', 'T', $v->date_time_start);
             $v->end = str_replace(' ', 'T', $v->date_time_end);
@@ -109,8 +109,8 @@ class ScheduleController extends Controller
         $schedule = Schedule::all();
 
         foreach ($schedule as $v) {
-            $v->courseName = $v->course()->name;
-            $v->title = $v->course()->name;
+            $v->courseName = $v->courses()->name;
+            $v->title = $v->courses()->name;
             $v->courseId = $v->course_id;
             $v->start = str_replace(' ', 'T', $v->date_time_start);
             $v->end = str_replace(' ', 'T', $v->date_time_end);
@@ -183,8 +183,8 @@ class ScheduleController extends Controller
         $schedule = Schedule::all();
 
         foreach ($schedule as $v) {
-            $v->courseName = $v->course()->name;
-            $v->title = $v->course()->name;
+            $v->courseName = $v->courses()->name;
+            $v->title = $v->courses()->name;
             $v->courseId = $v->course_id;
             $v->start = str_replace(' ', 'T', $v->date_time_start);
             $v->end = str_replace(' ', 'T', $v->date_time_end);
@@ -228,8 +228,8 @@ class ScheduleController extends Controller
         $schedule = Schedule::all();
 
         foreach ($schedule as $v) {
-            $v->courseName = $v->course()->name;
-            $v->title = $v->course()->name;
+            $v->courseName = $v->courses()->name;
+            $v->title = $v->courses()->name;
             $v->courseId = $v->course_id;
             $v->start = str_replace(' ', 'T', $v->date_time_start);
             $v->end = str_replace(' ', 'T', $v->date_time_end);
@@ -280,8 +280,8 @@ class ScheduleController extends Controller
         $schedule = Schedule::all();
 
         foreach ($schedule as $v) {
-            $v->courseName = $v->course()->name;
-            $v->title = $v->course()->name;
+            $v->courseName = $v->courses()->name;
+            $v->title = $v->courses()->name;
             $v->courseId = $v->course_id;
             $v->start = str_replace(' ', 'T', $v->date_time_start);
             $v->end = str_replace(' ', 'T', $v->date_time_end);

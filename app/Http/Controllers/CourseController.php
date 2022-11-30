@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRole;
 use App\Models\Course;
 use App\Models\CourseContent;
 use App\Models\CourseTopic;
@@ -55,7 +56,7 @@ class CourseController extends Controller
      * @OA\Get(
      *      path="/api/courses/{id}/content",
      *      operationId="getCoursesContent",
-     *      tags={"Courses"},
+     *      tags={"Courses", "Course Content"},
      *      summary="Get courses content",
      *      description="Returns courses content",
      *      @OA\Parameter(
@@ -778,9 +779,31 @@ class CourseController extends Controller
      */
     public function courseOfTeacher($id)
     {
+        if (User::find($id)->role !== UserRole::Teacher) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Người dùng này không phải giáo viên',
+            ]);
+        }
+
+        $course_list = User::find($id)->courseOfTeacher();
+
+        foreach ($course_list as $v_course) {
+
+            $v_course->totalSchedules = $v_course->schedules->count();
+            $v_course->totalStudySessionLearned = 0;
+
+            foreach ($v_course->schedules as $v_schedule) {
+                if (strtotime($v_schedule->date_time_end) < strtotime(now())) {
+                    $v_course->totalStudySessionLearned++;
+                }
+            }
+        }
+
         return response()->json([
-            'status' => 'ahiihii',
-            'msg' => 'Chưa cóa',
+            'status' => 'success',
+            'msg' => 'Lấy thành công các khóa học của giáo viên',
+            'data' => $course_list
         ]);
     }
 }
