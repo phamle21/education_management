@@ -9,12 +9,13 @@ use App\Models\User;
 use App\Models\UserInformation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
     /**
      * @OA\Get(
-     *      path="/api/dashbboard",
+     *      path="/api/dashboard",
      *      operationId="getDashboard",
      *      tags={"Dashboard"},
      *      summary="Get Dashboard list",
@@ -34,9 +35,9 @@ class DashboardController extends Controller
         $course_list = Course::all();
         foreach ($course_list as $v_course) {
 
+            $v_course->image = url(Storage::url($v_course->image));
             $v_course->totalSchedules = $v_course->schedules->count();
             $v_course->totalStudySessionLearned = 0;
-
             foreach ($v_course->schedules as $v_schedule) {
                 if (strtotime($v_schedule->date_time_end) < strtotime(now())) {
                     $v_course->totalStudySessionLearned++;

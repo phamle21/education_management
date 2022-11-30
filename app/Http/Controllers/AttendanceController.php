@@ -14,8 +14,8 @@ class AttendanceController extends Controller
      *      path="/api/attendances/schedule",
      *      operationId="getAttendance",
      *      tags={"Attendance"},
-     *      summary="get student list of schedule",
-     *      description="Returns student list",
+     *      summary="get attendance list of schedule",
+     *      description="Returns attendance list",
      *      @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -76,7 +76,7 @@ class AttendanceController extends Controller
      *      operationId="addUpadteAttendance",
      *      tags={"Attendance"},
      *      summary="add or update attendance",
-     *      description="Returns student list",
+     *      description="Returns attandance list",
      *      @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -109,7 +109,7 @@ class AttendanceController extends Controller
         Attendance::where('schedule_id', $request->schedule_id)->delete();
         $schedule_id = $request->schedule_id;
         $list_user_id = $request->user_ids;
-        
+
         foreach ($list_user_id as $id) {
             Attendance::create([
                 'schedule_id' => $schedule_id,
