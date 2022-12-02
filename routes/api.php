@@ -48,6 +48,9 @@ Route::post('/users/check-account', [UserController::class, 'checkAccount']);
 Route::post('/users/update/{id}/{field}', [UserController::class, 'updateField']);
 Route::post('/users/delete-list', [UserController::class, 'deleteList']);
 Route::post('/users/get-roles', [UserController::class, 'getRoles']);
+Route::post('/users/update-info/{id}', [UserController::class, 'updateUserInfo']);
+Route::post('/users/change-avatar/{id}', [UserController::class, 'changeAvatar']);
+Route::post('/users/change-password/{id}', [UserController::class, 'changePassword']);
 
 /** Topics */
 Route::resource('topics', TopicController::class);

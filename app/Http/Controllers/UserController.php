@@ -898,4 +898,275 @@ class UserController extends Controller
             'student' => $student
         ]);
     }
+
+    /**
+     * @OA\PATCH(
+     *      path="/api/users/update-info/{id}",
+     *      operationId="updateUserInfo",
+     *      tags={"Users"},
+     *      summary="updateUserInfo",
+     *      description="Returns user",
+     *      @OA\Parameter(
+     *            name="id",
+     *            description="id",
+     *            example="1",
+     *            required=true,
+     *            in="path",
+     *            @OA\Schema(
+     *                type="string"
+     *            )
+     *        ),
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="address",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="birthday",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="gender",
+     *                     type="string"
+     *                 ),
+     *                 example={"name": "new Name", "address": "new Address","birthday": "2022-04-21", "gender": "Male"}
+     *             )
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
+    public function updateUserInfo($id, Request $request)
+    {
+        if (!User::whereId($id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Không tồn tại id này!!!',
+            ]);
+        } else {
+            $user = User::find($id);
+        }
+
+        $user->update([
+            'name' => $request->name,
+            'address' => $request->address,
+            'gender' => $request->gender,
+            'birthday' => $request->birthday,
+        ]);
+
+        $user->avatar = url(Storage::url($user->avatar));
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Cập nhật thông tin thành công',
+            'data' => $user
+        ]);
+    }
+
+    /**
+     * @OA\PATCH(
+     *      path="/api/users/change-avatar/{id}",
+     *      operationId="changeAvatar",
+     *      tags={"Users"},
+     *      summary="changeAvatar",
+     *      description="Returns user",
+     *      @OA\Parameter(
+     *            name="id",
+     *            description="id",
+     *            example="1",
+     *            required=true,
+     *            in="path",
+     *            @OA\Schema(
+     *                type="string"
+     *            )
+     *        ),
+     *       @OA\RequestBody(
+     *           @OA\MediaType(
+     *               mediaType="multipart/form-data",
+     *               @OA\Schema(
+     *                   type="object",
+     *                   @OA\Property(
+     *                      property="avatar",
+     *                      type="array",
+     *                      @OA\Items(
+     *                           type="string",
+     *                           format="binary",
+     *                      ),
+     *                   ),
+     *               ),
+     *           )
+     *       ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
+    public function changeAvatar($id, Request $request)
+    {
+        if (!User::whereId($id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Không tồn tại id này!!!',
+            ]);
+        } else {
+            $user = User::find($id);
+        }
+
+        // kiểm tra có files sẽ xử lý
+        if ($request->hasFile('avatar')) {
+            $allowedfileExtension = ['jpg', 'jpeg', 'tiff', 'psd', 'eps', 'gif', 'png', 'raw', 'svg',];
+            $files = $request->file('avatar');
+            // flag xem có thực hiện lưu DB không. Mặc định là có
+            $exe_flg = true;
+
+            // kiểm tra tất cả các files xem có đuôi mở rộng đúng không
+            foreach ($files as $file) {
+                $extension = $file->getClientOriginalExtension();
+                $check = in_array($extension, $allowedfileExtension);
+
+                if (!$check) {
+                    // nếu có file nào không đúng đuôi mở rộng thì đổi flag thành false
+                    $exe_flg = false;
+                    break;
+                }
+            }
+
+            // nếu không có file nào vi phạm validate thì tiến hành lưu DB
+            if ($exe_flg) {
+
+                // Xóa file cũ
+                Storage::delete(User::find($id)->avatar);
+
+                // Thực hiện lưu file
+                $file = $request->file('avatar');
+                $extension = $file->getClientOriginalExtension();
+
+                $path = Storage::put('public/users', $file);
+
+                User::whereId($id)->update([
+                    'avatar' => $path,
+                ]);
+
+                $user->avatar = url(Storage::url($user->avatar));
+
+                $response = [
+                    'status' => 'success',
+                    'msg' => 'Update "' . $user->name . '" completed.',
+                    'data' => $user
+                ];
+            } else {
+
+                $response = [
+                    'status' => 'failed',
+                    'msg' => "Định dạng file tải lên không đúng.\n Định dạng tải lên phải là 1 trong những file sau: ['jpg', 'jpeg', 'tiff', 'psd', 'eps', 'gif', 'png', 'raw', 'svg',]",
+                ];
+                return response()->json($response);
+            }
+        } else {
+            $response = [
+                'status' => 'error',
+                'msg' => 'Không có file nào được tải lên',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * @OA\PATCH(
+     *      path="/api/users/change-password/{id}",
+     *      operationId="changePassword",
+     *      tags={"Users"},
+     *      summary="changePassword",
+     *      description="Returns user",
+     *      @OA\Parameter(
+     *            name="id",
+     *            description="id",
+     *            example="1",
+     *            required=true,
+     *            in="path",
+     *            @OA\Schema(
+     *                type="string"
+     *            )
+     *        ),
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="newpassword",
+     *                     type="string"
+     *                 ),
+     *                 example={"newpassword": "new Name"}
+     *             )
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
+    public function changePassword($id, Request $request)
+    {
+        if (!User::whereId($id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Không tồn tại id này!!!',
+            ]);
+        } else {
+            $user = User::find($id);
+        }
+
+        if (Hash::check($request->newpassword, $user->password)) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Mật khẩu trùng với mật khẩu cũ',
+            ]);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->newpassword)
+        ]);
+
+        $user->avatar = url(Storage::url($user->avatar));
+
+        $body = [
+            'name' => $user->name,
+            'password' => $request->newpassword,
+        ];
+
+        $to = $user->email;
+
+        $send = sendMail($to, null, 'Change password', $body, 'changePassword');
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Thay đổi mật khẩu thành công',
+            'data' => $user
+        ]);
+    }
 }
