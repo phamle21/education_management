@@ -422,6 +422,7 @@ class ScheduleController extends Controller
                     $date->greaterThanOrEqualTo($date_start)
                     && $date->lessThanOrEqualTo($date_end)
                 ) {
+                    $schedule->course = Course::find($schedule->course_id);
                     $schedule_by_user[] = $schedule;
                 }
             }
@@ -436,7 +437,6 @@ class ScheduleController extends Controller
                 'date_start' => $date_start,
                 'date_end' => $date_end,
                 'msg' => 'Lấy thành công thời khóa biểu của học viên',
-                'user' => $user,
                 'data' => $schedule_by_user,
             ]);
         } else {
@@ -444,7 +444,6 @@ class ScheduleController extends Controller
                 'status' => 'success',
                 'date' => $date,
                 'msg' => 'Lấy thành công thời khóa biểu của học viên',
-                'user' => $user,
                 'data' => $schedule_by_user,
             ]);
         }
