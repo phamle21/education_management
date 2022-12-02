@@ -5,14 +5,14 @@
         "version": "1.0"
     },
     "paths": {
-        "/api/attendances/schedule": {
-            "get": {
+        "/attendances/schedule": {
+            "post": {
                 "tags": [
                     "Attendance"
                 ],
-                "summary": "get attendance list of schedule",
-                "description": "Returns attendance list",
-                "operationId": "getAttendance",
+                "summary": "get student list of schedule",
+                "description": "Returns student list",
+                "operationId": "getStudentListBySchedule",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -52,7 +52,7 @@
                 ],
                 "summary": "add or update attendance",
                 "description": "Returns attandance list",
-                "operationId": "addUpadteAttendance",
+                "operationId": "addUpdateAttendance",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -871,6 +871,50 @@
                                 "type": "object",
                                 "example": {
                                     "course_id": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/schedules/get-schedule-by-user": {
+            "post": {
+                "tags": [
+                    "Schedule"
+                ],
+                "summary": "get schedul by user and date",
+                "description": "Returns schedule list by user and date",
+                "operationId": "getScheduleByUser",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "date": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "user_id": "1",
+                                    "date": ""
                                 }
                             }
                         }

@@ -345,11 +345,11 @@ class ScheduleController extends Controller
 
     /**
      * @OA\POST(
-     *      path="/api/schedules/course",
-     *      operationId="getScheduleOfCourse",
+     *      path="/api/schedules/get-schedule-by-user",
+     *      operationId="getScheduleByUser",
      *      tags={"Schedule"},
-     *      summary="get schedulOfCoursee list",
-     *      description="Returns schedule list",
+     *      summary="get schedul by user and date",
+     *      description="Returns schedule list by user and date",
      *      @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
