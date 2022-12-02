@@ -108,9 +108,9 @@ const StudentDetail = () => {
                     {/* Courses Start */}
                     <div className="d-flex justify-content-between">
                         <h2 className="small-title">Courses</h2>
-                        <NavLink to="/quiz/result" className="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small">
+                        {/* <NavLink to="/quiz/result" className="btn btn-icon btn-icon-end btn-xs btn-background-alternate p-0 text-small">
                             <span className="align-bottom">View All</span> <CsLineIcons icon="chevron-right" className="align-middle" size="12" />
-                        </NavLink>
+                        </NavLink> */}
                     </div>
                     <Row className="g-3 mb-5">
                         {

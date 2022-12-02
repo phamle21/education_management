@@ -65,13 +65,15 @@ const PresenceList = () => {
     }, []);
 
     useEffect(() => {
-        apiBase.post("/schedules/course", {
-            'course_id': selectedCourse && selectedCourse.value,
-        }).then((res) => {
-            setSchedulesList(res.data.data.schedules);
-            console.log(schedulesList);
-        })
-            .catch((err) => console.log(err))
+        if (selectedCourse) {
+            apiBase.post("/schedules/course", {
+                'course_id': selectedCourse && selectedCourse.value,
+            }).then((res) => {
+                setSchedulesList(res.data.data.schedules);
+                console.log(schedulesList);
+            })
+                .catch((err) => console.log(err))
+        }
     }, [selectedCourse]);
 
     return (

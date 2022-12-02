@@ -1,10 +1,10 @@
+import apiBase from 'app/axios/apiBase';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import HtmlHead from 'components/html-head/HtmlHead';
-import CsLineIcons from 'cs-line-icons/CsLineIcons';
-import React from 'react';
-import { Button, Card, Col, ProgressBar, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Card, Col, ProgressBar, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
-import { NavLink } from 'react-router-dom';
+import ChartPie from 'views/interface/plugins/chart/ChartPie';
 
 const ElearningDashboard = () => {
   const { formatMessage: f } = useIntl();
@@ -20,6 +20,37 @@ const ElearningDashboard = () => {
   //   row.toggleRowSelected();
   //   setIsOpenAddEditModal(true);
   // };
+
+  const [dashboard, setDashboard] = useState();
+
+  const [label, setLabel] = useState([]);
+
+  let total = 0;
+
+  const totalTuition = () => {
+    const arrTemp = [];
+    if (dashboard) {
+      dashboard.courseList.forEach(element => {
+        total += element.totalTuition;
+        console.log(element.name);
+        arrTemp.push(element.name);
+        console.log(arrTemp);
+      });
+    }
+    setLabel(arrTemp);
+    return total;
+  }
+
+  useEffect(() => {
+    apiBase.get('/dashboard')
+      .then((res) => {
+        console.log(res.data);
+        setDashboard(res.data);
+      }).catch((err) => console.log(err))
+  }, [])
+
+  console.log(total);
+  console.log(label);
 
   return (
     <>
@@ -41,181 +72,38 @@ const ElearningDashboard = () => {
         {/* Continue Learning Start */}
         <Col xl="6" className="mb-5">
           <h2 className="small-title">{f({ id: 'menu.course_progress' })}</h2>
-          <Card className="mb-2">
-            <Row className="g-0 sh-14">
-              <Col xs="auto" className="position-relative">
-                <NavLink to="/courses/detail">
-                  <img src="/img/product/small/product-1.webp" alt="alternate text" className="card-img card-img-horizontal sw-14 sw-lg-18" />
-                  <Button variant="foreground" size="sm" className="btn-icon-only px-3 position-absolute absolute-center opacity-75 pe-none">
-                    <CsLineIcons icon="play" size="16" fill="var(--primary)" />
-                  </Button>
-                </NavLink>
-              </Col>
-              <Col>
-                <Card.Body className="py-0 h-100 d-flex align-items-center">
-                  <div className="w-100">
-                    <div className="d-flex flex-row justify-content-between mb-2">
-                      <NavLink to="/courses/detail">Introduction to Baking Cakes</NavLink>
-                      <div className="text-muted">67%</div>
-                    </div>
-                    <ProgressBar className="progress-md mb-2" now={67} />
-                  </div>
-                </Card.Body>
-              </Col>
-            </Row>
-          </Card>
-          <Card className="mb-2">
-            <Row className="g-0 sh-14">
-              <Col xs="auto" className="position-relative">
-                <NavLink to="/courses/detail">
-                  <img src="/img/product/small/product-2.webp" alt="alternate text" className="card-img card-img-horizontal sw-14 sw-lg-18" />
-                  <Button variant="foreground" size="sm" className="btn-icon-only px-3 position-absolute absolute-center opacity-75 pe-none">
-                    <CsLineIcons icon="play" size="16" fill="var(--primary)" />
-                  </Button>
-                </NavLink>
-              </Col>
-              <Col>
-                <Card.Body className="py-0 h-100 d-flex align-items-center">
-                  <div className="w-100">
-                    <div className="d-flex flex-row justify-content-between mb-2">
-                      <NavLink to="/courses/detail">Apple Cake Recipe</NavLink>
-                      <div className="text-muted">85%</div>
-                    </div>
-                    <ProgressBar className="progress-md mb-2" now={85} />
-                  </div>
-                </Card.Body>
-              </Col>
-            </Row>
-          </Card>
-          <Card>
-            <Row className="g-0 sh-14">
-              <Col xs="auto" className="position-relative">
-                <NavLink to="/courses/detail">
-                  <img src="/img/product/small/product-3.webp" alt="alternate text" className="card-img card-img-horizontal sw-14 sw-lg-18" />
-                  <Button variant="foreground" size="sm" className="btn-icon-only px-3 position-absolute absolute-center opacity-75 pe-none">
-                    <CsLineIcons icon="play" size="16" fill="var(--primary)" />
-                  </Button>
-                </NavLink>
-              </Col>
-              <Col>
-                <Card.Body className="py-0 h-100 d-flex align-items-center">
-                  <div className="w-100">
-                    <div className="d-flex flex-row justify-content-between mb-2">
-                      <NavLink to="/courses/detail">Sandwich Making Techniques</NavLink>
-                      <div className="text-muted">14%</div>
-                    </div>
-                    <ProgressBar className="progress-md mb-2" now={14} />
-                  </div>
-                </Card.Body>
-              </Col>
-            </Row>
-          </Card>
+          {
+            dashboard && dashboard.courseList.map((item, i) => (
+              <Card className="mb-5" key={i}>
+                <Row className="g-0 sh-16">
+                  <Col xs="auto">
+                    <img src={item.image} alt="alternate text" className="card-img sw-10 sw-lg-12" />
+                  </Col>
+                  <Col>
+                    <Card.Body className="py-0 h-100 d-flex align-items-center">
+                      <div className="w-100">
+                        <div className="d-flex flex-row justify-content-between mb-2">
+                          <div>{item.name}</div>
+                          <div className="text-muted">{item.totalStudySessionLearned}/{item.totalSchedules} bài</div>
+                        </div>
+                        <ProgressBar className="progress-md mb-2" now={item.totalStudySessionLearned} />
+                      </div>
+                    </Card.Body>
+                  </Col>
+                </Row>
+              </Card>
+            ))
+          }
         </Col>
         {/* Continue Learning End */}
 
-        {/* Courses End */}
+        {/* Recommended Courses Start */}
         <Col xl="6" className="mb-5">
-          <h2 className="small-title">{f({ id: 'menu.courses_end' })}</h2>
-          <Card className="mb-2">
-            <Row className="g-0 sh-14">
-              <Col xs="auto" className="position-relative">
-                <NavLink to="/courses/detail">
-                  <img src="/img/product/small/product-1.webp" alt="alternate text" className="card-img card-img-horizontal sw-14 sw-lg-18" />
-                  <Button variant="foreground" size="sm" className="btn-icon-only px-3 position-absolute absolute-center opacity-75 pe-none">
-                    <CsLineIcons icon="play" size="16" fill="var(--primary)" />
-                  </Button>
-                </NavLink>
-              </Col>
-              <Col>
-                <Card.Body className="py-0 h-100 d-flex align-items-center">
-                  <div className="w-100">
-                    <div className="d-flex flex-row justify-content-between mb-2">
-                      <NavLink to="/courses/detail">Introduction to Baking Cakes</NavLink>
-                      <div className="text-muted">67%</div>
-                    </div>
-                    <ProgressBar className="progress-md mb-2" now={67} />
-                  </div>
-                </Card.Body>
-              </Col>
-            </Row>
-          </Card>
-          <Card className="mb-2">
-            <Row className="g-0 sh-14">
-              <Col xs="auto" className="position-relative">
-                <NavLink to="/courses/detail">
-                  <img src="/img/product/small/product-2.webp" alt="alternate text" className="card-img card-img-horizontal sw-14 sw-lg-18" />
-                  <Button variant="foreground" size="sm" className="btn-icon-only px-3 position-absolute absolute-center opacity-75 pe-none">
-                    <CsLineIcons icon="play" size="16" fill="var(--primary)" />
-                  </Button>
-                </NavLink>
-              </Col>
-              <Col>
-                <Card.Body className="py-0 h-100 d-flex align-items-center">
-                  <div className="w-100">
-                    <div className="d-flex flex-row justify-content-between mb-2">
-                      <NavLink to="/courses/detail">Apple Cake Recipe</NavLink>
-                      <div className="text-muted">85%</div>
-                    </div>
-                    <ProgressBar className="progress-md mb-2" now={85} />
-                  </div>
-                </Card.Body>
-              </Col>
-            </Row>
-          </Card>
-          <Card>
-            <Row className="g-0 sh-14">
-              <Col xs="auto" className="position-relative">
-                <NavLink to="/courses/detail">
-                  <img src="/img/product/small/product-3.webp" alt="alternate text" className="card-img card-img-horizontal sw-14 sw-lg-18" />
-                  <Button variant="foreground" size="sm" className="btn-icon-only px-3 position-absolute absolute-center opacity-75 pe-none">
-                    <CsLineIcons icon="play" size="16" fill="var(--primary)" />
-                  </Button>
-                </NavLink>
-              </Col>
-              <Col>
-                <Card.Body className="py-0 h-100 d-flex align-items-center">
-                  <div className="w-100">
-                    <div className="d-flex flex-row justify-content-between mb-2">
-                      <NavLink to="/courses/detail">Sandwich Making Techniques</NavLink>
-                      <div className="text-muted">14%</div>
-                    </div>
-                    <ProgressBar className="progress-md mb-2" now={14} />
-                  </div>
-                </Card.Body>
-              </Col>
-            </Row>
+          <h2 className="small-title">Thong ke so tien cua cac khoa hoc</h2>
+          <Card className="ps-5 pe-5 sh-20 sh-md-40 h-xl-100-card">
+            <ChartPie />
           </Card>
         </Col>
-        {/* Cousers End End */}
-
-        {/* Recommended Courses Start */}
-        {/* <Col xl="6" className="mb-5">
-          <h2 className="small-title">Recommended for You</h2>
-          <Card className="sh-50 sh-md-40 h-xl-100-card hover-img-scale-up">
-            <img src="/img/banner/cta-standard-3.webp" className="card-img h-100 scale position-absolute" alt="card image" />
-            <div className="card-img-overlay d-flex flex-column justify-content-between bg-transparent">
-              <div>
-                <div className="cta-1 mb-3 text-black w-75 w-sm-50">Introduction to Bread Making</div>
-                <div className="w-50 text-black mb-3">
-                  Liquorice caramels chupa chups bonbon. Jelly-o candy sugar chocolate cake caramels apple pie lollipop jujubes.
-                </div>
-                <Rating
-                  className="mb-2"
-                  initialRating={5}
-                  readonly
-                  emptySymbol={<i className="cs-star text-primary" />}
-                  fullSymbol={<i className="cs-star-full text-primary" />}
-                />
-                <div>$ 27.50</div>
-              </div>
-              <div>
-                <NavLink to="/courses/detail" className="btn btn-icon btn-icon-start btn-outline-primary mt-3 stretched-link">
-                  <CsLineIcons icon="chevron-right" /> <span>View</span>
-                </NavLink>
-              </div>
-            </div>
-          </Card>
-        </Col> */}
         {/* Recommended Courses End */}
       </Row>
 

@@ -1,9 +1,9 @@
 /* eslint-disable no-underscore-dangle,no-unused-vars */
-import React, { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-const ChartPie = () => {
+const ChartPie = ({ labelsData, chartData, total }) => {
   const { themeValues } = useSelector((state) => state.settings);
   const chartContainer = useRef(null);
 

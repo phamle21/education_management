@@ -13,6 +13,7 @@ import { useRecoilState } from 'recoil';
 import { detailCourseState, studentListState } from 'recoil_store';
 import apiBase from '../../app/axios/apiBase';
 import ModalAddStudents from './modal/ModalAddStudents';
+import ModalStudentInfo from './modal/ModalStudentInfo';
 import ValidationFormikBasic from './modal/ValidationFormikBasic';
 
 function CustomAccordionToggle({ children, eventKey }) {
@@ -48,6 +49,8 @@ const CoursesDetail = () => {
 
   const [modalAddStudents, setModalAddStudents] = React.useState(false);
 
+  const [modalInfo, setModalInfo] = React.useState(false);
+
   const [contentEdit, setContentEdit] = React.useState();
 
   const breadcrumbs = [
@@ -61,6 +64,13 @@ const CoursesDetail = () => {
   const [listStudents, setListStudents] = useRecoilState(studentListState);
 
   const [courseContents, setCourseContents] = React.useState();
+
+  const [studentInfo, setStudentInfo] = React.useState();
+
+  const handleShowInfo = (data) => {
+    setModalInfo(true);
+    setStudentInfo(data);
+  }
 
   useEffect(() => {
     if (listStudents.length < 1) {
@@ -343,6 +353,16 @@ const CoursesDetail = () => {
       </Modal>
       {/* Modal Add Student End */}
 
+      {/* Modal Student Infor Start */}
+      <Modal show={modalAddStudents} onHide={() => setModalAddStudents(false)} size="semi-full" centered>
+        <Modal.Header closeButton>
+          <Modal.Title>{f({ id: 'course.detail_add_student' })}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='overflow-auto'>
+          <ModalStudentInfo data={studentInfo} />
+        </Modal.Body>
+      </Modal>
+      {/* Modal Student Infor End */}
     </>
   );
 };

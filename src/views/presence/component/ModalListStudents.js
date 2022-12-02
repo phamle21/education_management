@@ -79,7 +79,7 @@ const ModalListStudents = ({ setModalCheckPresence, data }) => {
         e.preventDefault();
 
         apiBase.post('/attendances', {
-            user_id: checkboxList,
+            user_ids: checkboxList,
             schedule_id: data && data.id,
         }).then(res => {
             setCourse(res.data.data)

@@ -237,7 +237,7 @@ const vnMessages = {
 
   // Dashboard
   'menu.dashboard': 'Tổng quan',
-  'menu.course_progress': 'Tiến độ của các khóa học hôm nay',
+  'menu.course_progress': 'Tiến độ của các khóa học',
   'menu.courses_end': 'Các khóa học sẽ kết thúc trong tuần này',
   'menu.contacts_need_advice': 'Các liên hệ cần tư vấn',
 

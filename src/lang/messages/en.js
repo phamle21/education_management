@@ -238,7 +238,7 @@ const enMessages = {
   'menu.school_dashboard_teacher': 'Lecturers Today',
 
   // Dashboard
-  'menu.course_progress': 'Progress Of Courses Today',
+  'menu.course_progress': 'Progress Of Courses',
   'menu.courses_end': 'Courses End This Week',
   'menu.contacts_need_advice': 'Contacts Need Advice',
 
