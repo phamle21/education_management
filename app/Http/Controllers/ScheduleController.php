@@ -415,8 +415,8 @@ class ScheduleController extends Controller
             ])->get();
 
             foreach ($schedule_list_by_course as $schedule) {
-                $date_start = Carbon::parse($schedule->date_time_start);
-                $date_end = Carbon::parse($schedule->date_time_end);
+                $date_start = Carbon::parse($schedule->date_time_start)->setTimeFromTimeString('00:00:00');
+                $date_end = Carbon::parse($schedule->date_time_end)->setTimeFromTimeString('23:59:59');
 
                 if (
                     $date->greaterThanOrEqualTo($date_start)
@@ -427,16 +427,24 @@ class ScheduleController extends Controller
             }
         }
 
+        $user->role = UserRole::getKey($user->role);
+
         if ($user->role == UserRole::Student) {
             return response()->json([
                 'status' => 'success',
-                'msg' => 'Lấy thành công thời khóa biểu của học viên trong ngày: ' . $date,
+                'date' => $date,
+                'date_start' => $date_start,
+                'date_end' => $date_end,
+                'msg' => 'Lấy thành công thời khóa biểu của học viên',
+                'user' => $user,
                 'data' => $schedule_by_user,
             ]);
         } else {
             return response()->json([
                 'status' => 'success',
-                'msg' => 'Lấy thành công thời khóa biểu của học viên trong ngày: ' . $date,
+                'date' => $date,
+                'msg' => 'Lấy thành công thời khóa biểu của học viên',
+                'user' => $user,
                 'data' => $schedule_by_user,
             ]);
         }
