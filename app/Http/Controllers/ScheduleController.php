@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRole;
 use App\Imports\SchedulesImport;
 use App\Models\Course;
 use App\Models\Schedule;
+use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
@@ -339,5 +341,104 @@ class ScheduleController extends Controller
             'description' => 'Trả về khóa học và lịch học',
             'data' => $course
         ]);
+    }
+
+    /**
+     * @OA\POST(
+     *      path="/api/schedules/course",
+     *      operationId="getScheduleOfCourse",
+     *      tags={"Schedule"},
+     *      summary="get schedulOfCoursee list",
+     *      description="Returns schedule list",
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="user_id",
+     *                     type="integer"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="date",
+     *                     type="string"
+     *                 ),
+     *                 example={"user_id": "1", "date": ""}
+     *             )
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
+    public function getScheduleByUser(Request $request)
+    {
+        if (!User::find($request->user_id)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Người dùng không tồn tại'
+            ]);
+        }
+        $user = User::find($request->user_id);
+
+        if ($user->role != UserRole::Student && $user->role != UserRole::Teacher) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Người dùng không phải Student hoặc Teacher',
+            ]);
+        }
+
+        if ($user->role == UserRole::Student) {
+            $course_of_user = $user->studyCourse;
+        } else {
+            $course_of_user = $user->courseOfTeacher;
+        }
+
+        if (count($course_of_user) < 1) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Người dùng chưa tham gia khóa học nào, Role: "' . UserRole::getKey($user->role) . '"',
+            ]);
+        }
+
+        $date = Carbon::parse($request->date);
+        $schedule_by_user = [];
+
+        foreach ($course_of_user as $course) {
+            $schedule_list_by_course = Schedule::where([
+                ['course_id', $course->id]
+            ])->get();
+
+            foreach ($schedule_list_by_course as $schedule) {
+                $date_start = Carbon::parse($schedule->date_time_start);
+                $date_end = Carbon::parse($schedule->date_time_end);
+
+                if (
+                    $date->greaterThanOrEqualTo($date_start)
+                    && $date->lessThanOrEqualTo($date_end)
+                ) {
+                    $schedule_by_user[] = $schedule;
+                }
+            }
+        }
+
+        if ($user->role == UserRole::Student) {
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Lấy thành công thời khóa biểu của học viên trong ngày: ' . $date,
+                'data' => $schedule_by_user,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Lấy thành công thời khóa biểu của học viên trong ngày: ' . $date,
+                'data' => $schedule_by_user,
+            ]);
+        }
     }
 }

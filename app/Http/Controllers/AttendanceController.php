@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 class AttendanceController extends Controller
 {
     /**
-     * @OA\GET(
-     *      path="/api/attendances/schedule",
-     *      operationId="getAttendance",
+     * @OA\POST(
+     *      path="/attendances/schedule",
+     *      operationId="getStudentListBySchedule",
      *      tags={"Attendance"},
-     *      summary="get attendance list of schedule",
-     *      description="Returns attendance list",
+     *      summary="get student list of schedule",
+     *      description="Returns student list",
      *      @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -59,13 +59,13 @@ class AttendanceController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'msg' => 'Lấy thành công danh sách học sinh của khoá học của TKB',
+                'msg' => 'Lấy thành công danh sách học sinh của TKB theo khóa học',
                 'data' => $list_student_of_course
             ]);
         } else {
             return response()->json([
                 'status' => 'error',
-                'msg' => 'Khoogn có TKB',
+                'msg' => 'Không có thời khóa biểu',
             ]);
         }
     }
@@ -73,7 +73,7 @@ class AttendanceController extends Controller
     /**
      * @OA\POST(
      *      path="/api/attendances",
-     *      operationId="addUpadteAttendance",
+     *      operationId="addUpdateAttendance",
      *      tags={"Attendance"},
      *      summary="add or update attendance",
      *      description="Returns attandance list",
