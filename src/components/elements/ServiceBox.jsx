@@ -6,12 +6,13 @@ import PrinterIcon from "../../assets/svg/Services/PrinterIcon";
 // Assets
 import RollerIcon from "../../assets/svg/Services/RollerIcon";
 
+
 export default function ServiceBox({ icon, title, subtitle }) {
   let getIcon;
 
   switch (icon) {
     case "roller":
-      getIcon = <MonitorIcon />;
+      getIcon = <RollerIcon />;
       break;
     case "monitor":
       getIcon = <MonitorIcon />;

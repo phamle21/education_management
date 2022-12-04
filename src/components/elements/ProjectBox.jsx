@@ -8,7 +8,19 @@ export default function ProjectBox({ img, title, text, action }) {
         <img className="radius8" src={img} alt="course"/>
       </ImgBtn>
       <h3 className="font20 extraBold">{title}</h3>
-      <p className="font13">{text}</p>
+      <p 
+        className="font13" 
+        style={{'max-height': '120px', 
+                // 'white-space': 'nowrap', 
+                'overflow': 'hidden', 
+                'text-overflow': 'ellipsis',
+                '-webkit-line-clamp': '2',
+                'line-clamp': '2',
+                '-webkit-box-orient': 'vertical',
+              }}
+      >
+        {text}
+        </p>
     </Wrapper>
   );
 }

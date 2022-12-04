@@ -12,7 +12,7 @@ export default function LecturerItem({ name, introduce, skills }) {
             </div>
             <div>
                 <h4 className="font25 extraBold">{name}</h4>
-                <p className="font18">{introduce}</p>
+                <p className="font18" style={{'maxHeight': '100px', 'overflow': 'hidden', 'text-overflow': 'ellipsis'}}>{introduce}</p>
             </div>
             <div>
                 {skills

@@ -4,8 +4,6 @@ import styled from "styled-components";
 import HeaderImage from "../../assets/img/home.jpeg";
 import Dots from "../../assets/svg/Dots";
 import QuotesIcon from "../../assets/svg/Quotes";
-// Components
-import FullButton from "../button/FullButton";
 
 export default function Header() {
   return (
@@ -20,9 +18,9 @@ export default function Header() {
               Learn to code from ZERO to HERO.
             </p>
           </HeaderP>
-          <BtnWrapper>
+          {/* <BtnWrapper>
             <FullButton title="Get Started" />
-          </BtnWrapper>
+          </BtnWrapper> */}
         </div>
       </LeftSide>
       <RightSide>
@@ -45,7 +43,7 @@ export default function Header() {
             <Dots />
           </DotsWrapper>
         </ImageWrapper>
-        <GreyDiv className="lightBg"/>
+        <GreyDiv className="lightBg" />
       </RightSide>
     </Wrapper>
   );
