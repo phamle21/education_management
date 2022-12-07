@@ -138,6 +138,62 @@
                 ]
             }
         },
+        "/api/contact": {
+            "post": {
+                "tags": [
+                    "Contact"
+                ],
+                "summary": "sendmail contact",
+                "description": "aaaaaaaaaaaaaa",
+                "operationId": "sendContact",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "send_name": {
+                                        "type": "string"
+                                    },
+                                    "send_email": {
+                                        "type": "string"
+                                    },
+                                    "send_phone": {
+                                        "type": "string"
+                                    },
+                                    "send_subject": {
+                                        "type": "string"
+                                    },
+                                    "send_message": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "send_name": "Hong An",
+                                    "send_email": "hongan@gmail.com",
+                                    "send_phone": "0966425761",
+                                    "send_subject": "Tieu de ne",
+                                    "send_message": "noi dung ne"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
         "/api/courses": {
             "get": {
                 "tags": [

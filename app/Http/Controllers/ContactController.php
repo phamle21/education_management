@@ -100,9 +100,16 @@ class ContactController extends Controller
         $send = $this->sendMail($send_subject, 'Contact', $body, 'sendContact');
 
         if ($send) {
-            return redirect('/contact')->with('success', 'Gửi liên hệ thành công.');
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Sendmail thành công',
+                'mail' => view('emails.sendContact')
+            ]);
         } else {
-            return redirect('/contact')->with('error', 'Gửi liên hệ thất bại.');
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Sendmail thất bại',
+            ]);
         }
     }
 }
