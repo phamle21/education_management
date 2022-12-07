@@ -24,9 +24,9 @@ class NewCourseScheduleImport implements ToModel, WithStartRow
     {
         return new Schedule([
             'course_id' => $this->course_id,
-            'date_time_start' => Carbon::createFromFormat('d/m/Y H:i:s', $row[1])->format('Y-m-d H:i:s'),
-            'date_time_end' => Carbon::createFromFormat('d/m/Y H:i:s', $row[2])->format('Y-m-d H:i:s'),
-            'location' => $row[3],
+            'date_time_start' => Carbon::createFromFormat('d/m/Y H:i:s', $row[0])->format('Y-m-d H:i:s'),
+            'date_time_end' => Carbon::createFromFormat('d/m/Y H:i:s', $row[1])->format('Y-m-d H:i:s'),
+            'location' => $row[2],
         ]);
     }
 }

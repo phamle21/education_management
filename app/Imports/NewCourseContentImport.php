@@ -23,7 +23,7 @@ class NewCourseContentImport implements ToModel, WithStartRow
     {
         return new CourseContent([
             'course_id' => $this->course_id,
-            'title' => $row[1],
+            'title' => $row[0],
             'content' => $row[2],
         ]);
     }
