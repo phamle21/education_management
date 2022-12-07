@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudyController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\ContactController;
 use App\Models\Study;
 
 /*
@@ -80,3 +81,6 @@ Route::post('/attendances', [AttendanceController::class, 'attendances']);
 
 /** Dashboard */
 Route::get('/dashboard', [DashboardController::class, 'index']);
+
+// Contact
+Route::post('/contact', [ContactController::class, 'sendContact'])->name('contact.send');
