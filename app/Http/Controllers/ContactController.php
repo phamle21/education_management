@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\MVC;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Mail\SendMail;
@@ -31,51 +31,50 @@ class ContactController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\POST(
      *      path="/api/contact",
-     *      operationId="contact",
+     *      operationId="sendContact",
      *      tags={"Contact"},
-     *      summary="contact admin with gmail",
-     *      description="",
+     *      summary="sendmail contact",
+     *      description="aaaaaaaaaaaaaa",
+     *      @OA\RequestBody(
+     *           @OA\MediaType(
+     *               mediaType="application/json",
+     *               @OA\Schema(
+     *                   @OA\Property(
+     *                       property="send_name",
+     *                       type="string"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="send_email",
+     *                       type="string"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="send_phone",
+     *                       type="string",
+     *                   ),
+     *                   @OA\Property(
+     *                       property="send_subject",
+     *                       type="string",
+     *                   ),
+     *                   @OA\Property(
+     *                       property="send_message",
+     *                       type="string"
+     *                   ),
+     *                   example={
+     *                        "send_name": "Hong An",
+     *                        "send_email": "hongan@gmail.com",
+     *                        "send_phone": "0966425761",
+     *                        "send_subject": "Tieu de ne",
+     *                        "send_message": "noi dung ne"
+     *                    }
+     *               )
+     *           )
+     *       ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation"
      *       ),
-     *         @OA\MediaType(
-     *             mediaType="application/json, multipart/form-data",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="send_name",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="send_email",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="send_phone",
-     *                     type="string",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="send_subject",
-     *                     type="string",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="send_message",
-     *                     type="string"
-     *                 ),
-     *                 example={
-     *                      "send_name": "Ten Khoa Hoc",
-     *                      "send_email": "[1,2,3,4]",
-     *                      "send_phone": "mo ta",
-     *                      "send_subject": "2022-09-17 21:21:21",
-     *                      "send_message": "2022-12-17 21:21:21",
-     *                  }
-     *             )
-     *
-     *         )
-     *     ),
      *       @OA\Response(response=400, description="Bad request"),
      *       security={
      *           {"api_key_security_example": {}}
