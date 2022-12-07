@@ -167,103 +167,6 @@
                 "summary": "Create Course",
                 "description": "",
                 "operationId": "createNewCourses",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "name",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "Ten Khoa Hoc"
-                    },
-                    {
-                        "name": "topic_id[]",
-                        "in": "query",
-                        "description": "Danh sách ID của danh mục",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "integer"
-                            }
-                        },
-                        "example": "Danh sách ID của danh mục"
-                    },
-                    {
-                        "name": "description",
-                        "in": "query",
-                        "description": "Description of course",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "Khóa học 3tr có tiền thì học không thì ngu"
-                    },
-                    {
-                        "name": "content",
-                        "in": "query",
-                        "description": "Content of course",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "Khóa học giảng dạy về...."
-                    },
-                    {
-                        "name": "start",
-                        "in": "query",
-                        "description": "Start datetime of course",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "date-time"
-                        },
-                        "example": "2022-09-17 21:21:21"
-                    },
-                    {
-                        "name": "end",
-                        "in": "query",
-                        "description": "End datetime of course",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "date-time"
-                        },
-                        "example": "2022-12-17 21:21:21"
-                    },
-                    {
-                        "name": "quantity",
-                        "in": "query",
-                        "description": "Quantity member of course",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "example": "20"
-                    },
-                    {
-                        "name": "tuition",
-                        "in": "query",
-                        "description": "Tuition fee of course",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "example": "3000000"
-                    },
-                    {
-                        "name": "user_id",
-                        "in": "query",
-                        "description": "Teacher ID of course",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "example": "1"
-                    }
-                ],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -275,9 +178,70 @@
                                             "type": "string",
                                             "format": "binary"
                                         }
+                                    },
+                                    "schedule_file": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "content_file": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
                                     }
                                 },
                                 "type": "object"
+                            }
+                        },
+                        "application/json, multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "topic_id[]": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "id"
+                                        }
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "start": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "end": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "quantity": {
+                                        "type": "integer"
+                                    },
+                                    "tuition": {
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Ten Khoa Hoc",
+                                    "topic_id": "[1,2,3,4]",
+                                    "description": "mo ta",
+                                    "start": "2022-09-17 21:21:21",
+                                    "end": "2022-12-17 21:21:21",
+                                    "quantity": "20",
+                                    "tuition": "3000000",
+                                    "user_id": "1"
+                                }
                             }
                         }
                     }

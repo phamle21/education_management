@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
+use App\Imports\NewCourseContentImport;
+use App\Imports\NewCourseScheduleImport;
 use App\Models\Course;
 use App\Models\CourseContent;
 use App\Models\CourseTopic;
@@ -12,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CourseController extends Controller
 {
@@ -110,100 +113,7 @@ class CourseController extends Controller
      *          response=200,
      *          description="Successful operation"
      *       ),
-     *      @OA\Parameter(
-     *            name="name",
-     *            description="name",
-     *            example="Ten Khoa Hoc",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="string",
-     *            )
-     *        ),
-     *      @OA\Parameter(
-     *            name="topic_id[]",
-     *            description="Danh sách ID của danh mục",
-     *            example="Danh sách ID của danh mục",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="array",
-     *                  @OA\Items(type="integer"),
-     *            )
-     *        ),
-     *      @OA\Parameter(
-     *            name="description",
-     *            description="Description of course",
-     *            example="Khóa học 3tr có tiền thì học không thì ngu",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="string",
-     *            )
-     *        ),
-     *      @OA\Parameter(
-     *            name="content",
-     *            description="Content of course",
-     *            example="Khóa học giảng dạy về....",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="string",
-     *            )
-     *        ),
-     *      @OA\Parameter(
-     *            name="start",
-     *            description="Start datetime of course",
-     *            example="2022-09-17 21:21:21",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="string",
-     *                format ="date-time",
-     *            )
-     *        ),
-     *      @OA\Parameter(
-     *            name="end",
-     *            description="End datetime of course",
-     *            example="2022-12-17 21:21:21",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="string",
-     *                format ="date-time",
-     *            )
-     *        ),
-     *      @OA\Parameter(
-     *            name="quantity",
-     *            description="Quantity member of course",
-     *            example="20",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="integer",
-     *            )
-     *        ),
-     *      @OA\Parameter(
-     *            name="tuition",
-     *            description="Tuition fee of course",
-     *            example="3000000",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="integer",
-     *            )
-     *        ),
-     *      @OA\Parameter(
-     *            name="user_id",
-     *            description="Teacher ID of course",
-     *            example="1",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="integer",
-     *            )
-     *        ),
-     *       @OA\RequestBody(
+     *      @OA\RequestBody(
      *           @OA\MediaType(
      *               mediaType="multipart/form-data",
      *               @OA\Schema(
@@ -216,9 +126,77 @@ class CourseController extends Controller
      *                           format="binary",
      *                      ),
      *                   ),
+     *                   @OA\Property(
+     *                      property="schedule_file",
+     *                      type="array",
+     *                      @OA\Items(
+     *                           type="string",
+     *                           format="binary",
+     *                      ),
+     *                   ),
+     *                   @OA\Property(
+     *                      property="content_file",
+     *                      type="array",
+     *                      @OA\Items(
+     *                           type="string",
+     *                           format="binary",
+     *                      ),
+     *                   ),
      *               ),
-     *           )
-     *       ),
+     *           ),
+     *         @OA\MediaType(
+     *             mediaType="application/json, multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="name",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="topic_id[]",
+     *                      type="array",
+     *                  @OA\Items(type="string", format="id"),
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="start",
+     *                     type="string",
+     *                     format ="date-time"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="end",
+     *                     type="string",
+     *                     format ="date-time"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="quantity",
+     *                     type="integer"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="tuition",
+     *                     type="integer"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="user_id",
+     *                     type="string"
+     *                 ),
+     *                 example={
+     *                      "name": "Ten Khoa Hoc",
+     *                      "topic_id": "[1,2,3,4]",
+     *                      "description": "mo ta",
+     *                      "start": "2022-09-17 21:21:21",
+     *                      "end": "2022-12-17 21:21:21",
+     *                      "quantity": "20",
+     *                      "tuition": "3000000",
+     *                      "user_id": "1"
+     *                  }
+     *             )
+     *
+     *         )
+     *     ),
      *       @OA\Response(response=400, description="Bad request"),
      *       security={
      *           {"api_key_security_example": {}}
@@ -262,6 +240,22 @@ class CourseController extends Controller
                     'tuition' => $request->tuition,
                     'user_id' => $request->user_id,
                 ]);
+
+                if ($request->hasFile('schedule_file')) {
+                    // Thực hiện import file
+                    $schedule_file = $request->file('schedule_file');
+                    $path2 = Storage::put('public/import', $schedule_file);
+                    Excel::import(new NewCourseScheduleImport($add->id), $path2);
+                    Storage::delete($path2);
+                }
+
+                if ($request->hasFile('content_file')) {
+                    // Thực hiện import file
+                    $content_file = $request->file('content_file');
+                    $path3 = Storage::put('public/import', $content_file);
+                    Excel::import(new NewCourseContentImport($add->id), $path3);
+                    Storage::delete($path3);
+                }
 
                 if ($add) {
 
