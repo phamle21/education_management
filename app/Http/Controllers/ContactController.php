@@ -89,6 +89,14 @@ class ContactController extends Controller
         $send_subject = $request->send_subject;
         $send_message = $request->send_message;
 
+        if ($send_name == null || $send_email == null || $send_subject == null || $send_message == null) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Không đủ dữ liệu',
+                'data' => $request->all(),
+            ]);
+        }
+
         $body = [
             'send_name' => $send_name,
             'send_email' => $send_email,

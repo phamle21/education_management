@@ -18,7 +18,7 @@
                 font-size: 1.1rem;
                 text-align: center;
         ">
-            <h1>Quản lý các giải đấu</h1>
+            <h1></h1>
         </div>
         <table style="
                 max-width: 600px;
