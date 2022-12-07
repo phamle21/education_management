@@ -5,7 +5,7 @@
         "version": "1.0"
     },
     "paths": {
-        "/attendances/schedule": {
+        "/api/attendances/schedule": {
             "post": {
                 "tags": [
                     "Attendance"

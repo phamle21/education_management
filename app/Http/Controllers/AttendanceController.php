@@ -9,35 +9,7 @@ use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-    /**
-     * @OA\POST(
-     *      path="/api/attendances/schedule",
-     *      operationId="getAttendent",
-     *      tags={"Attendance"},
-     *      summary="get student list of schedule",
-     *      description="Returns student list",
-     *      @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(
-     *                     property="schedule_id",
-     *                     type="integer"
-     *                 ),
-     *                 example={"schedule_id": "1"}
-     *             )
-     *         )
-     *     ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation"
-     *       ),
-     *       @OA\Response(response=400, description="Bad request"),
-     *       security={
-     *           {"api_key_security_example": {}}
-     *       }
-     *     )
-     */
+
     public function show(Request $request)
     {
         $schedule = Schedule::find($request->schedule_id);
@@ -70,40 +42,6 @@ class AttendanceController extends Controller
         }
     }
 
-    /**
-     * @OA\POST(
-     *      path="/api/attendances",
-     *      operationId="addUpdateAttendance",
-     *      tags={"Attendance"},
-     *      summary="add or update attendance",
-     *      description="Returns attandance list",
-     *      @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(
-     *                     property="schedule_id",
-     *                     type="integer"
-     *                 ),
-     *                  @OA\Property(
-     *                      property="user_ids[]",
-     *                      type="array",
-     *                      @OA\Items(type="string", format="id"),
-     *                 ),
-     *                 example={"schedule_id": "1", "user_ids": "[1,2,3,4]"}
-     *             )
-     *         )
-     *     ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation"
-     *       ),
-     *       @OA\Response(response=400, description="Bad request"),
-     *       security={
-     *           {"api_key_security_example": {}}
-     *       }
-     *     )
-     */
     public function attendances(Request $request)
     {
         Attendance::where('schedule_id', $request->schedule_id)->delete();
