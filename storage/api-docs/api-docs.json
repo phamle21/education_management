@@ -12,7 +12,7 @@
                 ],
                 "summary": "get student list of schedule",
                 "description": "Returns student list",
-                "operationId": "getStudentListBySchedule",
+                "operationId": "getAttendent",
                 "requestBody": {
                     "content": {
                         "application/json": {

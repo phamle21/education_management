@@ -11,8 +11,8 @@ class AttendanceController extends Controller
 {
     /**
      * @OA\POST(
-     *      path="/attendances/schedule",
-     *      operationId="getStudentListBySchedule",
+     *      path="/api/attendances/schedule",
+     *      operationId="getAttendent",
      *      tags={"Attendance"},
      *      summary="get student list of schedule",
      *      description="Returns student list",
