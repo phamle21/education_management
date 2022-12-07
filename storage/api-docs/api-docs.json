@@ -5,94 +5,6 @@
         "version": "1.0"
     },
     "paths": {
-        "/api/attendances/schedule": {
-            "post": {
-                "tags": [
-                    "Attendance"
-                ],
-                "summary": "get student list of schedule",
-                "description": "Returns student list",
-                "operationId": "getAttendent",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "schedule_id": {
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "schedule_id": "1"
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    }
-                },
-                "security": [
-                    {
-                        "api_key_security_example": []
-                    }
-                ]
-            }
-        },
-        "/api/attendances": {
-            "post": {
-                "tags": [
-                    "Attendance"
-                ],
-                "summary": "add or update attendance",
-                "description": "Returns attandance list",
-                "operationId": "addUpdateAttendance",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "schedule_id": {
-                                        "type": "integer"
-                                    },
-                                    "user_ids[]": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string",
-                                            "format": "id"
-                                        }
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "schedule_id": "1",
-                                    "user_ids": "[1,2,3,4]"
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    }
-                },
-                "security": [
-                    {
-                        "api_key_security_example": []
-                    }
-                ]
-            }
-        },
         "/api/login": {
             "post": {
                 "tags": [
@@ -146,39 +58,6 @@
                 "summary": "sendmail contact",
                 "description": "aaaaaaaaaaaaaa",
                 "operationId": "sendContact",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "send_name": {
-                                        "type": "string"
-                                    },
-                                    "send_email": {
-                                        "type": "string"
-                                    },
-                                    "send_phone": {
-                                        "type": "string"
-                                    },
-                                    "send_subject": {
-                                        "type": "string"
-                                    },
-                                    "send_message": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object",
-                                "example": {
-                                    "send_name": "Hong An",
-                                    "send_email": "hongan@gmail.com",
-                                    "send_phone": "0966425761",
-                                    "send_subject": "Tieu de ne",
-                                    "send_message": "noi dung ne"
-                                }
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -645,6 +524,52 @@
                 "summary": "Get Dashboard list",
                 "description": "Returns Dashboard list",
                 "operationId": "getDashboard",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/forget-password": {
+            "post": {
+                "tags": [
+                    "ForgetPassword"
+                ],
+                "summary": "sendmail contact",
+                "description": "Đừng có test ở đây lỗi đó",
+                "operationId": "forgetPassword",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/reset-password": {
+            "post": {
+                "tags": [
+                    "ForgetPassword"
+                ],
+                "summary": "sendmail contact",
+                "description": "Đừng có test ở đây lỗi đó",
+                "operationId": "resetPassword",
                 "responses": {
                     "200": {
                         "description": "Successful operation"

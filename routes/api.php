@@ -12,6 +12,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudyController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Models\Study;
 
 /*
@@ -84,3 +85,7 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
 // Contact
 Route::post('/contact', [ContactController::class, 'sendContact'])->name('contact.send');
+
+//Reset Password
+Route::post('forget-password', [ResetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::post('reset-password', [ResetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');

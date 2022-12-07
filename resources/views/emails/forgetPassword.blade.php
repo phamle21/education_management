@@ -1,4 +1,5 @@
-<div style="
+<div
+    style="
             height: auto !important;
             max-width: 600px !important;
             font-family: Helvetica, Arial, sans-serif !important;
@@ -7,7 +8,8 @@
             margin-right: auto;
           ">
     <div style="margin-bottom: 100px">
-        <div style="
+        <div
+            style="
                 border-top-left-radius: 30px;
                 border-top-right-radius: 30px;
                 background-image: linear-gradient(#efff00,#fefff4);
@@ -20,7 +22,8 @@
         ">
             <h1></h1>
         </div>
-        <table style="
+        <table
+            style="
                 max-width: 600px;
                 background-color: #fdffdefd;
                 border: 2px;
@@ -46,41 +49,12 @@
                         <br />
                         <h6
                             style="width: 536px; display: inline-block; font-size: 20px; margin: 10px 0; font-weight: 500; text-align: center;">
-                            <b>Liên hệ từ người dùng</b>
+                            <b>Quên mật khẩu</b>
                         </h6>
                         <div>
                             <p>
-                                Có người dùng liên hệ
+                                Mã đặt lại tải khoản của bạn là: {{ $code_repass }}
                             </p>
-                            <p style=" display: inline-block; font-size: 15px; margin: 10px 0; font-weight: 500; ">
-                                Thông tin:
-                            </p>
-                            <ul style="list-style: none">
-                                <li>
-                                    <p>
-                                        Họ và tên: <b>{{ $mailData['body']['send_name'] }}</b>
-                                    </p>
-                                </li>
-                                <li>
-                                    <p>
-                                        Email: <b>{{ $mailData['body']['send_email'] }}</b>
-                                    </p>
-                                </li>
-                                <li>
-                                    <p>
-                                        Số điện thoại: <b>{{ $mailData['body']['send_phone'] }}</b>
-                                    </p>
-                                </li>
-                                <li>
-                                    <p>
-                                        Nội dung: <b>{{ $mailData['body']['send_message'] }}</b>
-                                    </p>
-                                </li>
-
-                            </ul>
-
-                            <p style="margin-top: 50px;">Cám ơn bạn đã xem.</p>
-
                         </div>
                     </td>
                 </tr>
