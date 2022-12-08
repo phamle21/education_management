@@ -14,6 +14,7 @@ import { detailCourseState, studentListState } from 'recoil_store';
 import apiBase from '../../app/axios/apiBase';
 import ModalAddContent from './modal/ModalAddContent';
 import ModalAddStudents from './modal/ModalAddStudents';
+import ModalEditCourse from './modal/ModalEditCourse';
 import ModalStudentInfo from './modal/ModalStudentInfo';
 import ValidationFormikBasic from './modal/ValidationFormikBasic';
 
@@ -71,6 +72,8 @@ const CoursesDetail = () => {
   const [studentInfo, setStudentInfo] = React.useState();
 
   const [modalContent, setModalContent] = React.useState();
+
+  const [editCourse, setEditCourse] = React.useState();
 
   const handleShowInfo = (data) => {
     setModalInfo(true);
@@ -171,7 +174,7 @@ const CoursesDetail = () => {
             </Button>
           </Col>
           <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setShowConfirm(true)}>
+            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setEditCourse(true)}>
               <span>Cập nhật khóa học</span>
             </Button>
           </Col>
@@ -400,6 +403,18 @@ const CoursesDetail = () => {
         </Modal.Body>
       </Modal>
       {/* Modal Add Content Course End */}
+
+
+      {/* Modal Edit Course Start */}
+      <Modal show={editCourse} onHide={() => setEditCourse(false)} size="lg" centered>
+        <Modal.Header closeButton>
+          <Modal.Title> Cập nhật khóa học</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='overflow-auto'>
+          <ModalEditCourse />
+        </Modal.Body>
+      </Modal>
+      {/* Modal Edit Course End */}
 
 
       <Modal centered className="modal-close-out" show={showConfirm} onHide={() => setShowConfirm(false)}>

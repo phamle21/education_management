@@ -1,37 +1,39 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
-import { Col, Dropdown, Row } from 'react-bootstrap';
 import { MENU_PLACEMENT } from 'constants.js';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import { layoutShowingNavMenu } from 'layout/layoutSlice';
+import React, { useEffect } from 'react';
+import { Col, Dropdown, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 
 const NavUserMenuContent = () => (
   <div>
     <Row className="mb-3 ms-0 me-0">
       <Col xs="12" className="ps-1 mb-2">
-        <div className="text-extra-small text-primary">ACCOUNT</div>
+        <div className="text-extra-small text-primary">Tài khoản</div>
       </Col>
       <Col xs="6" className="ps-1 pe-1">
         <ul className="list-unstyled">
           <li>
-            <a href="#/!">My Account</a>
+            <a href="#/!">Thông tin tài khoản</a>
           </li>
         </ul>
       </Col>
       <Col xs="6" className="ps-1 pe-1">
         <ul className="list-unstyled">
           <li>
-            <a href="#/!">Change Password</a>
+            <a href="/login">
+              <CsLineIcons icon="logout" className="me-2" size="17" /> <span className="align-middle">Đăng xuất</span>
+            </a>
           </li>
         </ul>
       </Col>
     </Row>
-    <Row className="mb-1 ms-0 me-0">
+    {/* <Row className="mb-1 ms-0 me-0">
       <Col xs="12" className="p-1 mb-3 pt-3">
         <div className="separator-light" />
       </Col>
-      <Col xs="6" className="ps-1 pe-1"/>
+      <Col xs="6" className="ps-1 pe-1" />
       <Col xs="6" className="pe-1 ps-1">
         <ul className="list-unstyled">
           <li>
@@ -46,7 +48,7 @@ const NavUserMenuContent = () => (
           </li>
         </ul>
       </Col>
-    </Row>
+    </Row> */}
   </div>
 );
 
