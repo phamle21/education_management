@@ -7,11 +7,12 @@ import Plyr from 'plyr-react';
 import React, { useEffect } from 'react';
 import { Accordion, Button, Card, Col, Modal, Row, useAccordionButton } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
-import { NavLink, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import { detailCourseState, studentListState } from 'recoil_store';
 import apiBase from '../../app/axios/apiBase';
+import ModalAddContent from './modal/ModalAddContent';
 import ModalAddStudents from './modal/ModalAddStudents';
 import ModalStudentInfo from './modal/ModalStudentInfo';
 import ValidationFormikBasic from './modal/ValidationFormikBasic';
@@ -53,6 +54,8 @@ const CoursesDetail = () => {
 
   const [contentEdit, setContentEdit] = React.useState();
 
+  const [showConfirm, setShowConfirm] = React.useState(false);
+
   const breadcrumbs = [
     { to: '', text: f({ id: 'menu.home' }) },
     { to: '/courses/list', text: f({ id: 'menu.courses' }) },
@@ -66,6 +69,8 @@ const CoursesDetail = () => {
   const [courseContents, setCourseContents] = React.useState();
 
   const [studentInfo, setStudentInfo] = React.useState();
+
+  const [modalContent, setModalContent] = React.useState();
 
   const handleShowInfo = (data) => {
     setModalInfo(true);
@@ -122,6 +127,10 @@ const CoursesDetail = () => {
       })
   }
 
+  const handleDelete = () => {
+
+  }
+
   return (
     <>
       <HtmlHead title={course && course.name} description={description} />
@@ -157,8 +166,13 @@ const CoursesDetail = () => {
             </Button>
           </Col>
           <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setModalAddStudents(true)}>
-              <CsLineIcons icon="plus" /> <span>{f({ id: 'course.detail_add_presence' })}</span>
+            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setShowConfirm(true)}>
+              <CsLineIcons icon="bin" /> <span>Xóa khóa học</span>
+            </Button>
+          </Col>
+          <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setShowConfirm(true)}>
+              <span>Cập nhật khóa học</span>
             </Button>
           </Col>
           {/* Top Buttons End */}
@@ -173,7 +187,8 @@ const CoursesDetail = () => {
           <h2 className="small-title">{f({ id: 'menu.preview' })}</h2>
           <Card className="mb-5">
             <div className="card-img-top sh-50 cover">
-              <PurePlyr />
+              {/* <PurePlyr /> */}
+              {course == null ? <PurePlyr /> : <img src={course.image} alt="course_img" className="card-img-top sh-50 cover" />}
             </div>
             <Card.Body>
               <h4 className="mb-3">{f({ id: 'menu.course_intro' })}</h4>
@@ -185,7 +200,18 @@ const CoursesDetail = () => {
           {/* Preview End */}
 
           {/* Table of Contents Start */}
-          <h2 className="small-title">{f({ id: 'course.detail.content_course' })}</h2>
+
+          <Row>
+            <Col className="col-auto mb-sm-0 me-auto">
+              <h2 className="small-title">{f({ id: 'course.detail.content_course' })}</h2>
+            </Col>
+
+            <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+              <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setModalContent(true)}>
+                <CsLineIcons icon="plus" /> <span>Add</span>
+              </Button>
+            </Col>
+          </Row>
           <Card className="mb-5">
             <Card.Body>
               <Accordion className="mb-n2" defaultActiveKey="0">
@@ -277,7 +303,7 @@ const CoursesDetail = () => {
           {/* At a Glance End  */}
 
           {/* Tags Start */}
-          <Row>
+          {/* <Row>
             <h2 className="small-title">{f({ id: 'course.detail.topics' })}</h2>
             <Card className="mb-5">
               <Card.Body className="mb-n1">
@@ -291,7 +317,7 @@ const CoursesDetail = () => {
 
               </Card.Body>
             </Card>
-          </Row>
+          </Row> */}
           {/* Tags End */}
 
           {/* List Student Start */}
@@ -299,18 +325,18 @@ const CoursesDetail = () => {
             <h2 className="small-title">{f({ id: 'menu.list_students' })}</h2>
             {
               course.student_of_course && course.student_of_course.map((student, index) => (
-                <Card className="mb-2" id="introSecond" key={index}>
+                <Card className="mb-2" id="introSecond" key={index} onClick={() => handleShowInfo(student)}>
                   <Row className="g-0 sh-12">
                     <Col xs="auto">
-                      <NavLink to={`/student/${student.id}/detail`}>
-                        <img src={student.avatar} alt="user" style={{ height: '6rem' }} className="card-img card-img-horizontal sw-13 sw-lg-15" />
-                      </NavLink>
+                      {/* <NavLink to={`/student/${student.id}/detail`}> */}
+                      <img src={student.avatar} alt="user" style={{ height: '6rem' }} className="card-img card-img-horizontal sw-13 sw-lg-15" />
+                      {/* </NavLink> */}
                     </Col>
                     <Col>
                       <Card.Body className="pt-0 pb-0 h-100 px-1">
                         <Row className="g-0 h-100 align-content-center">
                           <Col md="8" className="d-flex flex-column mb-2 mb-md-0">
-                            <NavLink to={`/student/${student.id}/detail`}>{student.name}</NavLink>
+                            <div>{student.name}</div>
                           </Col>
                           <Col md="4" className="d-flex align-items-center justify-content-md-end">
                             <Button variant="outline-primary" size="sm" className="btn-icon btn-icon-start ms-1" onClick={() => handleRemove(student)}>
@@ -332,9 +358,9 @@ const CoursesDetail = () => {
       </Row>
 
       {/* Modal Edit Content Start */}
-      <Modal show={semiFullExample} onHide={() => setSemiFullExample(false)} size="semi-full" centered>
+      <Modal show={semiFullExample} onHide={() => setSemiFullExample(false)} size="xl" centered>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Content Of Course</Modal.Title>
+          <Modal.Title>Cập nhật nội dung khóa học</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ValidationFormikBasic contentEdit={contentEdit} setSemiFullExample={setSemiFullExample} />
@@ -354,15 +380,43 @@ const CoursesDetail = () => {
       {/* Modal Add Student End */}
 
       {/* Modal Student Infor Start */}
-      <Modal show={modalAddStudents} onHide={() => setModalAddStudents(false)} size="semi-full" centered>
+      <Modal show={modalInfo} onHide={() => setModalInfo(false)} size="lg" centered>
         <Modal.Header closeButton>
-          <Modal.Title>{f({ id: 'course.detail_add_student' })}</Modal.Title>
+          <Modal.Title>Info Student</Modal.Title>
         </Modal.Header>
         <Modal.Body className='overflow-auto'>
           <ModalStudentInfo data={studentInfo} />
         </Modal.Body>
       </Modal>
       {/* Modal Student Infor End */}
+
+      {/* Modal Add Content Course Start */}
+      <Modal show={modalContent} onHide={() => setModalContent(false)} size="lg" centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Thêm nội dung của {course.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='overflow-auto'>
+          <ModalAddContent />
+        </Modal.Body>
+      </Modal>
+      {/* Modal Add Content Course End */}
+
+
+      <Modal centered className="modal-close-out" show={showConfirm} onHide={() => setShowConfirm(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>{f({ id: 'user.model_delete_title' })}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <span className="fw-bold">{course && course.name}</span>{' '}
+          <span>{f({ id: 'user.model_delete_content' })}</span>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setShowConfirm(false)}>{f({ id: 'user.model_delete_no' })}</Button>
+          <Button variant="outline-primary" onClick={() => handleDelete()}>
+            {f({ id: 'user.model_delete_yes' })}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

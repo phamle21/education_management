@@ -81,7 +81,7 @@ const routesAndMenuItems = {
       to: `${appRoot}/dashboards/elearning`,
       subs: [
         { path: '/elearning', label: 'menu.elearning', component: dashboards.elearning },
-        { path: '/school', label: 'menu.school', component: dashboards.school },
+        // { path: '/school', label: 'menu.school', component: dashboards.school },
       ],
     },
     {

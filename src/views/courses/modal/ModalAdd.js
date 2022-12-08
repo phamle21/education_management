@@ -2,9 +2,8 @@ import DropzonePreview from 'components/dropzone/DropzonePreview';
 import NotificationIcon from 'components/notification/NotificationIconSuccess';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import Moment from 'moment';
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Dropzone, { defaultClassNames } from 'react-dropzone-uploader';
@@ -50,6 +49,8 @@ const ModalAddCourse = ({ show, onHide, }) => {
 
     const [fileContent, setFileContent] = useState();
 
+    const [fileSchedules, setFileSchedules] = useState();
+
     const getUploadParams = () => ({ url: 'https://httpbin.org/post' });
 
     const onChangeStatus = (fileWithMeta, status) => {
@@ -57,10 +58,17 @@ const ModalAddCourse = ({ show, onHide, }) => {
         console.log(selectedImage);
         // console.log(fileWithMeta);
         // console.log(status);
-      };
+    };
 
     const onChangeFile = (fileWithMeta, status) => {
         setFileContent(fileWithMeta.file);
+        console.log(fileWithMeta);
+        console.log(status);
+    };
+
+
+    const onChangeScheduleFile = (fileWithMeta, status) => {
+        setFileSchedules(fileWithMeta.file);
         console.log(fileWithMeta);
         console.log(status);
     };
@@ -133,7 +141,10 @@ const ModalAddCourse = ({ show, onHide, }) => {
         formData.append('end', Moment(endDate).format("YYYY-MM-DD HH:mm:ss"));
         formData.append('quantity', numQuan);
         formData.append('tuition', courseFees);
-        formData.append('content', courseObj);
+        // formData.append('content', courseObj);
+        formData.append('content_file', fileContent);
+        formData.append('schedule_file', fileSchedules);
+
 
         apiBase.post("/courses", formData)
             .catch(err => console.log(err))
@@ -149,30 +160,44 @@ const ModalAddCourse = ({ show, onHide, }) => {
 
     return (
         <>
-            <Modal className="modal-close-out" show={show} onHide={onHide} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>{f({ id: 'menu.course_title_add' })}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <OverlayScrollbarsComponent options={{ overflowBehavior: { x: 'hidden', y: 'scroll' } }} className="scroll-track-visible">
-                        <Form>
-                            <div className="mb-4 filled">
-                                <CsLineIcons icon="online-class" />
-                                <Form.Control
-                                    autoFocus
-                                    placeholder={f({ id: 'menu.course_name' })}
-                                    onChange={(e) => setCourseName(e.target.value)}
-                                />
-                            </div>
-                            <div className="mb-4 filled">
-                                <CsLineIcons icon="content" />
-                                <Form.Control
-                                    // value={shortDes}
-                                    placeholder={f({ id: 'menu.course_short_description' })}
-                                    onChange={(e) => setShortDes(e.target.value)}
-                                />
-                            </div>
-                            <div className="mb-4 filled">
+            <Form>
+                <Row className="g-3 mb-7">
+                    <Col lg="6">
+                        <div className="mb-4 filled">
+                            <CsLineIcons icon="online-class" />
+                            <Form.Control
+                                autoFocus
+                                placeholder={f({ id: 'menu.course_name' })}
+                                onChange={(e) => setCourseName(e.target.value)}
+                            />
+                        </div>
+                    </Col>
+
+                    <Col lg="6">
+                        <div className="mb-4 filled">
+                            <CsLineIcons icon="user" />
+                            <Form.Control
+                                type='number'
+                                placeholder={f({ id: 'menu.course_quantity' })}
+                                onChange={((e) => setNumQuan(e.target.value))}
+                            />
+                        </div>
+                    </Col>
+
+                    <Col lg="6">
+                        <div className="mb-4 filled">
+                            <CsLineIcons icon="content" />
+                            <Form.Control
+                                as="textarea"
+                                rows={4}
+                                placeholder={f({ id: 'menu.course_short_description' })}
+                                onChange={(e) => setShortDes(e.target.value)}
+                            />
+                        </div>
+                    </Col>
+
+                    <Col lg="6">
+                        <div className="mb-4 filled">
                             <Dropzone
                                 getUploadParams={getUploadParams}
                                 PreviewComponent={DropzonePreview}
@@ -184,94 +209,90 @@ const ModalAddCourse = ({ show, onHide, }) => {
                                 onChangeStatus={onChangeStatus}
                                 classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
                                 inputContent="Drop Image"
-                                />
-                            </div>
-                            <div className="mb-4 filled">
-                                <CsLineIcons icon="image" />
-                                <Form.Control
-                                    type='file'
-                                    placeholder={f({ id: 'menu.course_image' })}
-                                    onChange={imageChange}
-                                />
-                            </div>
+                            />
+                        </div>
+                    </Col>
 
-                            {selectedImage && (
-                                <div className="mb-4 filled">
-                                    <img
-                                        src={URL.createObjectURL(selectedImage)}
-                                        alt="Thumb"
-                                        width={300}
-                                    />
-                                    {/* <button onClick={removeSelectedImage}>
-                                    Remove This Image
-                                </button> */}
-                                </div>
-                            )}
+                    <Col lg="6">
+                        <div className="mb-4 filled">
+                            <CsLineIcons icon="lecture" />
+                            <Select
+                                classNamePrefix="react-select"
+                                options={lecturerOptions}
+                                value={selectLecturer}
+                                onChange={setSelectLecturer}
+                                placeholder={f({ id: 'menu.course_teacher_name' })}
+                            />
+                        </div>
+                    </Col>
 
-                            <div className="mb-4 filled">
-                                <CsLineIcons icon="lecture" />
-                                <Select
-                                    classNamePrefix="react-select"
-                                    options={lecturerOptions}
-                                    value={selectLecturer}
-                                    onChange={setSelectLecturer}
-                                    placeholder={f({ id: 'menu.course_teacher_name' })}
-                                />
-                            </div>
-                            <div className="mb-4 filled">
-                                <CsLineIcons icon="list" />
-                                <Select
-                                    classNamePrefix="react-select"
-                                    options={topicOptions}
-                                    value={selectTopic}
-                                    onChange={setSelectTopic}
-                                    placeholder={f({ id: 'menu.topics' })}
-                                />
-                            </div>
-                            <div className="mb-4 filled">
-                                <CsLineIcons icon="calendar" />
-                                <DatePicker
-                                    className="form-control"
-                                    selected={startDate}
-                                    onChange={(e) => setStartDate(e)}
-                                    placeholderText={f({ id: 'menu.course_start_day' })}
-                                />
-                            </div>
-                            <div className="mb-4 filled">
-                                <CsLineIcons icon="calendar" />
-                                <DatePicker
-                                    className="form-control"
-                                    selected={endDate}
-                                    onChange={(e) => setEndDate(e)}
-                                    placeholderText={f({ id: 'menu.course_end_day' })}
-                                />
-                            </div>
-                            <div className="mb-4 filled">
-                                <CsLineIcons icon="user" />
-                                <Form.Control
-                                    type='number'
-                                    placeholder={f({ id: 'menu.course_quantity' })}
-                                    onChange={((e) => setNumQuan(e.target.value))}
-                                />
-                            </div>
-                            <div className="mb-4 filled">
-                                <CsLineIcons icon="money" />
-                                <Form.Control
-                                    type='number'
-                                    placeholder={f({ id: 'menu.course_fees' })}
-                                    onChange={(e) => setCourseFees(e.target.value)}
-                                />
-                            </div>
-                            <div className="mb-4 filled">
-                                <CsLineIcons icon="notebook-1" />
-                                <Form.Control
-                                    as="textarea"
-                                    rows={3}
-                                    placeholder={f({ id: 'menu.course_objectives' })}
-                                    onChange={(e) => setCourseObj(e.target.value)}
-                                />
-                            </div>
-                            <div className="mb-4 filled">
+                    <Col lg="6">
+                        <div className="mb-4 filled">
+                            <CsLineIcons icon="list" />
+                            <Select
+                                classNamePrefix="react-select"
+                                options={topicOptions}
+                                value={selectTopic}
+                                onChange={setSelectTopic}
+                                placeholder={f({ id: 'menu.topics' })}
+                            />
+                        </div>
+                    </Col>
+
+                    <Col lg="6">
+                        <div className="mb-4 filled">
+                            <CsLineIcons icon="calendar" />
+                            <DatePicker
+                                className="form-control"
+                                selected={startDate}
+                                onChange={(e) => setStartDate(e)}
+                                placeholderText={f({ id: 'menu.course_start_day' })}
+                            />
+                        </div>
+                    </Col>
+
+                    <Col lg="6">
+                        <div className="mb-4 filled">
+                            <CsLineIcons icon="calendar" />
+                            <DatePicker
+                                className="form-control"
+                                selected={endDate}
+                                onChange={(e) => setEndDate(e)}
+                                placeholderText={f({ id: 'menu.course_end_day' })}
+                            />
+                        </div>
+                    </Col>
+
+                    {/* <Col lg="6">
+                                    <div className="mb-4 filled">
+                                        <CsLineIcons icon="notebook-1" />
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={3}
+                                            placeholder={f({ id: 'menu.course_objectives' })}
+                                            onChange={(e) => setCourseObj(e.target.value)}
+                                        />
+                                    </div>
+                                </Col> */}
+
+                    <Col lg="6">
+                        <div className="mb-4 filled">
+                            <Dropzone
+                                getUploadParams={getUploadParams}
+                                PreviewComponent={DropzonePreview}
+                                submitButtonContent={null}
+                                submitButtonDisabled
+                                SubmitButtonComponent={null}
+                                inputWithFilesContent={null}
+                                onChangeStatus={onChangeScheduleFile}
+                                classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
+                                inputContent={f({ id: 'menu.drop_schedule' })}
+                            />
+                        </div>
+                    </Col>
+
+                    <Col lg="6">
+                        <div className=" filled">
                             <Dropzone
                                 getUploadParams={getUploadParams}
                                 PreviewComponent={DropzonePreview}
@@ -282,18 +303,59 @@ const ModalAddCourse = ({ show, onHide, }) => {
                                 onChangeStatus={onChangeFile}
                                 classNames={{ inputLabelWithFiles: defaultClassNames.inputLabel }}
                                 inputContent={f({ id: 'menu.drop_excel' })}
+                            />
+                        </div>
+                    </Col>
+
+
+                    <Col lg="6">
+                        <div className="mb-4 filled">
+                            <CsLineIcons icon="money" />
+                            <Form.Control
+                                type='number'
+                                placeholder={f({ id: 'menu.course_fees' })}
+                                onChange={(e) => setCourseFees(e.target.value)}
+                            />
+                        </div>
+                    </Col>
+                </Row>
+
+
+
+                {/* <div className="mb-4 filled">
+                                <CsLineIcons icon="image" />
+                                <Form.Control
+                                    type='file'
+                                    placeholder={f({ id: 'menu.course_image' })}
+                                    onChange={imageChange}
                                 />
-                            </div>
-                        </Form>
-                    </OverlayScrollbarsComponent>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={onHide}>
+                            </div> */}
+                {/* 
+                            {selectedImage && (
+                                <div className="mb-4 filled">
+                                    <img
+                                        src={URL.createObjectURL(selectedImage)}
+                                        alt="Thumb"
+                                        width={300}
+                                    />
+                                </div>
+                            )} */}
+
+                {/* <div className="d-flex justify-content-end align-items-center mg-4">
+                                <Button variant="secondary" onClick={onHide}>
+                                    {f({ id: 'menu.close' })}
+                                </Button>
+                                <Button onClick={() => handleSave()}>{f({ id: 'menu.save' })}</Button>
+                            </div> */}
+
+                <Row className="d-flex justify-content-end">
+                    <Button className="w-auto mx-2" variant="secondary" onClick={onHide}>
                         {f({ id: 'menu.close' })}
                     </Button>
-                    <Button onClick={() => handleSave()}>{f({ id: 'menu.save' })}</Button>
-                </Modal.Footer>
-            </Modal>
+                    <Button className="w-auto mx-2" onClick={() => handleSave()}>{f({ id: 'menu.save' })}</Button>
+                </Row>
+
+            </Form>
         </>
     )
 }

@@ -209,6 +209,7 @@ const enMessages = {
   'menu.course_objectives': 'Course objectives',
   'menu.at-a-glance': 'At a glance',
   'menu.drop_excel': 'Drop course content file',
+  'menu.drop_schedule': 'Drop course schedule file',
 
   // Course Detail
   'menu.duration_detail': 'Duration',
@@ -293,5 +294,7 @@ const enMessages = {
   'menu.presence_list': 'Presence List',
 
 
+  // Schedule
+  'menu.schedule': 'Calendar',
 };
 export default enMessages;

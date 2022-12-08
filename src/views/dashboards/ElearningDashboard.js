@@ -2,7 +2,7 @@ import apiBase from 'app/axios/apiBase';
 import BreadcrumbList from 'components/breadcrumb-list/BreadcrumbList';
 import HtmlHead from 'components/html-head/HtmlHead';
 import React, { useEffect, useState } from 'react';
-import { Card, Col, ProgressBar, Row } from 'react-bootstrap';
+import { Button, Card, Col, ProgressBar, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import ChartPie from 'views/interface/plugins/chart/ChartPie';
 
@@ -23,22 +23,16 @@ const ElearningDashboard = () => {
 
   const [dashboard, setDashboard] = useState();
 
-  const [label, setLabel] = useState([]);
+  const [courseList, setCourseList] = useState();
 
-  let total = 0;
+  const [limit, setLimit] = useState(4);
 
-  const totalTuition = () => {
-    const arrTemp = [];
-    if (dashboard) {
-      dashboard.courseList.forEach(element => {
-        total += element.totalTuition;
-        console.log(element.name);
-        arrTemp.push(element.name);
-        console.log(arrTemp);
-      });
-    }
-    setLabel(arrTemp);
-    return total;
+  const label = [];
+
+  const data = [];
+
+  const loadMore = () => {
+    setLimit(limit + 4);
   }
 
   useEffect(() => {
@@ -46,11 +40,37 @@ const ElearningDashboard = () => {
       .then((res) => {
         console.log(res.data);
         setDashboard(res.data);
+        setCourseList(res.data.courseList);
       }).catch((err) => console.log(err))
   }, [])
 
+  const totalTuition = () => {
+    let total = 0;
+
+    if (courseList) {
+      courseList.forEach(element => {
+        total += element.totalTuition;
+        label.push(element.name);
+      });
+    }
+
+    return total;
+  }
+
+  const total = totalTuition();
+  const getData = () => {
+    if (courseList) {
+      courseList.forEach(element => {
+        data.push(Math.round((element.totalTuition / total) * 100));
+      });
+    }
+  }
+
+  getData();
+
   console.log(total);
   console.log(label);
+  console.log(data);
 
   return (
     <>
@@ -73,7 +93,7 @@ const ElearningDashboard = () => {
         <Col xl="6" className="mb-5">
           <h2 className="small-title">{f({ id: 'menu.course_progress' })}</h2>
           {
-            dashboard && dashboard.courseList.map((item, i) => (
+            dashboard && dashboard.courseList.slice(0, limit).map((item, i) => (
               <Card className="mb-5" key={i}>
                 <Row className="g-0 sh-16">
                   <Col xs="auto">
@@ -94,21 +114,34 @@ const ElearningDashboard = () => {
               </Card>
             ))
           }
+
+          {
+            courseList && limit >= courseList.length ?
+              null :
+              <Row>
+                <Col xs="12" className="text-center">
+                  <Button variant="outline-primary" className="sw-30" onClick={() => loadMore()}>
+                    {f({ id: 'menu.load_more' })}
+                  </Button>
+                </Col>
+              </Row>
+          }
         </Col>
         {/* Continue Learning End */}
 
+
         {/* Recommended Courses Start */}
         <Col xl="6" className="mb-5">
-          <h2 className="small-title">Thong ke so tien cua cac khoa hoc</h2>
+          <h2 className="small-title">Thống kê tiền học phí thu được từ các khóa học</h2>
           <Card className="ps-5 pe-5 sh-20 sh-md-40 h-xl-100-card">
-            <ChartPie />
+            <ChartPie labelsData={label} chartData={data} />
           </Card>
         </Col>
         {/* Recommended Courses End */}
       </Row>
 
       {/* Contacts Start */}
-      <h2 className="small-title">{f({ id: 'menu.contacts_need_advice' })}</h2>
+      {/* <h2 className="small-title">{f({ id: 'menu.contacts_need_advice' })}</h2> */}
       {/* <Card className={classNames('mb-2', { selected: row.isSelected })} onClick={(event) => clickedForEdit(event, row)}>
         <Row className="g-0 h-100 sh-lg-9 position-relative">
           <Col className="py-3 py-sm-3">

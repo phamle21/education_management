@@ -1,11 +1,41 @@
-import React from "react";
+import apiBase from "app/axios/apiBase";
+import React, { useState } from "react";
 import styled from "styled-components";
 // Assets
 import ContactImg1 from "../../assets/img/contact1.jpeg";
 import ContactImg2 from "../../assets/img/home1.jpeg";
 import ContactImg3 from "../../assets/img/home_page.jpeg";
 
+
 export default function Contact() {
+
+  const [formInput, setFormInput] = useState();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormInput((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  };
+
+  const hanldeSubmit = () => {
+    console.log(formInput);
+    apiBase.post('/contact', {
+      send_name: formInput.send_name,
+      send_email: formInput.send_email,
+      send_phone: formInput.send_phone,
+      send_subject: formInput.send_subject,
+      send_message: formInput.send_message
+    })
+      .then(res => {
+        console.log(res.data.msg);
+      })
+      .catch((err) => console.log('No'))
+  }
+
   return (
     <Wrapper id="contact">
       <div className="lightBg">
@@ -21,15 +51,19 @@ export default function Contact() {
           <div className="row" style={{ paddingBottom: "30px" }}>
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
               <Form>
-                <label className="font15">Họ và tên:</label>
-                <input type="text" id="fname" name="fname" className="font20 extraBold" />
-                <label className="font15">Email:</label>
-                <input type="text" id="email" name="email" className="font20 extraBold" />
-                <label className="font15">Nội dung cần giải đáp:</label>
-                <textarea rows="4" cols="50" type="text" id="message" name="message" className="font20 extraBold" />
+                <label className="font15">Họ và tên(*):</label>
+                <input type="text" id="fname" name="send_name" className="font20 extraBold" onChange={handleChange} />
+                <label className="font15">Số điện thoại:</label>
+                <input type="text" id="email" name="send_email" className="font20 extraBold" onChange={handleChange} />
+                <label className="font15">Email(*):</label>
+                <input type="text" id="email" name="send_phone" className="font20 extraBold" onChange={handleChange} />
+                <label className="font15">Tiêu đề(*):</label>
+                <input type="text" id="email" name="send_subject" className="font20 extraBold" onChange={handleChange} />
+                <label className="font15">Nội dung cần giải đáp(*):</label>
+                <textarea rows="4" cols="50" type="text" id="send_message" name="send_message" className="font20 extraBold" onChange={handleChange} />
               </Form>
               <SumbitWrapper className="flex">
-                <ButtonInput type="submit" value="Gửi" className="pointer animate radius8" style={{ maxWidth: "220px" }} />
+                <ButtonInput onClick={() => hanldeSubmit()} type="submit" value="Gửi" className="pointer animate radius8" style={{ maxWidth: "220px" }} />
               </SumbitWrapper>
             </div>
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 flex">

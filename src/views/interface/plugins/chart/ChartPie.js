@@ -3,7 +3,7 @@ import { Chart, registerables } from 'chart.js';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-const ChartPie = ({ labelsData, chartData, total }) => {
+const ChartPie = ({ labelsData, chartData }) => {
   const { themeValues } = useSelector((state) => state.settings);
   const chartContainer = useRef(null);
 
@@ -39,14 +39,26 @@ const ChartPie = ({ labelsData, chartData, total }) => {
 
   const data = React.useMemo(() => {
     return {
-      labels: ['Breads', 'Pastry', 'Patty'],
+      labels: labelsData && labelsData,
       datasets: [
         {
           label: '',
           borderColor: [themeValues.primary, themeValues.secondary, themeValues.tertiary],
-          backgroundColor: [`rgba(${themeValues.primaryrgb},0.1)`, `rgba(${themeValues.secondaryrgb},0.1)`, `rgba(${themeValues.tertiaryrgb},0.1)`],
+          backgroundColor: [
+            `rgba(${themeValues.primaryrgb},0.1)`,
+            `rgba(${themeValues.secondaryrgb},0.1)`,
+            `rgba(${themeValues.tertiaryrgb},0.1)`,
+            `rgba(${themeValues.primaryrgb},0.4)`,
+            `rgba(${themeValues.secondaryrgb},0.4)`,
+            `rgba(${themeValues.tertiaryrgb},0.4)`,
+            `rgba(${themeValues.primaryrgb},0.6)`,
+            `rgba(${themeValues.secondaryrgb},0.6`,
+            `rgba(${themeValues.tertiaryrgb},0.6)`,
+            `rgba(${themeValues.primaryrgb},0.8)`,
+            `rgba(${themeValues.secondaryrgb},0.7)`,
+          ],
           borderWidth: 2,
-          data: [15, 25, 20],
+          data: chartData && chartData,
         },
       ],
     };

@@ -159,7 +159,7 @@ const vnMessages = {
   'menu.tickets': 'Tickets',
   'menu.tickets-detail': 'Teicket Detail',
 
-  'menu.elearning': 'Học trực tuyến',
+  'menu.elearning': 'Tổng quan',
   'menu.school': 'Trường học',
   'menu.courses': 'Khóa học',
   'menu.explore': 'Khám phá',
@@ -189,7 +189,7 @@ const vnMessages = {
   'menu.thursday': 'Thứ 5',
   'menu.friday': 'Thứ 6',
   'menu.sunday': 'Thứ 7',
-  'menu.calendar': 'Lịch biểu',
+  'menu.calendar': 'Thời khóa biểu',
   'menu.gender_female': 'Nữ',
   'menu.gender_male': 'Nam',
   'menu.list_students': 'Danh sách học viên',
@@ -207,6 +207,7 @@ const vnMessages = {
   'menu.course_quantity': 'Số lượng học viên',
   'menu.course_fees': 'Học phí',
   'menu.drop_excel': 'Tải lên tệp nội dung khóa học',
+  'menu.drop_schedule': 'Tải lên tệp thời khóa biểu của khóa học',
 
   // Course Detail
   'menu.duration_detail': 'Thời gian',
@@ -260,7 +261,7 @@ const vnMessages = {
   'user.model_delete_title': 'Xác nhận',
   'user.model_delete_content': 'sẽ bị xóa. Bạn có chắc không?',
   'user.model_delete_yes': 'Đồng ý',
-  'user.model_delete_no': 'Không',
+  'user.model_delete_no': 'Hủy',
   'user.model_delete_item': 'mục',
   'user.create_success': 'Tạo người dùng mới thành công',
   'user.edit_success': 'Chỉnh sửa người dùng thành công',
@@ -290,5 +291,8 @@ const vnMessages = {
   // Presence List
   'menu.presence': 'Điểm danh',
   'menu.presence_list': 'Danh sách điểm danh',
+
+  // Schedule
+  'menu.schedule': 'Thời khóa biểu',
 };
 export default vnMessages;
