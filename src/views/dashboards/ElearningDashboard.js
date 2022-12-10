@@ -99,9 +99,15 @@ const ElearningDashboard = () => {
                       <div className="w-100">
                         <div className="d-flex flex-row justify-content-between mb-2">
                           <div>{item.name}</div>
-                          <div className="text-muted">{item.totalStudySessionLearned}/{item.totalSchedules} bài</div>
+                          <div className="text-muted">
+                            {
+                              item.totalStudySessionLearned > 0 && item.totalSchedules > 0 && item.totalStudySessionLearned === item.totalSchedules
+                                ? 'Hoàn thành'
+                                : `${item.totalStudySessionLearned} / ${item.totalSchedules} buổi`
+                            }
+                          </div>
                         </div>
-                        <ProgressBar className="progress-md mb-2" now={item.totalStudySessionLearned} />
+                        <ProgressBar className="progress-md mb-2" now={item.totalStudySessionLearned / item.totalSchedules * 100} />
                       </div>
                     </Card.Body>
                   </Col>
