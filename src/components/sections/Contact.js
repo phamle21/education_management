@@ -1,6 +1,7 @@
 import apiBase from "app/axios/apiBase";
 import React, { useState } from "react";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 // Assets
 import ContactImg1 from "../../assets/img/contact1.jpeg";
 import ContactImg2 from "../../assets/img/home1.jpeg";
@@ -22,7 +23,6 @@ export default function Contact() {
   };
 
   const hanldeSubmit = () => {
-    console.log(formInput);
     apiBase.post('/contact', {
       send_name: formInput.send_name,
       send_email: formInput.send_email,
@@ -31,7 +31,11 @@ export default function Contact() {
       send_message: formInput.send_message
     })
       .then(res => {
-        console.log(res.data.msg);
+        Swal.fire(
+          '',
+          'Gửi liên hệ thành công',
+          'success',
+        )
       })
       .catch((err) => console.log('No'))
   }

@@ -19,9 +19,6 @@ const ModalEditCourse = ({ data }) => {
 
     const onChangeStatus = (fileWithMeta, status) => {
         setSelectedImage(fileWithMeta.file);
-        console.log(selectedImage);
-        // console.log(fileWithMeta);
-        // console.log(status);
     };
 
     return (

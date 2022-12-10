@@ -123,7 +123,6 @@ const CoursesDetail = () => {
     })
       .catch(err => console.log(err))
       .then(res => {
-        console.log(res);
         if (res.data)
           setCourse(res.data.data);
         notify();

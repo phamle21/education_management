@@ -1,22 +1,73 @@
+import apiBase from 'app/axios/apiBase';
 import HtmlHead from 'components/html-head/HtmlHead';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import { useFormik } from 'formik';
 import LayoutFullpage from 'layout/LayoutFullpage';
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect, Switch } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import * as Yup from 'yup';
+import Swal from 'sweetalert2';
+import { setCurrentUser } from 'auth/authSlice';
+import { useDispatch } from 'react-redux';
+import { userLoginState, tokenLoginState } from '../../recoil_store';
 
 const Login = () => {
   const title = 'Login';
   const description = 'Login Page';
 
+  const dispatch = useDispatch();
+
+  const setUserLogin = useSetRecoilState(userLoginState);
+  const setTokenLogin = useSetRecoilState(tokenLoginState);
+  const [login, setLogin] = React.useState(false);
+
+  if (localStorage.getItem('accessTokenEducation') !== null) {
+    return <Redirect to="/admin" />
+  }
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().email().required('Email is required'),
-    password: Yup.string().min(6, 'Must be at least 6 chars!').required('Password is required'),
+    password: Yup.string().min(5, 'Must be at least 6 chars!').required('Password is required'),
   });
   const initialValues = { email: '', password: '' };
-  const onSubmit = (values) => console.log('submit form', values);
+
+  const onSubmit = (values, { setStatus, setErrors }) => {
+    apiBase.post('/login', values).then(res => {
+      if (res.data.status === 'success') {
+        // Recoil
+        setUserLogin(res.data.user)
+        setTokenLogin(res.data.authorisation.token)
+
+        // Reduxt
+        dispatch(setCurrentUser({
+          currentUser: res.data.user,
+          userToken: res.data.authorisation.token
+        }))
+
+        localStorage.setItem('accessTokenEducation', res.data.authorisation.token)
+        Swal.fire({
+          position: 'top-end',
+          title: '',
+          html: "Đăng nhập thành công",
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 3000
+        })
+        
+        window.location.href = 'admin'
+
+      }
+      if (res.data.status === 'error') {
+        setErrors({ email: res.data.msg })
+        setErrors({ password: res.data.msg })
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+    console.log('submit form', values)
+  };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
   const { handleSubmit, handleChange, values, touched, errors } = formik;
@@ -53,7 +104,7 @@ const Login = () => {
         </div> */}
         <div className="mb-5">
           <h2 className="cta-1 mb-0 text-primary">Xin chào,</h2>
-          <h2 className="cta-1 text-primary">Mừng bạn đã trở lại!</h2>
+          <h2 className="cta-1 text-primary">Chào mừng bạn đến với trang quản lý!</h2>
         </div>
         <div className="mb-5">
           <p className="h6">Vui lòng nhập chính xác các thông tin dưới đây để đăng nhập.</p>
@@ -84,6 +135,7 @@ const Login = () => {
 
   return (
     <>
+      {login && <Redirect to="/admin" />}
       <HtmlHead title={title} description={description} />
       <LayoutFullpage left={leftSide} right={rightSide} />
     </>

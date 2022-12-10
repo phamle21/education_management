@@ -65,8 +65,6 @@ const CalendarApp = () => {
 
   useEffect(() => {
     const coloredEvents = eventsNoColors.map((event) => {
-      console.log(`event test `)
-      console.log(event)
       const coloredEvent = { ...event };
       if (event.course_id) {
         const foundColor = colorsMap.find((x) => x.courseColor === event.course_id);

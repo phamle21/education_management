@@ -101,7 +101,19 @@ const modalShowSelectStudentExistsState = atom({
     default: [],
 })
 
+const userLoginState = atom({
+    key: "userLogin",
+    default: {},
+})
+
+const tokenLoginState = atom({
+    key: "tokenLogin",
+    default: null,
+})
+
 export {
+    tokenLoginState,
+    userLoginState,
     detailScheduleState,
     schedulesListState,
     modalShowSelectStudentExistsState,

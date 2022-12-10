@@ -55,29 +55,21 @@ const ModalAddCourse = ({ show, onHide, }) => {
 
     const onChangeStatus = (fileWithMeta, status) => {
         setSelectedImage(fileWithMeta.file);
-        console.log(selectedImage);
-        // console.log(fileWithMeta);
-        // console.log(status);
     };
 
     const onChangeFile = (fileWithMeta, status) => {
         setFileContent(fileWithMeta.file);
-        console.log(fileWithMeta);
-        console.log(status);
     };
 
 
     const onChangeScheduleFile = (fileWithMeta, status) => {
         setFileSchedules(fileWithMeta.file);
-        console.log(fileWithMeta);
-        console.log(status);
     };
 
 
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             setSelectedImage(e.target.files[0]);
-            console.log(selectedImage);
         }
     };
 
@@ -105,7 +97,7 @@ const ModalAddCourse = ({ show, onHide, }) => {
     }, []);
 
     useEffect(() => {
-        if (topicList.length < 1)
+        if (topicList.length < 1) {
             apiBase.get("/topics")
                 .catch(err => console.log(err))
                 .then(res => {
@@ -123,6 +115,17 @@ const ModalAddCourse = ({ show, onHide, }) => {
                         setTopicOptions(arrTemp);
                     }
                 })
+        } else {
+            const arrTemp = [];
+            topicList.forEach(record => {
+                const option = {
+                    value: record.id,
+                    label: record.name,
+                }
+                arrTemp.push(option);
+            })
+            setTopicOptions(arrTemp);
+        }
     }, []);
 
     const notify = () => toast(

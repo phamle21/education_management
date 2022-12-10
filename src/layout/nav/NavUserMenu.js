@@ -2,55 +2,66 @@ import classNames from 'classnames';
 import { MENU_PLACEMENT } from 'constants.js';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import { layoutShowingNavMenu } from 'layout/layoutSlice';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Dropdown, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-const NavUserMenuContent = () => (
-  <div>
-    <Row className="mb-3 ms-0 me-0">
-      <Col xs="12" className="ps-1 mb-2">
-        <div className="text-extra-small text-primary">Tài khoản</div>
-      </Col>
-      <Col xs="6" className="ps-1 pe-1">
-        <ul className="list-unstyled">
-          <li>
-            <a href="#/!">Thông tin tài khoản</a>
-          </li>
-        </ul>
-      </Col>
-      <Col xs="6" className="ps-1 pe-1">
-        <ul className="list-unstyled">
-          <li>
-            <a href="/login">
-              <CsLineIcons icon="logout" className="me-2" size="17" /> <span className="align-middle">Đăng xuất</span>
-            </a>
-          </li>
-        </ul>
-      </Col>
-    </Row>
-    {/* <Row className="mb-1 ms-0 me-0">
-      <Col xs="12" className="p-1 mb-3 pt-3">
-        <div className="separator-light" />
-      </Col>
-      <Col xs="6" className="ps-1 pe-1" />
-      <Col xs="6" className="pe-1 ps-1">
-        <ul className="list-unstyled">
-          <li>
-            <a href="#/!">
-              <CsLineIcons icon="gear" className="me-2" size="17" /> <span className="align-middle">Settings</span>
-            </a>
-          </li>
-          <li>
-            <a href="#/!">
-              <CsLineIcons icon="logout" className="me-2" size="17" /> <span className="align-middle">Logout</span>
-            </a>
-          </li>
-        </ul>
-      </Col>
-    </Row> */}
-  </div>
-);
+const NavUserMenuContent = () => {
+  const [logout, setLogout] = useState(false);
+
+  const handleLogout = () => {
+    Swal.fire({
+      icon: 'question',
+      html: 'Bạn có chắc muốn đăng xuất?',
+      showDenyButton: true,
+      showConfirmButton: false,
+      showCancelButton: true,
+      denyButtonText: `Đăng xuất`,
+      cancelButtonText: `Không đăng xuất`,
+    }).then((result) => {
+      if (result.isDenied) {
+        localStorage.removeItem('accessTokenEducation')
+        setLogout(true)
+      }
+    })
+  }
+
+  return (
+    <div>
+      {logout && <Redirect to="/login" />}
+      <Row className="mb-3 ms-0 me-0">
+        <Col xs="12" className="ps-1 mb-2">
+          <div className="text-extra-small text-primary">Tài khoản</div>
+        </Col>
+        <Col xs="12" className="ps-1 pe-1">
+          <ul className="list-unstyled">
+            <li>
+              <a href="#/!">Thông tin tài khoản</a>
+            </li>
+          </ul>
+        </Col>
+      </Row>
+      <Row className="mb-1 ms-0 me-0">
+        <Col xs="12" className="p-1 mb-3 pt-3">
+          <div className="separator-light" />
+        </Col>
+        <Col xs="6" className="ps-1 pe-1" />
+
+        <Col xs="12" className="ps-1 pe-1">
+          <ul className="list-unstyled">
+            <li>
+              <a href="#" onClick={handleLogout}>
+                <CsLineIcons icon="logout" className="me-2" size="17" /> <span className="align-middle">Đăng xuất</span>
+              </a>
+            </li>
+          </ul>
+        </Col>
+      </Row>
+    </div>
+  )
+};
 
 const NavUserMenuDropdownToggle = React.memo(
   React.forwardRef(({ onClick, expanded = false, user = {} }, ref) => (

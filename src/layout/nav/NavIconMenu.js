@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
+import { Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { MENU_BEHAVIOUR } from 'constants.js';
@@ -38,6 +40,23 @@ const NavIconMenu = () => {
     setShowSearchModal(true);
   };
 
+  const onClickLogout = () => {
+    Swal.fire({
+      icon: 'question',
+      html: 'Bạn có chắc muốn đăng xuất?',
+      showDenyButton: true,
+      showConfirmButton: false,
+      showCancelButton: true,
+      denyButtonText: `Đăng xuất`,
+      cancelButtonText: `Không đăng xuất`,
+    }).then((result) => {
+      if (result.isDenied) {
+        localStorage.removeItem('accessTokenEducation')
+        window.location.href = "/login"
+      }
+    })
+  }
+
   return (
     <>
       <ul className="list-unstyled list-inline text-center menu-icons">
@@ -64,6 +83,11 @@ const NavIconMenu = () => {
           </a>
         </li>
         <IconMenuNotifications />
+        <li className="list-inline-item">
+          <a href="#/" onClick={onClickLogout}>
+            <CsLineIcons icon="logout" size="18" />
+          </a>
+        </li>
       </ul>
       <SearchModal show={showSearchModal} setShow={setShowSearchModal} />
     </>

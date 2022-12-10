@@ -38,7 +38,6 @@ const ElearningDashboard = () => {
   useEffect(() => {
     apiBase.get('/dashboard')
       .then((res) => {
-        console.log(res.data);
         setDashboard(res.data);
         setCourseList(res.data.courseList);
       }).catch((err) => console.log(err))
@@ -67,10 +66,6 @@ const ElearningDashboard = () => {
   }
 
   getData();
-
-  console.log(total);
-  console.log(label);
-  console.log(data);
 
   return (
     <>
