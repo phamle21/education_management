@@ -44,7 +44,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'phamle21@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('admin'), // password
-                'remember_token' => Str::random(10),
                 'phone' => '0941649826',
                 'status' => 'Active',
                 'gender' => 'Male',
@@ -56,7 +55,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'dth.an292@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('admin'), // password
-                'remember_token' => Str::random(10),
                 'phone' => '0387473591',
                 'status' => 'Active',
                 'gender' => 'Female',

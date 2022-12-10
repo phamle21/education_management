@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'me']]);
     }
 
     /**
@@ -26,26 +28,25 @@ class AuthController extends Controller
      *          response=200,
      *          description="Successful operation"
      *       ),
-     *      @OA\Parameter(
-     *            name="email",
-     *            description="Phone Number",
-     *            example="0941649826",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="string"
-     *            )
-     *        ),
-     *      @OA\Parameter(
-     *            name="password",
-     *            description="Password",
-     *            example="admin",
-     *            required=true,
-     *            in="query",
-     *            @OA\Schema(
-     *                type="string"
-     *            )
-     *        ),
+     *      @OA\RequestBody(
+     *           @OA\MediaType(
+     *               mediaType="application/json",
+     *               @OA\Schema(
+     *                   @OA\Property(
+     *                       property="email",
+     *                       type="string"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="password",
+     *                       type="string"
+     *                   ),
+     *                   example={
+     *                        "email": "phamle21@gmail.com",
+     *                        "password": "admin",
+     *                    }
+     *               )
+     *           )
+     *       ),
      *       @OA\Response(response=400, description="Bad request"),
      *       security={
      *           {"api_key_security_example": {}}
@@ -55,7 +56,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $permissionLoginAdmin = ["Admin", "Team Manage"];
         if (isset($request->email)) {
             $request->validate([
                 'email' => 'required|string|email',
@@ -69,43 +69,36 @@ class AuthController extends Controller
             ]);
             $credentials = $request->only('phone', 'password');
         }
+
         $credentials['status'] = "Active";
-        $remember = $request->remember ? true : false;
-        $token = Auth::attempt($credentials, $remember);
+
+        $token = Auth::attempt($credentials);
 
         if (!$token) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized! Please check Email/Phone or Password. Or your account status isn\'t Active',
+                'msg' => 'Tài khoản mật khẩu không chính xác',
             ]);
         }
 
-        $check = false;
-
-        foreach(Auth::user()->roles as $v){
-            if(in_array($v->name,$permissionLoginAdmin)){
-                $check = true;
-            }
-        }
-
-        if (!$check) {
+        if (UserRole::Teacher != Auth::user()->role && UserRole::Admin != Auth::user()->role) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Your account is not allowed to access the login Admin page',
+                'msg' => 'Bạn không có quyền đăng nhập ở đây!',
             ]);
         }
 
-        $user_temp =  Auth::user();
-        $user = (object)[];
-        $user->id = $user_temp->id;
-        $user->name = $user_temp->name;
-        $user->avatar = User::find($user_temp->id)->avatar()->path;
-        $user->email = $user_temp->email;
-        $user->phone = $user_temp->phone;
-        $user->status = $user_temp->status;
-        $user->roles = $user_temp->roles;
+        $user = User::find(Auth::user()->id);
+
+        $user->avatar = url(Storage::url($user->avatar));
+
+        $user->courses = $user->courseOfTeacher();
+
+        $user->otherInformation = $user->getOtherInfor();
+
         return response()->json([
             'status' => 'success',
+            'msg' => 'Đăng nhập thành công',
             'user' => $user,
             'authorisation' => [
                 'token' => $token,
@@ -152,25 +145,34 @@ class AuthController extends Controller
 
     public function me()
     {
-        $user_temp =  Auth::user();
-        $user = (object)[];
-        $user->id = $user_temp->id;
-        $user->name = $user_temp->name;
-        $user->avatar = User::find($user_temp->id)->avatar()->path;
-        $user->email = $user_temp->email;
-        $user->phone = $user_temp->phone;
-        $user->status = $user_temp->status;
-        $user->roles = $user_temp->roles;
+        $user = User::find(Auth::user()->id);
+
+        $user->avatar = url(Storage::url($user->avatar));
+
+        $user->courses = $user->courseOfTeacher();
+
+        $user->otherInformation = $user->getOtherInfor();
+
         return response()->json($user);
     }
 
     public function refresh()
     {
+        $user = User::find(Auth::user()->id);
+
+        $user->avatar = url(Storage::url($user->avatar));
+
+        $user->courses = $user->courseOfTeacher();
+
+        $user->otherInformation = $user->getOtherInfor();
+
+        $token = Auth::refresh();
+
         return response()->json([
             'status' => 'success',
-            'user' => Auth::user(),
+            'user' => $user,
             'authorisation' => [
-                'token' => Auth::refresh(),
+                'token' => $token,
                 'type' => 'bearer',
             ]
         ]);

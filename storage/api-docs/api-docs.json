@@ -13,28 +13,27 @@
                 "summary": "Login",
                 "description": "Login",
                 "operationId": "login",
-                "parameters": [
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "Phone Number",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "0941649826"
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "Password",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "admin"
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "phamle21@gmail.com",
+                                    "password": "admin"
+                                }
+                            }
+                        }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -58,6 +57,39 @@
                 "summary": "sendmail contact",
                 "description": "aaaaaaaaaaaaaa",
                 "operationId": "sendContact",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "send_name": {
+                                        "type": "string"
+                                    },
+                                    "send_email": {
+                                        "type": "string"
+                                    },
+                                    "send_phone": {
+                                        "type": "string"
+                                    },
+                                    "send_subject": {
+                                        "type": "string"
+                                    },
+                                    "send_message": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "send_name": "Hong An",
+                                    "send_email": "hongan@gmail.com",
+                                    "send_phone": "0966425761",
+                                    "send_subject": "Tieu de ne",
+                                    "send_message": "noi dung ne"
+                                }
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -547,6 +579,20 @@
                 "summary": "sendmail contact",
                 "description": "Đừng có test ở đây lỗi đó",
                 "operationId": "forgetPassword",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -570,6 +616,26 @@
                 "summary": "sendmail contact",
                 "description": "Đừng có test ở đây lỗi đó",
                 "operationId": "resetPassword",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "token": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"
