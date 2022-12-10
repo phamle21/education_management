@@ -60,6 +60,7 @@
     "react-quilljs": "^1.2.17",
     "react-rating": "^2.0.5",
     "react-redux": "^7.2.4",
+    "react-render-html": "^0.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-scroll": "^1.8.8",

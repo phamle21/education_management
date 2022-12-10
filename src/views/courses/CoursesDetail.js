@@ -7,6 +7,7 @@ import Plyr from 'plyr-react';
 import React, { useEffect } from 'react';
 import { Accordion, Button, Card, Col, Modal, Row, useAccordionButton } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
+import renderHTML from 'react-render-html';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
@@ -146,22 +147,6 @@ const CoursesDetail = () => {
           </Col>
           {/* Title End */}
 
-          {/* Top Buttons Start */}
-          {/* <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto">
-              <CsLineIcons icon="edit" /> <span>{`${f({ id: 'menu.edit' })} ${f({ id: 'menu.course_intro' })}`}</span>
-            </Button>
-          </Col>
-          <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto">
-              <CsLineIcons icon="edit" /> <span>{`${f({ id: 'menu.edit' })} ${f({ id: 'menu.table_of_contents' })}`}</span>
-            </Button>
-          </Col>
-          <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-            <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto">
-              <CsLineIcons icon="edit" /> <span>{`${f({ id: 'menu.edit' })} ${f({ id: 'menu.at-a-glance' })}`}</span>
-            </Button>
-          </Col> */}
           <Col style={{ 'marginRight': '10px' }} xs="12" sm="auto" className="d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
             <Button variant="primary" className="btn-icon btn-icon-start w-100 w-md-auto" onClick={() => setModalAddStudents(true)}>
               <CsLineIcons icon="plus" /> <span>{f({ id: 'course.detail_add_student' })}</span>
@@ -242,7 +227,7 @@ const CoursesDetail = () => {
                                 </Button>
                               </Row>
                               <Row>
-                                {itemContent.content}
+                                {renderHTML(itemContent.content)}
                               </Row>
                             </Card.Body>
                           </Accordion.Collapse>
@@ -304,24 +289,6 @@ const CoursesDetail = () => {
           </Row>
           {/* At a Glance End  */}
 
-          {/* Tags Start */}
-          {/* <Row>
-            <h2 className="small-title">{f({ id: 'course.detail.topics' })}</h2>
-            <Card className="mb-5">
-              <Card.Body className="mb-n1">
-                {
-                  course.topics && course.topics.map((topic, index) => (
-                    <Button key={index} size="sm" variant="outline-alternate" className="mb-1 me-1">
-                      {topic.name}
-                    </Button>
-                  ))
-                }
-
-              </Card.Body>
-            </Card>
-          </Row> */}
-          {/* Tags End */}
-
           {/* List Student Start */}
           <Row>
             <h2 className="small-title">{f({ id: 'menu.list_students' })}</h2>
@@ -353,7 +320,6 @@ const CoursesDetail = () => {
                 </Card>
               ))
             }
-
           </Row>
           {/* List Student End */}
         </Col>

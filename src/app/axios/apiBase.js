@@ -7,7 +7,7 @@ const apiBase = axios.create({
     headers: {
         "Accept": 'application/json',
         "Content-Type": 'application/json',
-        "Authorization": `Bearer ${localStorage.getItem('accessToken_STM')}`
+        "Authorization": `Bearer ${localStorage.getItem('accessTokenEducationAdmin')}`,
     }
 })
 

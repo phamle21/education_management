@@ -129,7 +129,9 @@ const ElearningDashboard = () => {
         <Col xl="6" className="mb-5">
           <h2 className="small-title">Thống kê tiền học phí thu được từ các khóa học</h2>
           <Card className="ps-5 pe-5 sh-20 sh-md-40 h-xl-100-card">
-            <ChartPie labelsData={label} chartData={data} />
+            {label.length > 0 && data.length > 0 ? (
+              <ChartPie labelsData={label} chartData={data} />
+            ) : null}
           </Card>
         </Col>
         {/* Recommended Courses End */}

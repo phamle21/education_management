@@ -51,7 +51,7 @@ const NavIconMenu = () => {
       cancelButtonText: `Không đăng xuất`,
     }).then((result) => {
       if (result.isDenied) {
-        localStorage.removeItem('accessTokenEducation')
+        localStorage.removeItem('accessTokenEducationAdmin')
         window.location.href = "/login"
       }
     })

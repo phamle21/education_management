@@ -6,15 +6,36 @@ import Nav from 'layout/nav/Nav';
 import SidebarMenu from 'layout/nav/sidebar-menu/SidebarMenu';
 import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router-dom';
 
 const Layout = ({ children }) => {
   useLayout();
 
-  if (localStorage.getItem('accessTokenEducation') === null) {
+  if (localStorage.getItem('accessTokenEducationAdmin') === null) {
     return <Redirect to="/login" />
   }
+
+  function isObjectEmpty(value) {
+    return (
+      Object.prototype.toString.call(value) === '[object Object]' &&
+      JSON.stringify(value) === '{}'
+    );
+  }
+
+  const { currentUser } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  if (localStorage.getItem('accessTokenEducationAdmin') !== null && isObjectEmpty(currentUser)) {
+    apiBase.post('/me').then(res => {
+      // Reduxt
+      dispatch(setCurrentUser({
+        currentUser: res.data,
+        userToken: localStorage.getItem('accessTokenEducationAdmin')
+      }))
+    })
+  }
+
   const { pathname } = useLocation();
 
   useEffect(() => {

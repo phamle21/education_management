@@ -23,7 +23,7 @@ const Login = () => {
   const setTokenLogin = useSetRecoilState(tokenLoginState);
   const [login, setLogin] = React.useState(false);
 
-  if (localStorage.getItem('accessTokenEducation') !== null) {
+  if (localStorage.getItem('accessTokenEducationAdmin') !== null) {
     return <Redirect to="/admin" />
   }
 
@@ -38,15 +38,15 @@ const Login = () => {
       if (res.data.status === 'success') {
         // Recoil
         setUserLogin(res.data.user)
-        setTokenLogin(res.data.authorisation.token)
+        setTokenLogin(res.data.authorization.token)
 
         // Reduxt
         dispatch(setCurrentUser({
           currentUser: res.data.user,
-          userToken: res.data.authorisation.token
+          userToken: res.data.authorization.token
         }))
 
-        localStorage.setItem('accessTokenEducation', res.data.authorisation.token)
+        localStorage.setItem('accessTokenEducationAdmin', res.data.authorization.token)
         Swal.fire({
           position: 'top-end',
           title: '',
