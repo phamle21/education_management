@@ -13,7 +13,7 @@ import Select from 'react-select';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilState } from 'recoil';
-import { lecturerListState, selectLecturerState, selectTopicState, topicListState } from 'recoil_store';
+import { courseListShowState, courseListState, lecturerListState, selectLecturerState, selectTopicState, topicListState } from 'recoil_store';
 import apiBase from '../../../app/axios/apiBase';
 
 const ModalAddCourse = ({ show, onHide, }) => {
@@ -50,6 +50,10 @@ const ModalAddCourse = ({ show, onHide, }) => {
     const [fileContent, setFileContent] = useState();
 
     const [fileSchedules, setFileSchedules] = useState();
+
+    const [courseList, setCourseList] = useRecoilState(courseListState);
+
+    const [courseListShow, setCourseListShow] = useRecoilState(courseListShowState);
 
     const getUploadParams = () => ({ url: 'https://httpbin.org/post' });
 
@@ -154,6 +158,10 @@ const ModalAddCourse = ({ show, onHide, }) => {
             .then(res => {
                 if (res.data != null) {
                     // setFormInput({});
+
+                    setCourseList(res.data.data)
+                    setCourseListShow(res.data.data)
+
                     setSelectedImage();
                     onHide();
                     notify();

@@ -1,14 +1,25 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import apiBase from 'app/axios/apiBase';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { courseDetailsContentState, detailCourseState } from 'recoil_store';
+import Swal from 'sweetalert2';
 import * as Yup from 'yup';
 import { API_URL } from '../../../constants';
 
 const ValidationFormikBasic = ({ contentEdit, setSemiFullExample }) => {
   const { formatMessage: f } = useIntl();
+
+  const params = useParams();
+
+  const [course, setCourse] = useRecoilState(detailCourseState);
+
+  const [courseContents, setCourseContents] = useRecoilState(courseDetailsContentState);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required('Tiêu đề không được trống'),
@@ -17,7 +28,35 @@ const ValidationFormikBasic = ({ contentEdit, setSemiFullExample }) => {
   const initialValues = { title: contentEdit.title, content: contentEdit.content };
 
   const onSubmit = (values) => {
-    // setSemiFullExample(false)
+    const { title, content } = values
+    apiBase.patch('/content_course',
+      {
+        title,
+        content,
+        course_id: params.id,
+        course_content_id: contentEdit.id
+      }
+    ).then(res => {
+
+      setCourseContents(res.data.data);
+      Swal.fire({
+        position: 'top-end',
+        title: '',
+        html: "Chỉnh sửa nội dung cho khóa học thành công",
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 3000
+      })
+      setSemiFullExample(false)
+
+    }).catch(err => {
+      Swal.fire(
+        'ERROR',
+        'Đã xảy ra sự cố',
+        'error'
+      )
+      console.log(err)
+    })
   }
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
@@ -62,7 +101,33 @@ const ValidationFormikBasic = ({ contentEdit, setSemiFullExample }) => {
   }
 
   const handleDelete = () => {
+    apiBase.delete('/content_course',
+      {
+        data: {
+          course_content_id: contentEdit.id
+        }
+      }
+    ).then(res => {
 
+      setCourseContents(res.data.data);
+      Swal.fire({
+        position: 'top-end',
+        title: '',
+        html: "Xóa nội dung của khóa học thành công",
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 3000
+      })
+      setSemiFullExample(false)
+
+    }).catch(err => {
+      Swal.fire(
+        'ERROR',
+        'Đã xảy ra sự cố',
+        'error'
+      )
+      console.log(err)
+    })
   }
 
   return (

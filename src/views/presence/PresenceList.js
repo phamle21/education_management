@@ -70,7 +70,6 @@ const PresenceList = () => {
                 'course_id': selectedCourse && selectedCourse.value,
             }).then((res) => {
                 setSchedulesList(res.data.data.schedules);
-                console.log(schedulesList);
             })
                 .catch((err) => console.log(err))
         }

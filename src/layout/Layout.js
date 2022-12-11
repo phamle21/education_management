@@ -28,11 +28,17 @@ const Layout = ({ children }) => {
   const dispatch = useDispatch();
   if (localStorage.getItem('accessTokenEducationAdmin') !== null && isObjectEmpty(currentUser)) {
     apiBase.post('/me').then(res => {
+      console.log(res)
       // Reduxt
       dispatch(setCurrentUser({
         currentUser: res.data,
         userToken: localStorage.getItem('accessTokenEducationAdmin')
       }))
+    }).catch(error => {
+      if (error.response.status === 401) { // "Unauthorized"
+        localStorage.removeItem('accessTokenEducationAdmin')
+        window.location.href = '/login'
+      }
     })
   }
 

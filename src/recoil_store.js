@@ -111,7 +111,13 @@ const tokenLoginState = atom({
     default: null,
 })
 
+const courseDetailsContentState = atom({
+    key: "courseDetailsContentState",
+    default: [],
+})
+
 export {
+    courseDetailsContentState,
     tokenLoginState,
     userLoginState,
     detailScheduleState,

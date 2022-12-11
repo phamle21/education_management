@@ -11,7 +11,8 @@ import renderHTML from 'react-render-html';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
-import { detailCourseState, studentListState } from 'recoil_store';
+import { courseDetailsContentState, courseListState, detailCourseState, studentListState } from 'recoil_store';
+import Swal from 'sweetalert2';
 import apiBase from '../../app/axios/apiBase';
 import ModalAddContent from './modal/ModalAddContent';
 import ModalAddStudents from './modal/ModalAddStudents';
@@ -66,9 +67,11 @@ const CoursesDetail = () => {
 
   const [course, setCourse] = useRecoilState(detailCourseState);
 
+  const [courseList, setCourseList] = useRecoilState(courseListState);
+
   const [listStudents, setListStudents] = useRecoilState(studentListState);
 
-  const [courseContents, setCourseContents] = React.useState();
+  const [courseContents, setCourseContents] = useRecoilState(courseDetailsContentState);
 
   const [studentInfo, setStudentInfo] = React.useState();
 
@@ -117,21 +120,55 @@ const CoursesDetail = () => {
   );
 
   const handleRemove = (item) => {
-
-    apiBase.post('/studies/delete', {
-      user_id: item.id,
-      course_id: params.id
+    Swal.fire({
+      html: 'Bạn muốn xóa học viên này khỏi khóa học?',
+      showDenyButton: true,
+      showCancelButton: true,
+      showConfirmButton: false,
+      denyButtonText: `Remove`,
+      icon: 'question'
+    }).then((result) => {
+      if (result.isDenied) {
+        apiBase.delete('/studies', {
+          data: {
+            user_id: `${item.id}`,
+            course_id: `${params.id}`
+          }
+        })
+          .catch(err => console.log(err))
+          .then(res => {
+            if (res.data)
+              setCourse(res.data.data);
+            notify();
+          })
+      }
     })
-      .catch(err => console.log(err))
-      .then(res => {
-        if (res.data)
-          setCourse(res.data.data);
-        notify();
-      })
   }
-
+  
   const handleDelete = () => {
+    apiBase.delete(`/courses/${params.id}`
+    ).then(res => {
 
+      setCourseList(res.data.data);
+      Swal.fire({
+        position: 'top-end',
+        title: '',
+        html: "Xóa khóa học thành công",
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 3000
+      })
+
+      window.location.href = '/admin/courses/list'
+
+    }).catch(err => {
+      Swal.fire(
+        'ERROR',
+        'Đã xảy ra sự cố',
+        'error'
+      )
+      console.log(err)
+    })
   }
 
   return (
@@ -294,9 +331,9 @@ const CoursesDetail = () => {
             <h2 className="small-title">{f({ id: 'menu.list_students' })}</h2>
             {
               course.student_of_course && course.student_of_course.map((student, index) => (
-                <Card className="mb-2" id="introSecond" key={index} onClick={() => handleShowInfo(student)}>
+                <Card className="mb-2" id="introSecond" key={index} >
                   <Row className="g-0 sh-12">
-                    <Col xs="auto">
+                    <Col xs="auto" onClick={() => handleShowInfo(student)}>
                       {/* <NavLink to={`/student/${student.id}/detail`}> */}
                       <img src={student.avatar} alt="user" style={{ height: '6rem' }} className="card-img card-img-horizontal sw-13 sw-lg-15" />
                       {/* </NavLink> */}
@@ -304,7 +341,7 @@ const CoursesDetail = () => {
                     <Col>
                       <Card.Body className="pt-0 pb-0 h-100 px-1">
                         <Row className="g-0 h-100 align-content-center">
-                          <Col md="8" className="d-flex flex-column mb-2 mb-md-0">
+                          <Col md="8" className="d-flex flex-column mb-2 mb-md-0" onClick={() => handleShowInfo(student)}>
                             <div>{student.name}</div>
                           </Col>
                           <Col md="4" className="d-flex align-items-center justify-content-md-end">
@@ -364,7 +401,7 @@ const CoursesDetail = () => {
           <Modal.Title>Thêm nội dung của {course.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body className='overflow-auto'>
-          <ModalAddContent />
+          <ModalAddContent setModalContent={setModalContent} />
         </Modal.Body>
       </Modal>
       {/* Modal Add Content Course End */}
@@ -392,6 +429,7 @@ const CoursesDetail = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowConfirm(false)}>{f({ id: 'user.model_delete_no' })}</Button>
+
           <Button variant="outline-primary" onClick={() => handleDelete()}>
             {f({ id: 'user.model_delete_yes' })}
           </Button>

@@ -14,6 +14,7 @@ const ModalEditCourse = ({ data }) => {
 
     const [startDate, setStartDate] = useState(null);
 
+    const [formData, setFormData] = useState({})
 
     const getUploadParams = () => ({ url: 'https://httpbin.org/post' });
 
@@ -21,23 +22,33 @@ const ModalEditCourse = ({ data }) => {
         setSelectedImage(fileWithMeta.file);
     };
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevState) => {
+            return {
+                ...prevState,
+                [name]: value,
+            };
+        });
+    };
+
     return (
         <>
             <Form>
                 <Col md="12" className='mb-3'>
                     <Form.Label>Tên khóa học</Form.Label>
-                    <Form.Control type="text" />
+                    <Form.Control type="text"  onChange={handleChange}/>
                 </Col>
                 <Col md="12" className='mb-3'>
                     <Form.Label>Giới thiệu</Form.Label>
-                    <Form.Control as="textarea" rows={4} />
+                    <Form.Control as="textarea" onChange={handleChange} rows={4} />
                 </Col>
 
                 <Col md="12" className='mb-3'>
                     <DatePicker
                         className="form-control"
                         selected={startDate}
-                        // onChange={(e) => setStartDate(e)}
+                        onChange={handleChange}
                         placeholderText={f({ id: 'menu.course_start_day' })}
                     />
                 </Col>
@@ -46,7 +57,7 @@ const ModalEditCourse = ({ data }) => {
                     <DatePicker
                         className="form-control"
                         selected={startDate}
-                        // onChange={(e) => setStartDate(e)}
+                        onChange={handleChange}
                         placeholderText={f({ id: 'menu.course_end_day' })}
                     />
                 </Col>
