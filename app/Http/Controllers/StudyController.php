@@ -139,6 +139,14 @@ class StudyController extends Controller
      */
     public function destroy(Request $request)
     {
+        if (empty($request->all())) {
+            $response = [
+                'status' => 'error',
+                'msg' => 'Không có dữ liệu được gửi đi',
+            ];
+            return response()->json($response);
+        }
+
         if (Course::whereId($request->course_id)->exists()) {
             Study::where([
                 ['user_id', $request->user_id],
