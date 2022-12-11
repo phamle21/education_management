@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
   const dispatch = useDispatch();
   if (localStorage.getItem('accessTokenEducationAdmin') !== null && isObjectEmpty(currentUser)) {
     apiBase.post('/me').then(res => {
-      console.log(res)
+      
       // Reduxt
       dispatch(setCurrentUser({
         currentUser: res.data,

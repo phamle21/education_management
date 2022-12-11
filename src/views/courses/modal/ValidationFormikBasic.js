@@ -10,7 +10,9 @@ import { useRecoilState } from 'recoil';
 import { courseDetailsContentState, detailCourseState } from 'recoil_store';
 import Swal from 'sweetalert2';
 import * as Yup from 'yup';
+
 import { API_URL } from '../../../constants';
+
 
 const ValidationFormikBasic = ({ contentEdit, setSemiFullExample }) => {
   const { formatMessage: f } = useIntl();
@@ -147,7 +149,7 @@ const ValidationFormikBasic = ({ contentEdit, setSemiFullExample }) => {
               <CKEditor
                 editor={ClassicEditor}
                 config={{
-                  extraPlugins: [uploadPlugin]
+                  extraPlugins: [uploadPlugin],
                 }}
                 data={values.content}
                 onReady={editor => {
