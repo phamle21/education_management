@@ -279,14 +279,21 @@ class CourseController extends Controller
                         }
                     }
 
-                    $course = Course::find($add->id);
-                    $course->teacher_name = User::find($course->user_id)->name;
+                    $course_list = Course::all();
+                    foreach ($course_list as $v) {
+                        $v->teacher_name = User::withTrashed()->find($v->user_id)->name;
+                        $v->teacher_avatar = User::withTrashed()->find($v->user_id)->getAvatar();
+                        $v->image = url(Storage::url($v->image));
+                        $v->topics;
+                        $v->totalCourseContent = count(CourseContent::where('course_id', $v->id)->get());
+                    }
 
                     $response = [
                         'status' => 'success',
-                        'msg' => 'Thêm khóa học mới thành công',
-                        'data' => $course
+                        'msg' => 'Lấy thành công danh sách khóa học!',
+                        'data' => $course_list
                     ];
+                    return response()->json($response);
                 } else {
                     $response = [
                         'status' => 'failed',
@@ -679,10 +686,22 @@ class CourseController extends Controller
                     $v->delete();
                 }
 
+                $course_list = Course::all();
+                foreach ($course_list as $v) {
+                    $v->teacher_name = User::withTrashed()->find($v->user_id)->name;
+                    $v->teacher_avatar = User::withTrashed()->find($v->user_id)->getAvatar();
+                    $v->image = url(Storage::url($v->image));
+                    $v->topics;
+                    $v->totalCourseContent = count(CourseContent::where('course_id', $v->id)->get());
+                }
+
                 $response = [
                     'status' => 'success',
-                    'msg' => 'Delete course completed'
+                    'msg' => 'Lấy thành công danh sách khóa học!',
+                    'data' => $course_list
                 ];
+
+                return response()->json($response);
             } else {
                 $response = [
                     'status' => 'failed',

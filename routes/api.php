@@ -44,6 +44,11 @@ Route::get('/courses/{id}/content', [CourseController::class, 'courseContent']);
 Route::get('/courses/{id}/student', [CourseController::class, 'courseOfStudent']);
 Route::get('/courses/{id}/teacher', [CourseController::class, 'courseOfTeacher']);
 
+/** Content Course */
+Route::post('/content_course', [CourseContentController::class, 'store']);
+Route::patch('/content_course', [CourseContentController::class, 'update']);
+Route::delete('/content_course', [CourseContentController::class, 'destroy']);
+
 /** User */
 Route::resource('users', UserController::class);
 Route::post('/users/check-account', [UserController::class, 'checkAccount']);
@@ -89,3 +94,4 @@ Route::post('/contact', [ContactController::class, 'sendContact'])->name('contac
 //Reset Password
 Route::post('forget-password', [ResetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::post('reset-password', [ResetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
