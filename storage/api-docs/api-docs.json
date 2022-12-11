@@ -105,6 +105,142 @@
                 ]
             }
         },
+        "/api/content_course": {
+            "post": {
+                "tags": [
+                    "Course Content"
+                ],
+                "summary": "add content_course",
+                "description": "aaaaaaaaaaaaaa",
+                "operationId": "content_course",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "course_id": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "course_id": "1",
+                                    "title": "Tieu de noi dung",
+                                    "content": "asfgdsgfsagsag"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Course Content"
+                ],
+                "summary": "delete content_course",
+                "description": "aaaaaaaaaaaaaa",
+                "operationId": "deleteCourseContent",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "course_content_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "course_content_id": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Course Content"
+                ],
+                "summary": "update content_course",
+                "description": "aaaaaaaaaaaaaa",
+                "operationId": "updateCourseContent",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "course_id": {
+                                        "type": "string"
+                                    },
+                                    "course_content_id": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "course_id": "1",
+                                    "course_content_id": "1",
+                                    "title": "Tieu de noi dung",
+                                    "content": "asfgdsgfsagsag"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
         "/api/courses": {
             "get": {
                 "tags": [
@@ -947,6 +1083,44 @@
             }
         },
         "/api/studies": {
+            "get": {
+                "tags": [
+                    "Study"
+                ],
+                "summary": "Get Study",
+                "description": "",
+                "operationId": "getStudy",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "user_id": "1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            },
             "post": {
                 "tags": [
                     "Study"

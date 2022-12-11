@@ -5,11 +5,65 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Study;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class StudyController extends Controller
 {
+    /**
+     * @OA\Get(
+     *      path="/api/studies",
+     *      operationId="getStudy",
+     *      tags={"Study"},
+     *      summary="Get Study",
+     *      description="",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="user_id",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="course_id",
+     *                     type="string"
+     *                 ),
+     *                 example={"user_id": "1","course_id": "1"}
+     *             )
+     *         )
+     *     ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
+    public function index(Request $request)
+    {
+        $course = Course::find($request->course_id);
+        $info = Study::where([
+            ['user_id', $request->user_id],
+            ['course_id', $request->course_id]
+        ])->first();
+
+        $info->tuition = $course->tuition;
+        $info->mark = $info->mark ? $info->mark : 0;
+        $info->finished = $info->finished ? $info->finished : 'Unfinished';
+        $info->tuition_paid = $info->tuition_paid ? $info->tuition_paid : 0;
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $info,
+            'data2' => User::find($request->user_id)
+        ]);
+    }
+
     /**
      * @OA\Post(
      *      path="/api/studies",
@@ -178,5 +232,34 @@ class StudyController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function update(Request $request)
+    {
+        if (empty($request->all())) {
+            $response = [
+                'status' => 'error',
+                'msg' => 'Không có dữ liệu được gửi đi',
+            ];
+            return response()->json($response);
+        }
+
+        Study::where([
+            ['user_id', $request->user_id],
+            ['course_id', $request->course_id]
+        ])->update([
+            'mark' => $request->mark,
+            'tuition_paid' => $request->tuition_paid,
+            'finished' => date('Y-m-d', strtotime($request->finished)),
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Cập nhật thông tin học viên thành công',
+            'data' => Study::where([
+                ['user_id', $request->user_id],
+                ['course_id', $request->course_id]
+            ])->first()
+        ]);
     }
 }

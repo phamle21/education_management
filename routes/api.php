@@ -78,7 +78,9 @@ Route::post('/schedules/course', [ScheduleController::class, 'scheduleOfCourse']
 Route::post('/schedules/get-schedule-by-user', [ScheduleController::class, 'getScheduleByUser']);
 
 /** Study */
+Route::get('/studies', [StudyController::class, 'index']);
 Route::post('/studies', [StudyController::class, 'store']);
+Route::post('/studies/update', [StudyController::class, 'update']);
 Route::delete('/studies', [StudyController::class, 'destroy']);
 
 /** Attendance */
