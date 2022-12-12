@@ -4,7 +4,7 @@ import HtmlHead from 'components/html-head/HtmlHead';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import Moment from 'moment';
 import React, { useEffect } from 'react';
-import { Button, Card, Col, Modal, Row } from 'react-bootstrap';
+import { Button, Card, Col, Dropdown, Modal, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import Select from 'react-select';
 import { useRecoilState } from 'recoil';
@@ -67,7 +67,7 @@ const PresenceList = () => {
     useEffect(() => {
         if (selectedCourse) {
             apiBase.post("/schedules/course", {
-                'course_id': selectedCourse && selectedCourse.value,
+                'course_id': selectedCourse && selectedCourse.id,
             }).then((res) => {
                 setSchedulesList(res.data.data.schedules);
             })
@@ -89,31 +89,21 @@ const PresenceList = () => {
                     {/* Title End */}
 
                     <Col xs="12" className="col-md d-flex align-items-start justify-content-end justify-content-lg-start">
-                        <div className="me-lg-auto w-400 w-md-auto mb-4 filled">
-                            {/* <Dropdown className="me-3 d-inline-block">
+                        <div className="me-lg-auto w-400 w-md-auto mb-4 m-0 filled">
+                            <Dropdown className="me-3 d-inline-block">
                                 <Dropdown.Toggle
                                     className="mb-1"
-                                    value={selectedCourse}
-                                    onChange={(e) => setSelectedCourse(e.target.value)}
                                 >
-                                     {selectedCourse != null ? selectedCourse : 'Select Course'}
+                                    {selectedCourse != null ? selectedCourse.name : 'Select Course'}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     {
                                         courseList && courseList.map((course, i) => (
-                                            <Dropdown.Item key={i} href="#/action-3">{course.name}</Dropdown.Item>
+                                            <Dropdown.Item key={i} onClick={() => setSelectedCourse(course)}>{course.name}</Dropdown.Item>
                                         ))
                                     }
                                 </Dropdown.Menu>
-                            </Dropdown> */}
-                            <Select
-                                className="me-3 d-inline-block mb-1"
-                                classNamePrefix="react-select"
-                                options={courseOptions}
-                                value={selectedCourse}
-                                onChange={setSelectedCourse}
-                                placeholder={f({ id: 'menu.course_teacher_name' })}
-                            />
+                            </Dropdown>
                         </div>
                         <Button variant="outline-primary" className="btn-icon btn-icon-start ms-1">
                             <CsLineIcons icon="cloud-download" /> <span>{f({ id: 'menu.export' })}</span>

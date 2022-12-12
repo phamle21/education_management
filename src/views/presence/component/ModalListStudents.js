@@ -10,7 +10,8 @@ import { detailCourseState, studentListState } from 'recoil_store';
 
 const ModalListStudents = ({ setModalCheckPresence, data }) => {
 
-    const [listStudents, setListStudents] = useRecoilState(studentListState);
+    const [listStudents, setListStudents] = React.useState([]);
+    // const [listStudents, setListStudents] = useRecoilState(studentListState);
 
     const [listShowSelect, setListShowSelect] = useState([]);
 
@@ -35,7 +36,7 @@ const ModalListStudents = ({ setModalCheckPresence, data }) => {
                 setListStudents(res.data.data);
                 console.log(listStudents);
             })
-    }, [data]);
+    }, []);
 
     const funcSetListShowSelect = () => {
         // const listTemp = [];
