@@ -156,16 +156,16 @@ const ModalAddCourse = ({ show, onHide, }) => {
         apiBase.post("/courses", formData)
             .catch(err => console.log(err))
             .then(res => {
-                if (res.data != null) {
-                    // setFormInput({});
+                // if (res.data != null) {
+                // setFormInput({});
 
-                    setCourseList(res.data.data)
-                    setCourseListShow(res.data.data)
+                setCourseList(res.data.data)
+                setCourseListShow(res.data.data)
 
-                    setSelectedImage();
-                    onHide();
-                    notify();
-                }
+                setSelectedImage();
+                onHide();
+                notify();
+                // }
             })
     }
 

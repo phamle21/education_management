@@ -311,7 +311,7 @@ const ElearningDashboard = () => {
         // Modal Add Start
         <Modal show={showModal} onHide={handleCloseAdd} size="semi-full" centered>
           <Modal.Header closeButton>
-            <Modal.Title>{f({ id: 'course.detail_add_student' })}</Modal.Title>
+            <Modal.Title>{f({ id: 'menu.course_title_add' })}</Modal.Title>
           </Modal.Header>
           <Modal.Body className='overflow-auto'>
             <ModalAddCourse onHide={handleCloseAdd} />

@@ -6,7 +6,6 @@ import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
-import Rating from 'react-rating';
 import { NavLink, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { coursesOfLecturerState } from 'recoil_store';
@@ -29,11 +28,11 @@ const LecturerDetail = () => {
   const [lecturerDetail, setLecturerDetail] = useState();
 
   useEffect(() => {
-    if (listCourses.length < 1) {
-      apiBase.get(`/courses/${params.id}/teacher`)
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err))
-    }
+    // if (listCourses.length < 1) {
+    apiBase.get(`/courses/${params.id}/teacher`)
+      .then(res => setListCourse(res.data.data))
+      .catch(err => console.log(err))
+    // }
   }, []);
 
   useEffect(() => {
@@ -118,7 +117,7 @@ const LecturerDetail = () => {
 
         <Col xl="8" xxl="9">
           {/* Stats Start */}
-          <h2 className="small-title">{f({ id: 'menu.stats' })}</h2>
+          {/* <h2 className="small-title">{f({ id: 'menu.stats' })}</h2>
           <Row className="g-2 mb-5">
             <Col sm="6" lg="3">
               <Card className="hover-border-primary">
@@ -127,12 +126,12 @@ const LecturerDetail = () => {
                     <span>Courses</span>
                     <CsLineIcons icon="presentation" className="text-primary" />
                   </div>
-                  {/* <div className="text-small text-muted mb-1">3 New</div> */}
+                  <div className="text-small text-muted mb-1">3 New</div>
                   <div className="cta-1 text-primary">35</div>
                 </Card.Body>
               </Card>
             </Col>
-            {/* <Col sm="6" lg="3">
+            <Col sm="6" lg="3">
               <Card className="hover-border-primary">
                 <Card.Body>
                   <div className="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
@@ -143,7 +142,7 @@ const LecturerDetail = () => {
                   <div className="cta-1 text-primary">4.85</div>
                 </Card.Body>
               </Card>
-            </Col> */}
+            </Col>
             <Col sm="6" lg="3">
               <Card className="hover-border-primary">
                 <Card.Body>
@@ -151,12 +150,12 @@ const LecturerDetail = () => {
                     <span>{f({ id: 'menu.students' })}</span>
                     <CsLineIcons icon="diploma" className="text-primary" />
                   </div>
-                  {/* <div className="text-small text-muted mb-1">~456 Monthly</div> */}
+                  <div className="text-small text-muted mb-1">~456 Monthly</div>
                   <div className="cta-1 text-primary">24.453</div>
                 </Card.Body>
               </Card>
             </Col>
-            {/* <Col sm="6" lg="3">
+            <Col sm="6" lg="3">
               <Card className="hover-border-primary">
                 <Card.Body>
                   <div className="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
@@ -167,8 +166,8 @@ const LecturerDetail = () => {
                   <div className="cta-1 text-primary">245 Hours</div>
                 </Card.Body>
               </Card>
-            </Col> */}
-          </Row>
+            </Col>
+          </Row> */}
           {/* Stats End */}
 
           {/* Courses Start */}
@@ -179,198 +178,33 @@ const LecturerDetail = () => {
             </NavLink> */}
           </div>
           <Row className="g-3 mb-5">
-            <Col md="12" lg="6" xl="12" xxl="6">
-              <Card>
-                <Row className="g-0 sh-19">
-                  <Col xs="auto" className="h-100 position-relative">
-                    <img src="/img/product/small/product-3.webp" alt="alternate text" className="card-img-horizontal sh-19 h-sm-100 sw-17 sw-lg-20" />
-                  </Col>
-                  <Col>
-                    <Card.Body className="d-flex align-items-center h-100 py-3">
-                      <div className="mb-0 h6">
-                        <NavLink to="#" className="body-link stretched-link d-block mb-3 sh-3 h6 lh-1-5">
-                          <Clamp tag="span" clamp="1">
-                            Cooking Tips the Perfect Burger
-                          </Clamp>
-                        </NavLink>
-                        <div className="card-text mb-2">
-                          <div>$ 44.25</div>
-                        </div>
-                        <div>
-                          <Rating
-                            initialRating={5}
-                            readonly
-                            emptySymbol={<i className="cs-star text-primary" />}
-                            fullSymbol={<i className="cs-star-full text-primary" />}
-                          />
-                          <div className="text-muted d-inline-block text-small align-text-top">(5)</div>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col md="12" lg="6" xl="12" xxl="6">
-              <Card>
-                <Row className="g-0 sh-19">
-                  <Col xs="auto" className="h-100 position-relative">
-                    <img src="/img/product/small/product-4.webp" alt="alternate text" className="card-img-horizontal sh-19 h-sm-100 sw-17 sw-lg-20" />
-                  </Col>
-                  <Col>
-                    <Card.Body className="d-flex align-items-center h-100 py-3">
-                      <div className="mb-0 h6">
-                        <NavLink to="#" className="body-link stretched-link d-block mb-3 sh-3 h6 lh-1-5">
-                          <Clamp tag="span" clamp="1">
-                            Fruit Decorations
-                          </Clamp>
-                        </NavLink>
-                        <div className="card-text mb-2">
-                          <div>$ 62.00</div>
-                        </div>
-                        <div>
-                          <Rating
-                            initialRating={5}
-                            readonly
-                            emptySymbol={<i className="cs-star text-primary" />}
-                            fullSymbol={<i className="cs-star-full text-primary" />}
-                          />
-                          <div className="text-muted d-inline-block text-small align-text-top">(5)</div>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col md="12" lg="6" xl="12" xxl="6">
-              <Card>
-                <Row className="g-0 sh-19">
-                  <Col xs="auto" className="h-100 position-relative">
-                    <img src="/img/product/small/product-5.webp" alt="alternate text" className="card-img-horizontal sh-19 h-sm-100 sw-17 sw-lg-20" />
-                  </Col>
-                  <Col>
-                    <Card.Body className="d-flex align-items-center h-100 py-3">
-                      <div className="mb-0 h6">
-                        <NavLink to="#" className="body-link stretched-link d-block mb-3 sh-3 h6 lh-1-5">
-                          <Clamp tag="span" clamp="1">
-                            Recipes for Sweet and Healty Treats
-                          </Clamp>
-                        </NavLink>
-                        <div className="card-text mb-2">
-                          <div>$ 23.25</div>
-                        </div>
-                        <div>
-                          <Rating
-                            initialRating={5}
-                            readonly
-                            emptySymbol={<i className="cs-star text-primary" />}
-                            fullSymbol={<i className="cs-star-full text-primary" />}
-                          />
-                          <div className="text-muted d-inline-block text-small align-text-top">(5)</div>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col md="12" lg="6" xl="12" xxl="6">
-              <Card>
-                <Row className="g-0 sh-19">
-                  <Col xs="auto" className="h-100 position-relative">
-                    <img src="/img/product/small/product-6.webp" alt="alternate text" className="card-img-horizontal sh-19 h-sm-100 sw-17 sw-lg-20" />
-                  </Col>
-                  <Col>
-                    <Card.Body className="d-flex align-items-center h-100 py-3">
-                      <div className="mb-0 h6">
-                        <NavLink to="#" className="body-link stretched-link d-block mb-3 sh-3 h6 lh-1-5">
-                          <Clamp tag="span" clamp="1">
-                            Carrot Cake Gingerbread
-                          </Clamp>
-                        </NavLink>
-                        <div className="card-text mb-2">
-                          <div>$ 19.65</div>
-                        </div>
-                        <div>
-                          <Rating
-                            initialRating={5}
-                            readonly
-                            emptySymbol={<i className="cs-star text-primary" />}
-                            fullSymbol={<i className="cs-star-full text-primary" />}
-                          />
-                          <div className="text-muted d-inline-block text-small align-text-top">(5)</div>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col md="12" lg="6" xl="12" xxl="6">
-              <Card>
-                <Row className="g-0 sh-19">
-                  <Col xs="auto" className="h-100 position-relative">
-                    <img src="/img/product/small/product-7.webp" alt="alternate text" className="card-img-horizontal sh-19 h-sm-100 sw-17 sw-lg-20" />
-                  </Col>
-                  <Col>
-                    <Card.Body className="d-flex align-items-center h-100 py-3">
-                      <div className="mb-0 h6">
-                        <NavLink to="#" className="body-link stretched-link d-block mb-3 sh-3 h6 lh-1-5">
-                          <Clamp tag="span" clamp="1">
-                            Apple Cake Recipe for Starters
-                          </Clamp>
-                        </NavLink>
-                        <div className="card-text mb-2">
-                          <div>$ 14.10</div>
-                        </div>
-                        <div>
-                          <Rating
-                            initialRating={5}
-                            readonly
-                            emptySymbol={<i className="cs-star text-primary" />}
-                            fullSymbol={<i className="cs-star-full text-primary" />}
-                          />
-                          <div className="text-muted d-inline-block text-small align-text-top">(5)</div>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col md="12" lg="6" xl="12" xxl="6">
-              <Card>
-                <Row className="g-0 sh-19">
-                  <Col xs="auto" className="h-100 position-relative">
-                    <img src="/img/product/small/product-8.webp" alt="alternate text" className="card-img-horizontal sh-19 h-sm-100 sw-17 sw-lg-20" />
-                  </Col>
-                  <Col>
-                    <Card.Body className="d-flex align-items-center h-100 py-3">
-                      <div className="mb-0 h6">
-                        <NavLink to="#" className="body-link stretched-link d-block mb-3 sh-3 h6 lh-1-5">
-                          <Clamp tag="span" clamp="1">
-                            Advanced Sandwich Making Techniques
-                          </Clamp>
-                        </NavLink>
-                        <div className="card-text mb-2">
-                          <div>$ 22.25</div>
-                        </div>
-                        <div>
-                          <Rating
-                            initialRating={5}
-                            readonly
-                            emptySymbol={<i className="cs-star text-primary" />}
-                            fullSymbol={<i className="cs-star-full text-primary" />}
-                          />
-                          <div className="text-muted d-inline-block text-small align-text-top">(5)</div>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
+            {
+              listCourses && listCourses.map((course, i) => (
+                <Col md="12" lg="6" xl="12" xxl="6" key={i}>
+                  <Card>
+                    <Row className="g-0 sh-19">
+                      <Col xs="auto" className="h-100 position-relative">
+                        <img src={course.image} alt="alternate text" className="card-img-horizontal sh-19 h-sm-100 sw-17 sw-lg-20" />
+                      </Col>
+                      <Col>
+                        <Card.Body className="d-flex align-items-center h-100 py-3">
+                          <div className="mb-0 h6">
+                            <NavLink to="#" className="body-link stretched-link d-block mb-3 sh-3 h6 lh-1-5">
+                              <Clamp tag="span" clamp="1">
+                                {course.name}
+                              </Clamp>
+                            </NavLink>
+                            {/* <div className="card-text mb-2">
+                              <div>$ 44.25</div>
+                            </div> */}
+                          </div>
+                        </Card.Body>
+                      </Col>
+                    </Row>
+                  </Card>
+                </Col>
+              ))
+            }
           </Row>
           {/* Courses End */}
 
