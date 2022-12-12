@@ -17,6 +17,6 @@ Route::get('/', function () {
     return redirect('/docs');
 });
 
-Route::get('/test', function(){
-    return "ahihi";
+Route::get('/test', function () {
+    return view('certificate');
 });

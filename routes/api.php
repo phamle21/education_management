@@ -93,7 +93,13 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 // Contact
 Route::post('/contact', [ContactController::class, 'sendContact'])->name('contact.send');
 
-//Reset Password
+// Reset Password
 Route::post('forget-password', [ResetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::post('reset-password', [ResetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+/** Certificate */
+Route::get('/certificate', function (Request $request) {
+    $name = $request->name ? $request->name : "Undefine";
+    $courseName = $request->courseName ? $request->courseName : "Undefine";
+    return view('certificate', compact('name', 'courseName'));
+});
