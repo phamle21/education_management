@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
 use App\Imports\SchedulesImport;
+use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\Schedule;
 use App\Models\User;
@@ -327,12 +328,26 @@ class ScheduleController extends Controller
         $course = Course::find($request->course_id);
 
         $course->schedules;
-        foreach ($course->schedules as $v) {
-            $temp = new DateTime($v->date_time_start);
-            $v->dateNameStart = $temp->format('l');
+        $list_student_of_course = $course->studentOfCourse;
 
-            $temp2 = new DateTime($v->date_time_end);
-            $v->dateNameEnd = $temp2->format('l');
+        foreach ($course->schedules as $v_schedule) {
+            $temp = new DateTime($v_schedule->date_time_start);
+            $v_schedule->dateNameStart = $temp->format('l');
+
+            $temp2 = new DateTime($v_schedule->date_time_end);
+            $v_schedule->dateNameEnd = $temp2->format('l');
+
+            foreach ($list_student_of_course as $v_student) {
+                if (Attendance::where([
+                    ['user_id', $v_student->id],
+                    ['schedule_id', $v_schedule->id],
+                ])->exists()) {
+                    $v_student->attendance = true;
+                } else {
+                    $v_student->attendance = false;
+                }
+            }
+            $v_schedule->list_student_of_course = $list_student_of_course;
         }
 
         return response()->json([

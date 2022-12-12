@@ -13,6 +13,7 @@ class AttendanceController extends Controller
     public function show(Request $request)
     {
         $schedule = Schedule::find($request->schedule_id);
+        
         if (Schedule::whereId($request->schedule_id)->exists()) {
             $course = Course::find($schedule->course_id);
 
