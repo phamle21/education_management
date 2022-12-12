@@ -23,7 +23,7 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
   const [roleList, setRoleList] = useRecoilState(roleListState);
 
   const [optionList, setOptionList] = useState([]);
-  
+
   const [selectOption, setSelectOption] = useState();
 
   const [checkSubmit, setCheckSubmit] = React.useState(true);
@@ -36,20 +36,29 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
   useEffect(() => {
 
     if (roleList.length < 1) {
-      apiBase.get('/roles', { params: { type: 'All' } })
-        .then(res => {
-
-          setRoleList(res.data.data)
-          const arrTemp = [];
-          res.data.data.forEach(item => {
-            arrTemp.push({
-              value: item.id,
-              label: item.name,
-            })
-          })
-          setOptionList(arrTemp);
-
-        });
+      const arrDefaultRole = [
+        {
+          id: 'role_Admin',
+          name: 'Admin',
+        },
+        {
+          id: 'role_Teacher',
+          name: 'Teacher',
+        },
+        {
+          id: 'role_Student',
+          name: 'Student',
+        },
+      ];
+      setRoleList(arrDefaultRole)
+      const arrTemp = [];
+      arrDefaultRole.forEach(item => {
+        arrTemp.push({
+          value: item.id,
+          label: item.name,
+        })
+      })
+      setOptionList(arrTemp);
     } else {
 
       const arrTemp = [];
@@ -192,7 +201,8 @@ const AddEditModal = ({ tableInstance, addItem, editItem }) => {
   };
   const changeRole = (selected) => {
     setSelectOption(selected)
-    setSelectedItem({ ...selectedItem, role: selectOption.value });
+    setSelectedItem({ ...selectedItem, role: selected.value });
+    console.log(selected)
   };
   const changeStatus = (event) => {
     setSelectedItem({ ...selectedItem, status: event.target.value });
