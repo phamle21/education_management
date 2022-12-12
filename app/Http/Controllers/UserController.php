@@ -486,7 +486,9 @@ class UserController extends Controller
         }
 
         // Xóa file cũ
-        Storage::disk('public')->delete($user_old->avatar);
+        if ($user_old->avatar !== "users/avatar-default.gif") {
+            Storage::disk('public')->delete($user_old->avatar);
+        }
 
         // Thêm ảnh mới
         $fileName = base64ImgToFile($base64);
